@@ -14,7 +14,9 @@
 
         <div class="flex flex-1 justify-end">
           <button
+            *ngIf="!isMobileMenuOpen"
             type="button"
+            (click)="openMobileMenu()"
           >
             <svg
               class="h-10 w-10"
