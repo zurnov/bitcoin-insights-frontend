@@ -1,8 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-} from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { NAV_LINKS } from 'src/app/shared/helpers/navLinks';
 
 @Component({
@@ -12,6 +8,7 @@ import { NAV_LINKS } from 'src/app/shared/helpers/navLinks';
 })
 export class MobileMenuComponent {
   navLinks = NAV_LINKS;
+  @Output() isMobileMenuOpenChange = new EventEmitter<boolean>();
 
   @HostListener('document:keyup', ['$event'])
   handleKeyUp(event: KeyboardEvent) {

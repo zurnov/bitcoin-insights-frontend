@@ -34,4 +34,8 @@
     </div>
   </div>
 
+  <app-mobile-menu
+    *ngIf="isMobileMenuOpen"
+    (isMobileMenuOpenChange)="handleCloseMobileMenu($event)"
+  ></app-mobile-menu>
 </header>

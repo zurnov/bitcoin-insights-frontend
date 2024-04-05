@@ -10,7 +10,6 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [HomeComponent, HeaderComponent, MobileMenuComponent],
   imports: [CommonModule, RouterModule, SharedModule],
   providers: [],
-  exports: [],
   exports: [HeaderComponent],
 })
 export class CoreModule {}
