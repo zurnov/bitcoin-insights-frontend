@@ -41,9 +41,14 @@
       <div class="mt-8 flow-root">
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 pb-6">
-            <a>Home</a>
-            <a>Search</a>
-            <a>About</a>
+            <a
+              *ngFor="let link of navLinks"
+              [routerLink]="[link.route]"
+              class="-mx-3 block rounded-md px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-200 hover:text-gray-950"
+              (click)="closeMobileMenu()"
+            >
+              {{ link.label }}
+            </a>
           </div>
         </div>
       </div>
