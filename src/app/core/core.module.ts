@@ -5,10 +5,11 @@ import { HeaderComponent } from './header/header.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { NgxTimelineModule } from '@frxjs/ngx-timeline';
 
 @NgModule({
   declarations: [HomeComponent, HeaderComponent, MobileMenuComponent],
-  imports: [CommonModule, RouterModule, SharedModule],
+  imports: [CommonModule, RouterModule, SharedModule, NgxTimelineModule],
   providers: [],
   exports: [HeaderComponent],
 })

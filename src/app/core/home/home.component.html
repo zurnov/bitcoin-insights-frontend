@@ -22,4 +22,24 @@
       </svg>
     </button>
   </div>
+  <ngx-timeline
+    [events]="btcTimelineEvents"
+    [reverseOrder]="true"
+    [dateInstantCustomTemplate]="noHour"
+    [centerIconCustomTemplate]="customCenterIconTemplate"
+    [periodCustomTemplate]="periodCustomTemplate"
+    class="px-8"
+  >
+    <ng-template #noHour></ng-template>
+
+    <ng-template #customCenterIconTemplate>
+      <img src="/assets/white-btc.png" alt="icon" />
+    </ng-template>
+
+    <ng-template #periodCustomTemplate let-period="period">
+      <p class="text-orange-400 text-nowrap">
+        {{ getMonthName(period.month) }} {{ period.year }}
+      </p>
+    </ng-template>
+  </ngx-timeline>
 </div>
