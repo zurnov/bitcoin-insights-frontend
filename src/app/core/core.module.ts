@@ -6,11 +6,19 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { NgxTimelineModule } from '@frxjs/ngx-timeline';
+import { InsightsService } from '../insights/insights.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [HomeComponent, HeaderComponent, MobileMenuComponent],
-  imports: [CommonModule, RouterModule, SharedModule, NgxTimelineModule],
-  providers: [],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HttpClientModule,
+    SharedModule,
+    NgxTimelineModule,
+  ],
+  providers: [InsightsService],
   exports: [HeaderComponent],
 })
 export class CoreModule {}

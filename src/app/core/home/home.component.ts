@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgxTimelineEvent, NgxTimelineItemPosition } from '@frxjs/ngx-timeline';
+import { InsightsService } from 'src/app/insights/insights.service';
+import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  blockchainInfo: IBlockchainInfo | undefined;
   btcTimelineEvents: NgxTimelineEvent[] = [
     {
       timestamp: new Date('2009-01-03'),
@@ -73,6 +76,20 @@ export class HomeComponent {
       itemPosition: NgxTimelineItemPosition.ON_RIGHT,
     },
   ];
+
+  constructor(private insightsService: InsightsService) {}
+
+  ngOnInit(): void {
+    this.insightsService.getBlockchainInfo().subscribe({
+      next: (data: IBlockchainInfo) => {
+        this.blockchainInfo = data;
+        // console.log('Blockchain info fetched:', this.blockchainInfo);
+      },
+      error: (err: Error) => {
+        console.error('Error fetching blockchain info:', err);
+      },
+    });
+  }
 
   getMonthName(month: number): string {
     const months = [
