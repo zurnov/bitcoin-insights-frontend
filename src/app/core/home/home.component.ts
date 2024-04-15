@@ -117,10 +117,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.blockchainInfo = data;
         this.lastRefreshTime = new Date();
 
-        console.log(
-          `Blockchain info fetched for the ${fetchCounter} time:`,
-          this.blockchainInfo
-        );
+        // console.log(
+        //   `Blockchain info fetched for the ${fetchCounter} time:`,
+        //   this.blockchainInfo
+        // );
       },
       error: (err: Error) => {
         console.error('Error fetching blockchain info:', err);

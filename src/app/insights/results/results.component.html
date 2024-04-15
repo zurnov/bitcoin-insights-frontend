@@ -1,3 +1,27 @@
-<p class="flex justify-center text-white text-2xl animate-pulse">
-  dynamic stuff
-</p>
+<div
+  *ngIf="addressBalance && addressHistory"
+  class="flex flex-col items-center space-y-4 justify-center text-xl mx-20"
+>
+  <div class="custom-bg p-4 rounded-lg">
+    <h2 class="text-2xl font-bold mb-2">Address Balance</h2>
+    <ul>
+      <li>
+        <strong>Total Balance:</strong> {{ addressBalance.unconfirmedBitcoin }}
+      </li>
+      <li>
+        <strong>Confirmed Balance:</strong>
+        {{ addressBalance.confirmedBitcoin }}
+      </li>
+    </ul>
+  </div>
+  <div class="custom-bg p-4 rounded-lg">
+    <h2 class="text-2xl font-bold mb-2">Address History</h2>
+    <ul *ngFor="let transaction of addressHistory.transactions">
+      <li><strong>txHash:</strong> {{ transaction.txHash }}</li>
+      <li>
+        <strong>blockHeight:</strong>
+        {{ transaction.blockHeight }}
+      </li>
+    </ul>
+  </div>
+</div>
