@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NgxTimelineModule } from '@frxjs/ngx-timeline';
 import { InsightsService } from '../insights/insights.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HomeComponent, HeaderComponent, MobileMenuComponent],
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     SharedModule,
     NgxTimelineModule,
+    FormsModule
   ],
   providers: [InsightsService],
   exports: [HeaderComponent],

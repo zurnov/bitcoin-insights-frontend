@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgxTimelineEvent, NgxTimelineItemPosition } from '@frxjs/ngx-timeline';
 import { Subscription, interval } from 'rxjs';
 import { InsightsService } from 'src/app/insights/insights.service';
@@ -84,7 +85,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(private insightsService: InsightsService) {}
+  constructor(
+    private insightsService: InsightsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     let fetchCounter = 1;
@@ -122,6 +126,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error('Error fetching blockchain info:', err);
       },
     });
+  }
+
+  onSearch(address: string) {
+    if (address.trim() !== '') {
+      return this.router.navigate(['/insights', address]);
+    }
+    return alert('Enter valid bitcoin address!');
   }
 
   formatTime(timeInSeconds: number): string {
