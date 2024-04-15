@@ -26,7 +26,7 @@ export class HomeComponent {
     },
     {
       timestamp: new Date('2013-03-18'),
-      title: 'US Regulatory Guidelines Established',
+      title: 'Regulatory Guidelines Established',
       description:
         'The US Financial Crimes Enforcement Network (FinCEN) establishes regulatory guidelines for decentralized virtual currencies like Bitcoin.',
       id: 3,
@@ -58,7 +58,7 @@ export class HomeComponent {
     },
     {
       timestamp: new Date('2023-01-01'),
-      title: 'Ordinals (NFTs) on Bitcoin Go Live',
+      title: 'Ordinals on Bitcoin Go Live',
       description:
         'Non-fungible tokens (NFTs) known as ordinals are introduced on the Bitcoin blockchain, allowing for unique digital assets to be created and traded.',
       id: 7,
@@ -66,7 +66,7 @@ export class HomeComponent {
     },
     {
       timestamp: new Date('2024-01-01'),
-      title: 'First US Spot Bitcoin ETFs Begin Trading',
+      title: 'First Spot Bitcoin Begin Trading',
       description:
         'The first 11 US spot Bitcoin exchange-traded funds (ETFs) begin trading on American stock exchanges, offering direct exposure to Bitcoin for investors.',
       id: 8,

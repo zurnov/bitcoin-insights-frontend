@@ -8,6 +8,16 @@ const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent,
   },
+  {
+    path: 'insights',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
+  {
+    path: 'insights',
+    loadChildren: () =>
+      import('./insights/insights.module').then((m) => m.InsightsModule),
+  },
 ];
 
 @NgModule({
