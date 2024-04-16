@@ -27,42 +27,68 @@
     </form>
   </div>
 
-  <div
-    *ngIf="blockchainInfo"
-    class="px-4 flex flex-col justify-center items-center"
-  >
-    <div class="custom-bg text-lg">
-      <h2 class="text-2xl font-bold mb-2">Blockchain Info</h2>
-      <ul>
-        <li>
-          <p><strong>blocks:</strong> {{ blockchainInfo.blocks }}</p>
-        </li>
-        <li>
-          <p><strong>difficulty:</strong> {{ blockchainInfo.difficulty }}</p>
-        </li>
-        <li>
-          <p>
-            <strong> networkHashPerSecond:</strong>
-            {{ blockchainInfo.networkHashPerSecond }}
-          </p>
-        </li>
-        <li>
-          <p><strong>pooledTx:</strong> {{ blockchainInfo.pooledTx }}</p>
-        </li>
-        <li>
-          <p><strong>chain:</strong> {{ blockchainInfo.chain }}</p>
-        </li>
-      </ul>
-      <div class="custom-bg mt-4">
-        <p *ngIf="lastRefreshTime">
-          Last refreshed: {{ lastRefreshTime | date : "medium" }}
-        </p>
-        <p *ngIf="timeUntilRefresh !== undefined">
-          Time left until next refresh:
-          <b>{{ formatTime(timeUntilRefresh) }}</b>
-        </p>
-      </div>
-    </div>
+  <div *ngIf="blockchainInfo">
+    <ul
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-6 mt-4 text-white"
+    >
+      <li
+        class="border-4 border-gray-700 rounded-3xl p-6 flex items-center justify-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+      >
+        <i class="fa-brands fa-bitcoin mr-2 text-3xl"></i>
+        <p class="mr-2">Bitcoin</p>
+        <p class="text-gray-500">BTC</p>
+      </li>
+
+      <li
+        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+      >
+        <div class="flex items-center justify-center mb-2">
+          <i class="fa-solid fa-cubes mr-2 text-2xl"></i>
+          <p class="text-gray-400">Blocks</p>
+        </div>
+        <p>{{ blockchainInfo.blocks }}</p>
+      </li>
+
+      <li
+        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+      >
+        <div class="flex items-center justify-center mb-2">
+          <i class="fa-solid fa-chain mr-2 text-2xl"></i>
+          <p class="text-gray-400">Chain</p>
+        </div>
+        <p>{{ blockchainInfo.chain }}</p>
+      </li>
+
+      <li
+        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+      >
+        <div class="flex items-center justify-center mb-2">
+          <i class="fa-solid fa-chart-line mr-2 text-2xl"></i>
+          <p class="text-gray-400">Difficulty</p>
+        </div>
+        <p>{{ blockchainInfo.difficulty }}</p>
+      </li>
+
+      <li
+        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+      >
+        <div class="flex items-center justify-center mb-2">
+          <i class="fa-solid fa-network-wired mr-2 text-2xl"></i>
+          <p class="text-gray-400">Network Hash Rate</p>
+        </div>
+        <p>{{ blockchainInfo.networkHashPerSecond }}</p>
+      </li>
+
+      <li
+        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+      >
+        <div class="flex items-center justify-center mb-2">
+          <i class="fa-solid fa-coins mr-2 text-2xl"></i>
+          <p class="text-gray-400">Pooled Transactions</p>
+        </div>
+        <p>{{ blockchainInfo.pooledTx }}</p>
+      </li>
+    </ul>
   </div>
 
   <ngx-timeline

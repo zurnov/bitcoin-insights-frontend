@@ -12,10 +12,7 @@ import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   tenMinsInMilliseconds = 10 * 60 * 1000;
-  lastRefreshTime: Date | undefined;
-  timeUntilRefresh: number | undefined;
   private refreshSubscription!: Subscription;
-  intervalSubscription: Subscription | undefined;
 
   blockchainInfo: IBlockchainInfo | undefined;
   btcTimelineEvents: NgxTimelineEvent[] = [
@@ -94,15 +91,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     let fetchCounter = 1;
     this.fetchBlockchainInfo(fetchCounter);
 
-    this.intervalSubscription = interval(1000).subscribe(() => {
-      this.timeUntilRefresh = Math.floor(
-        (this.tenMinsInMilliseconds -
-          (new Date().getTime() -
-            (this.lastRefreshTime?.getTime() ?? new Date().getTime()))) /
-          1000
-      );
-    });
-
     this.refreshSubscription = interval(this.tenMinsInMilliseconds).subscribe(
       () => {
         fetchCounter++;
@@ -115,7 +103,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.insightsService.getBlockchainInfo().subscribe({
       next: (data: IBlockchainInfo) => {
         this.blockchainInfo = data;
-        this.lastRefreshTime = new Date();
 
         // console.log(
         //   `Blockchain info fetched for the ${fetchCounter} time:`,
@@ -160,7 +147,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.intervalSubscription?.unsubscribe();
     this.refreshSubscription?.unsubscribe();
   }
 }
