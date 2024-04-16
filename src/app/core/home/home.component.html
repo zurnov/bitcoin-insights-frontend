@@ -27,7 +27,7 @@
     </form>
   </div>
 
-  <div *ngIf="blockchainInfo">
+  <div>
     <ul
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-6 mt-4 text-white"
     >
@@ -46,7 +46,19 @@
           <i class="fa-solid fa-cubes mr-2 text-2xl"></i>
           <p class="text-gray-400">Blocks</p>
         </div>
-        <p>{{ blockchainInfo.blocks }}</p>
+
+        <ng-container
+          *ngIf="
+            blockchainInfo && blockchainInfo.blocks !== undefined;
+            else spinner
+          "
+        >
+          <p>{{ blockchainInfo.blocks }}</p>
+        </ng-container>
+
+        <ng-template #spinner>
+          <app-spinner></app-spinner>
+        </ng-template>
       </li>
 
       <li
@@ -56,7 +68,19 @@
           <i class="fa-solid fa-chain mr-2 text-2xl"></i>
           <p class="text-gray-400">Chain</p>
         </div>
-        <p>{{ blockchainInfo.chain }}</p>
+
+        <ng-container
+          *ngIf="
+            blockchainInfo && blockchainInfo.chain !== undefined;
+            else spinner
+          "
+        >
+          <p>{{ blockchainInfo.chain }}</p>
+        </ng-container>
+
+        <ng-template #spinner>
+          <app-spinner></app-spinner>
+        </ng-template>
       </li>
 
       <li
@@ -66,7 +90,19 @@
           <i class="fa-solid fa-chart-line mr-2 text-2xl"></i>
           <p class="text-gray-400">Difficulty</p>
         </div>
-        <p>{{ blockchainInfo.difficulty | difficultyConversion }}</p>
+
+        <ng-container
+          *ngIf="
+            blockchainInfo && blockchainInfo.difficulty !== undefined;
+            else spinner
+          "
+        >
+          <p>{{ blockchainInfo.difficulty | difficultyConversion }}</p>
+        </ng-container>
+
+        <ng-template #spinner>
+          <app-spinner></app-spinner>
+        </ng-template>
       </li>
 
       <li
@@ -76,7 +112,19 @@
           <i class="fa-solid fa-network-wired mr-2 text-2xl"></i>
           <p class="text-gray-400">Network Hash Rate</p>
         </div>
-        <p>{{ blockchainInfo.networkHashPerSecond | hashRateConversion }}</p>
+
+        <ng-container
+          *ngIf="
+            blockchainInfo && blockchainInfo.networkHashPerSecond !== undefined;
+            else spinner
+          "
+        >
+          <p>{{ blockchainInfo.networkHashPerSecond | hashRateConversion }}</p>
+        </ng-container>
+
+        <ng-template #spinner>
+          <app-spinner></app-spinner>
+        </ng-template>
       </li>
 
       <li
@@ -86,7 +134,19 @@
           <i class="fa-solid fa-coins mr-2 text-2xl"></i>
           <p class="text-gray-400">Pooled Transactions</p>
         </div>
-        <p>{{ blockchainInfo.pooledTx }}</p>
+
+        <ng-container
+          *ngIf="
+            blockchainInfo && blockchainInfo.pooledTx !== undefined;
+            else spinner
+          "
+        >
+          <p>{{ blockchainInfo.pooledTx }}</p>
+        </ng-container>
+
+        <ng-template #spinner>
+          <app-spinner></app-spinner>
+        </ng-template>
       </li>
     </ul>
   </div>
