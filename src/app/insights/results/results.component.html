@@ -2,7 +2,7 @@
   *ngIf="addressBalance && addressHistory"
   class="flex flex-col items-center space-y-4 justify-center text-xl mx-20"
 >
-  <div class="custom-bg p-4 rounded-lg">
+  <div class="custom-bg">
     <h2 class="text-2xl font-bold mb-2">Address Balance</h2>
     <ul>
       <li>
@@ -14,7 +14,7 @@
       </li>
     </ul>
   </div>
-  <div class="custom-bg p-4 rounded-lg">
+  <div class="custom-bg">
     <h2 class="text-2xl font-bold mb-2">Address History</h2>
     <ul *ngFor="let transaction of addressHistory.transactions">
       <li><strong>txHash:</strong> {{ transaction.txHash }}</li>

@@ -27,17 +27,42 @@
     </form>
   </div>
 
-  <div *ngIf="blockchainInfo">
-    <p class="text-white text-xl">{{ blockchainInfo | json }}</p>
-  </div>
-
-  <div class="blockchain-info mt-4">
-    <p *ngIf="lastRefreshTime">
-      Last refreshed: {{ lastRefreshTime | date : "medium" }}
-    </p>
-    <p *ngIf="timeUntilRefresh !== undefined">
-      Time left until next refresh: <b>{{ formatTime(timeUntilRefresh) }}</b>
-    </p>
+  <div
+    *ngIf="blockchainInfo"
+    class="px-4 flex flex-col justify-center items-center"
+  >
+    <div class="custom-bg text-lg">
+      <h2 class="text-2xl font-bold mb-2">Blockchain Info</h2>
+      <ul>
+        <li>
+          <p><strong>blocks:</strong> {{ blockchainInfo.blocks }}</p>
+        </li>
+        <li>
+          <p><strong>difficulty:</strong> {{ blockchainInfo.difficulty }}</p>
+        </li>
+        <li>
+          <p>
+            <strong> networkHashPerSecond:</strong>
+            {{ blockchainInfo.networkHashPerSecond }}
+          </p>
+        </li>
+        <li>
+          <p><strong>pooledTx:</strong> {{ blockchainInfo.pooledTx }}</p>
+        </li>
+        <li>
+          <p><strong>chain:</strong> {{ blockchainInfo.chain }}</p>
+        </li>
+      </ul>
+      <div class="custom-bg mt-4">
+        <p *ngIf="lastRefreshTime">
+          Last refreshed: {{ lastRefreshTime | date : "medium" }}
+        </p>
+        <p *ngIf="timeUntilRefresh !== undefined">
+          Time left until next refresh:
+          <b>{{ formatTime(timeUntilRefresh) }}</b>
+        </p>
+      </div>
+    </div>
   </div>
 
   <ngx-timeline

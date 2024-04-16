@@ -9,18 +9,24 @@ import { NgxTimelineModule } from '@frxjs/ngx-timeline';
 import { InsightsService } from '../insights/insights.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [HomeComponent, HeaderComponent, MobileMenuComponent],
+  declarations: [
+    HomeComponent,
+    HeaderComponent,
+    MobileMenuComponent,
+    FooterComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
     HttpClientModule,
     SharedModule,
     NgxTimelineModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [InsightsService],
-  exports: [HeaderComponent],
+  exports: [HeaderComponent, FooterComponent],
 })
 export class CoreModule {}
