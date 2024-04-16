@@ -1,7 +1,4 @@
-<div
-  *ngIf="addressBalance && addressHistory"
-  class="flex flex-col items-center space-y-4 justify-center text-xl mx-20"
->
+<div class="flex flex-col items-center space-y-4 justify-center text-xl mx-20">
   <div class="flex flex-col items-center">
     <h2 class="text-2xl font-bold mb-2 text-white">Address Balance</h2>
     <div class="flex flex-col sm:flex-row justify-center">
@@ -13,7 +10,19 @@
             <i class="fas fa-check-circle mr-2 text-2xl text-green-500"></i>
             <p class="text-gray-400">Confirmed Bitcoin</p>
           </div>
-          <p>{{ addressBalance.confirmedBitcoin }}</p>
+
+          <ng-container
+            *ngIf="
+              addressBalance && addressBalance.confirmedBitcoin !== undefined;
+              else spinner
+            "
+          >
+            <p>{{ addressBalance.confirmedBitcoin }}</p>
+          </ng-container>
+
+          <ng-template #spinner>
+            <app-spinner></app-spinner>
+          </ng-template>
         </li>
         <li
           class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md"
@@ -24,7 +33,19 @@
             ></i>
             <p class="text-gray-400">Unconfirmed Bitcoin</p>
           </div>
-          <p>{{ addressBalance.unconfirmedBitcoin }}</p>
+
+          <ng-container
+            *ngIf="
+              addressBalance && addressBalance.unconfirmedBitcoin !== undefined;
+              else spinner
+            "
+          >
+            <p>{{ addressBalance.unconfirmedBitcoin }}</p>
+          </ng-container>
+
+          <ng-template #spinner>
+            <app-spinner></app-spinner>
+          </ng-template>
         </li>
       </ul>
     </div>
