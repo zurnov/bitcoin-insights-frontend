@@ -76,7 +76,7 @@
           <i class="fa-solid fa-network-wired mr-2 text-2xl"></i>
           <p class="text-gray-400">Network Hash Rate</p>
         </div>
-        <p>{{ blockchainInfo.networkHashPerSecond }}</p>
+        <p>{{ blockchainInfo.networkHashPerSecond | hashRateConversion }}</p>
       </li>
 
       <li
