@@ -1,0 +1,35 @@
+<nav class="mt-20 w-full text-white">
+  <ul class="flex items-center justify-center gap-2">
+    <li>
+      <button
+        class="rounded-md px-3 py-1.5 hover:bg-orange-400 hover:text-black transition-all"
+      >
+        <i class="fas fa-angle-left"></i>
+      </button>
+    </li>
+    <li class="flex md:hidden">
+      <select
+        #pageSelect
+        class="rounded-md border px-2 border-orange-400 bg-transparent h-10 cursor-pointer text-orange-400 text-center"
+      >
+        <option *ngFor="let page of [1,2,3]">
+          {{ page }}
+        </option>
+      </select>
+    </li>
+    <li class="hidden md:flex" *ngFor="let page of [1,2,3]">
+      <button
+        class="rounded-md px-3 py-1.5 border border-orange-400 hover:bg-orange-400 hover:text-black transition-all w-12"
+      >
+        {{ page }}
+      </button>
+    </li>
+    <li>
+      <button
+        class="rounded-md px-3 py-1.5 hover:bg-orange-400 hover:text-black transition-all"
+      >
+        <i class="fas fa-angle-right"></i>
+      </button>
+    </li>
+  </ul>
+</nav>
