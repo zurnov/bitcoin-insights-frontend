@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./pagination.component.css'],
 })
 export class PaginationComponent {
+  @Input() currentPage: number = 1;
+  @Input() totalPages: number = 10;
 }
