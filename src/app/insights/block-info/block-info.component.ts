@@ -11,7 +11,7 @@ import { Subject, filter, takeUntil } from 'rxjs';
 })
 export class BlockInfoComponent implements OnInit, OnDestroy {
   blockInfo: IBlockInfo | undefined;
-  blockHeight: number | null = null;
+  blockParam: string | null = null;
   currentPage: number = 1;
   totalPages!: number;
 
@@ -24,8 +24,49 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.blockHeight = Number(this.route.snapshot.paramMap.get('height'));
-    if (!this.blockHeight) {
+    this.blockParam = this.route.snapshot.paramMap.get('blockParam');
+    if (!this.blockParam) {
+      return;
+    }
+
+    this.route.queryParams.subscribe((params) => {
+      this.currentPage = +params['page'] || 1;
+
+      if (isNaN(+this.blockParam!)) {
+        this.insightsService
+          .getBlockInfoByHash(this.blockParam!, this.currentPage)
+          .subscribe({
+            next: (data: IBlockInfo) => {
+              this.blockInfo = data;
+              this.totalPages = Math.ceil(data.ntx / 10);
+
+              console.log('Block info by hash fetched:', this.blockInfo);
+            },
+            error: (err: Error) => {
+              console.error('Error fetching block info:', err);
+              this.currentPage = 1;
+              this.updateRoute();
+            },
+          });
+      } else {
+        this.insightsService
+          .getBlockInfoByHeight(+this.blockParam!, this.currentPage)
+          .subscribe({
+            next: (data: IBlockInfo) => {
+              this.blockInfo = data;
+              this.totalPages = Math.ceil(data.ntx / 10);
+
+              // console.log('Block info by height fetched:', this.blockInfo);
+            },
+            error: (err: Error) => {
+              console.error('Error fetching block info:', err);
+              this.currentPage = 1;
+              this.updateRoute();
+            },
+          });
+      }
+    });
+
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),

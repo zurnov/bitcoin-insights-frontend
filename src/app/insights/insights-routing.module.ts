@@ -10,7 +10,7 @@ const routes: Routes = [
     component: ResultsComponent,
   },
   {
-    path: 'block/:height',
+    path: 'block/:blockParam',
     component: BlockInfoComponent,
   },
   {
