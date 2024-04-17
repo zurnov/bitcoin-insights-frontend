@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InsightsService } from '../insights.service';
 import { IAddressHistory } from 'src/app/shared/interfaces/addressHistory';
 import { IAddressBalance } from 'src/app/shared/interfaces/addressBalance';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subject, filter, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrl: './results.component.css',
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
   addressBalance: IAddressBalance | undefined;
   addressHistory: IAddressHistory | undefined;
   walletAddress: string | null = null;
   currentPage: number = 1;
   totalPages!: number;
+
+  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private insightsService: InsightsService,
@@ -59,6 +62,15 @@ export class ResultsComponent implements OnInit {
         this.router.navigate(['/']);
       },
     });
+
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        window.scrollTo(0, 320);
+      });
   }
 
   onPageChange(page: number): void {
@@ -97,5 +109,10 @@ export class ResultsComponent implements OnInit {
         this.router.navigate(['/insights/block', txHash]);
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
