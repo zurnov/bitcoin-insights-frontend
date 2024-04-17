@@ -37,10 +37,13 @@ export class ResultsComponent implements OnInit {
           next: (data: IAddressHistory) => {
             this.addressHistory = data;
             this.totalPages = data.totalPages;
+
             // console.log('Address history fetched:', this.addressHistory);
           },
           error: (err: Error) => {
             console.error('Error fetching address history:', err);
+            this.currentPage = 1;
+            this.updateRoute();
           },
         });
     });
