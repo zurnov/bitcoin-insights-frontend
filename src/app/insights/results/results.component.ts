@@ -14,6 +14,7 @@ export class ResultsComponent implements OnInit {
   addressHistory: IAddressHistory | undefined;
   walletAddress: string | null = null;
   currentPage: number = 1;
+  totalPages!: number;
 
   constructor(
     private insightsService: InsightsService,
@@ -35,6 +36,7 @@ export class ResultsComponent implements OnInit {
         .subscribe({
           next: (data: IAddressHistory) => {
             this.addressHistory = data;
+            this.totalPages = data.totalPages;
             // console.log('Address history fetched:', this.addressHistory);
           },
           error: (err: Error) => {
