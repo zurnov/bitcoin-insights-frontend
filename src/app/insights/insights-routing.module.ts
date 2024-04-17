@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ResultsComponent } from './results/results.component';
 import { BlockInfoComponent } from './block-info/block-info.component';
+import { TransactionInfoComponent } from './transaction-info/transaction-info.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'block/:height',
     component: BlockInfoComponent,
+  },
+  {
+    path: 'transaction/:txHash',
+    component: TransactionInfoComponent,
   },
 ];
 

@@ -7,9 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { InsightsService } from './insights.service';
 import { SharedModule } from '../shared/shared.module';
 import { BlockInfoComponent } from './block-info/block-info.component';
+import { TransactionInfoComponent } from './transaction-info/transaction-info.component';
 
 @NgModule({
-  declarations: [ResultsComponent, BlockInfoComponent],
+  declarations: [ResultsComponent, BlockInfoComponent, TransactionInfoComponent],
   imports: [
     CommonModule,
     InsightsRoutingModule,

@@ -106,7 +106,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       const parts = txHashContent.split('Transaction Hash');
       if (parts.length > 1) {
         const txHash = parts[1].trim();
-        this.router.navigate(['/insights/block', txHash]);
+        this.router.navigate(['/insights/transaction', txHash]);
       }
     }
   }
