@@ -13,6 +13,7 @@ export class ResultsComponent implements OnInit {
   addressBalance: IAddressBalance | undefined;
   addressHistory: IAddressHistory | undefined;
   walletAddress: string | null = null;
+  currentPage: number = 1;
 
   constructor(
     private insightsService: InsightsService,
@@ -26,6 +27,22 @@ export class ResultsComponent implements OnInit {
       return;
     }
 
+    this.route.queryParams.subscribe((params) => {
+      this.currentPage = +params['page'] || 1;
+
+      this.insightsService
+        .getAddressHistory(this.walletAddress as string, this.currentPage)
+        .subscribe({
+          next: (data: IAddressHistory) => {
+            this.addressHistory = data;
+            // console.log('Address history fetched:', this.addressHistory);
+          },
+          error: (err: Error) => {
+            console.error('Error fetching address history:', err);
+          },
+        });
+    });
+
     this.insightsService.getAddressBalance(this.walletAddress).subscribe({
       next: (data: IAddressBalance) => {
         this.addressBalance = data;
@@ -37,15 +54,20 @@ export class ResultsComponent implements OnInit {
         this.router.navigate(['/']);
       },
     });
+  }
 
-    this.insightsService.getAddressHistory(this.walletAddress).subscribe({
-      next: (data: IAddressHistory) => {
-        this.addressHistory = data;
-        // console.log('Address history fetched:', this.addressHistory);
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updateRoute();
+  }
+
+  updateRoute() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page: this.currentPage,
       },
-      error: (err: Error) => {
-        console.error('Error fetching address history:', err);
-      },
+      queryParamsHandling: 'merge',
     });
   }
 
