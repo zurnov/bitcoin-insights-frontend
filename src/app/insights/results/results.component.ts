@@ -58,4 +58,17 @@ export class ResultsComponent implements OnInit {
       this.router.navigate(['/insights/block', matchedHeight]);
     }
   }
+
+  onTxHashClick(event: MouseEvent) {
+    const target = event.currentTarget as HTMLElement;
+    const txHashContent = target.textContent;
+
+    if (txHashContent) {
+      const parts = txHashContent.split('Transaction Hash');
+      if (parts.length > 1) {
+        const txHash = parts[1].trim();
+        this.router.navigate(['/insights/block', txHash]);
+      }
+    }
+  }
 }
