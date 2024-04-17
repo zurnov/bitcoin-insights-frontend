@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  bitcoin-insights-frontend:
+    image: ghcr.io/zurnov/bitcoin-insights-frontend:latest
+    restart: always
+    ports:
+      - "4200:4200"
