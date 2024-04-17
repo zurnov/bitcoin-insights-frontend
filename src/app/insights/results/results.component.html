@@ -69,19 +69,7 @@
                   Transaction Hash
                 </p>
               </div>
-
-              <ng-container
-                *ngIf="
-                  transaction && transaction.txHash !== undefined;
-                  else spinner
-                "
-              >
-                <p class="break-all">{{ transaction.txHash }}</p>
-              </ng-container>
-
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
+              <p class="break-all">{{ transaction.txHash }}</p>
             </a>
 
             <a routerLink="/" class="hover:text-orange-400 hover:underline">
@@ -90,19 +78,7 @@
                   <i class="fas fa-cube mr-2 text-xl"></i>Block Height
                 </p>
               </div>
-
-              <ng-container
-                *ngIf="
-                  transaction && transaction.blockHeight !== undefined;
-                  else spinner
-                "
-              >
-                <p>{{ transaction.blockHeight }}</p>
-              </ng-container>
-
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
+              <p>{{ transaction.blockHeight }}</p>
             </a>
           </li>
         </ul>

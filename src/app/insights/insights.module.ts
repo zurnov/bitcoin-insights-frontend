@@ -6,9 +6,10 @@ import { ResultsComponent } from './results/results.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InsightsService } from './insights.service';
 import { SharedModule } from '../shared/shared.module';
+import { BlockInfoComponent } from './block-info/block-info.component';
 
 @NgModule({
-  declarations: [ResultsComponent],
+  declarations: [ResultsComponent, BlockInfoComponent],
   imports: [
     CommonModule,
     InsightsRoutingModule,
