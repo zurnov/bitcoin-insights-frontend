@@ -201,7 +201,11 @@
                 <app-spinner></app-spinner>
               </ng-template>
             </div>
+          </li>
 
+          <li
+            class="border-4 border-gray-700 rounded-3xl p-6 mt-4 text-center shadow-white shadow-md"
+          >
             <div>
               <div class="flex flex-col items-center justify-center mt-3 mb-2">
                 <p class="text-gray-400">
@@ -226,6 +230,12 @@
                 <app-spinner></app-spinner>
               </ng-template>
             </div>
+
+            <app-pagination
+              [currentPage]="currentPage"
+              [totalPages]="totalPages"
+              (pageChange)="onPageChange($event)"
+            ></app-pagination>
           </li>
         </ul>
       </div>

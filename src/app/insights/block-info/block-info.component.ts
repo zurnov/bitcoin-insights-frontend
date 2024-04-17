@@ -1,4 +1,3 @@
-import { Component, OnInit } from '@angular/core';
 import { InsightsService } from '../insights.service';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 export class BlockInfoComponent implements OnInit {
   blockInfo: IBlockInfo | undefined;
   blockHeight: number | null = null;
+  currentPage: number = 1;
+  totalPages!: number;
 
   constructor(
     private insightsService: InsightsService,
