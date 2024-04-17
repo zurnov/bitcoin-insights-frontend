@@ -1,2 +1,235 @@
+<div class="flex flex-col items-center space-y-4 justify-center text-xl mx-20">
   <ng-container>
+    <div class="flex flex-col items-center">
+      <h2 class="text-2xl font-bold mb-2 mt-4 text-white">Block Info</h2>
+      <div class="flex flex-col justify-center">
+        <ul class="flex flex-col gap-4 px-6 mt-4 text-white">
+          <li
+            class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md"
+          >
+            <div>
+              <div class="flex items-center justify-center mb-2">
+                <p class="text-gray-400">
+                  <i class="fas fa-expand mr-2 text-lg"></i>
+                  Size
+                </p>
+              </div>
+
+              <ng-container *ngIf="blockInfo && blockInfo.size; else spinner">
+                <p>{{ blockInfo.size }}</p>
+              </ng-container>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-center mt-3 mb-2">
+                <p class="text-gray-400">
+                  <i class="fas fa-check-circle mr-2 text-lg"></i>
+                  Confirmations
+                </p>
+              </div>
+
+              <ng-container
+                *ngIf="blockInfo && blockInfo.confirmations; else spinner"
+              >
+                <p>{{ blockInfo.confirmations }}</p>
+              </ng-container>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-center mt-3 mb-2">
+                <p class="text-gray-400">
+                  <i class="fas fa-cube mr-2 text-lg"></i>
+                  Block Height
+                </p>
+              </div>
+
+              <ng-container
+                *ngIf="blockInfo && blockInfo.blockHeight; else spinner"
+              >
+                <p>{{ blockInfo.blockHeight }}</p>
+              </ng-container>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-center mt-3 mb-2">
+                <p class="text-gray-400">
+                  <i class="far fa-clock mr-2 text-lg"></i>
+                  Time
+                </p>
+              </div>
+
+              <ng-container *ngIf="blockInfo && blockInfo.time; else spinner">
+                <p>
+                  {{ +blockInfo.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
+                </p>
+              </ng-container>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-center mt-3 mb-2">
+                <p class="text-gray-400">
+                  <i class="far fa-clock mr-2 text-lg"></i>
+                  Median Time
+                </p>
+              </div>
+
+              <ng-container
+                *ngIf="blockInfo && blockInfo.medianTime; else spinner"
+              >
+                <p>
+                  {{
+                    +blockInfo.medianTime * 1000
+                      | date : "MMM dd, yyyy, HH:mm:ss"
+                  }}
+                </p>
+              </ng-container>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-center mt-3 mb-2">
+                <p class="text-gray-400">
+                  <i class="fas fa-chart-line mr-2 text-lg"></i>
+                  Difficulty
+                </p>
+              </div>
+
+              <ng-container
+                *ngIf="blockInfo && blockInfo.difficulty; else spinner"
+              >
+                <p class="break-all">
+                  {{ blockInfo.difficulty | difficultyConversion }}
+                </p>
+              </ng-container>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <a class="hover:text-orange-400 hover:underline cursor-pointer">
+                <div class="flex items-center justify-center mt-3 mb-2">
+                  <p class="text-gray-400">
+                    <i class="fas fa-hashtag mr-2 text-lg"></i>
+                    Hash
+                  </p>
+                </div>
+
+                <ng-container *ngIf="blockInfo && blockInfo.hash; else spinner">
+                  <p class="break-all">{{ blockInfo.hash }}</p>
+                </ng-container>
+              </a>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <a class="hover:text-orange-400 hover:underline cursor-pointer">
+                <div class="flex items-center justify-center mt-3 mb-2">
+                  <p class="text-gray-400">
+                    <i class="fas fa-arrow-circle-left mr-2 text-lg"></i>
+                    Previous Block Hash
+                  </p>
+                </div>
+
+                <ng-container
+                  *ngIf="blockInfo && blockInfo.previousBlockHash; else spinner"
+                >
+                  <p class="break-all">{{ blockInfo.previousBlockHash }}</p>
+                </ng-container>
+              </a>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <a class="hover:text-orange-400 hover:underline cursor-pointer">
+                <div class="flex items-center justify-center mt-3 mb-2">
+                  <p class="text-gray-400">
+                    <i class="fas fa-arrow-circle-right mr-2 text-lg"></i>
+                    Next Block Hash
+                  </p>
+                </div>
+
+                <ng-container
+                  *ngIf="blockInfo && blockInfo.nextBlockHash; else spinner"
+                >
+                  <p class="break-all">{{ blockInfo.nextBlockHash }}</p>
+                </ng-container>
+              </a>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-center mt-3 mb-2">
+                <p class="text-gray-400">
+                  <i class="fas fa-exchange-alt mr-2 text-lg"></i>Number of
+                  Transactions
+                </p>
+              </div>
+
+              <ng-container *ngIf="blockInfo && blockInfo.ntx; else spinner">
+                <p>{{ blockInfo.ntx }}</p>
+              </ng-container>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+
+            <div>
+              <div class="flex flex-col items-center justify-center mt-3 mb-2">
+                <p class="text-gray-400">
+                  <i class="fas fa-list mr-2 text-lg"></i>
+                  Transactions
+                </p>
+              </div>
+              <ng-container
+                *ngIf="blockInfo && blockInfo.transactions; else spinner"
+              >
+                <div *ngFor="let transaction of blockInfo.transactions">
+                  <a
+                    class="hover:text-orange-400 hover:underline cursor-pointer"
+                  >
+                    <p class="break-all border p-4">{{ transaction }}</p>
+                  </a>
+                </div>
+              </ng-container>
+
+              <ng-template #spinner>
+                <app-spinner></app-spinner>
+              </ng-template>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </ng-container>
+</div>
