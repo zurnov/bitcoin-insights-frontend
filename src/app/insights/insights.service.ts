@@ -53,4 +53,19 @@ export class InsightsService {
       { params }
     );
   }
+
+  getBlockInfoByHash(
+    hash: string,
+    pageNumber: number = 1,
+    pageSize: number = 10
+  ): Observable<IBlockInfo> {
+    let params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<IBlockInfo>(
+      `${this.baseUrl}/getblockinfobyhash/${hash}`,
+      { params }
+    );
+  }
 }
