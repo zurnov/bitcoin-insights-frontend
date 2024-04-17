@@ -48,4 +48,14 @@ export class ResultsComponent implements OnInit {
       },
     });
   }
+
+  onBlockHeightClick(event: MouseEvent) {
+    const target = event.currentTarget as HTMLElement;
+    const blockHeight = target.textContent;
+
+    if (blockHeight) {
+      const matchedHeight = (blockHeight.match(/\d+/) ?? [])[0];
+      this.router.navigate(['/insights/block', matchedHeight]);
+    }
+  }
 }
