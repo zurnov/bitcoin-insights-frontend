@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { IBlockchainInfo } from '../shared/interfaces/blockchainInfo';
 import { Observable } from 'rxjs';
 import { IAddressBalance } from '../shared/interfaces/addressBalance';
@@ -24,9 +24,18 @@ export class InsightsService {
     );
   }
 
-  getAddressHistory(address: string): Observable<IAddressHistory> {
+  getAddressHistory(
+    address: string,
+    pageNumber: number = 1,
+    pageSize: number = 10
+  ): Observable<IAddressHistory> {
+    let params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
     return this.http.get<IAddressHistory>(
-      `${this.baseUrl}/getaddresshistory/${address}`
+      `${this.baseUrl}/getaddresshistory/${address}`,
+      { params }
     );
   }
 
