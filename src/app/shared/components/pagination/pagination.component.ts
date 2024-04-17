@@ -23,4 +23,21 @@ export class PaginationComponent {
   get selectPageNums(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
+
+  getPagesInRange(): number[] {
+    const pages = [];
+    const pagesToShow = 10;
+    const half = Math.floor(pagesToShow / 2);
+    let startPage = Math.max(1, this.currentPage - half);
+    let endPage = Math.min(this.totalPages, startPage + pagesToShow - 1);
+
+    if (endPage - startPage + 1 < pagesToShow) {
+      startPage = Math.max(1, endPage - pagesToShow + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
 }

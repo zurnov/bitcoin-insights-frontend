@@ -23,7 +23,7 @@
         </option>
       </select>
     </li>
-    <li class="hidden md:flex" *ngFor="let page of [1,2,3]">
+    <li class="hidden md:flex" *ngFor="let page of getPagesInRange()">
       <button
         (click)="handlePageChange(page)"
         class="rounded-md px-3 py-1.5 border border-orange-400 hover:bg-orange-400 hover:text-black transition-all w-12"
