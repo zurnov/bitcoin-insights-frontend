@@ -60,8 +60,14 @@ jobs:
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-      - name: connect and pull
+      - name: connect
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker-compose pull && docker-compose up -d && exit"
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+      - name: pull
+        run: |
+          cd ${{ secrets.WORK_DIR }} && docker-compose pull && docker-compose up -d
+      - name: up
+        run: |
+          docker-compose up -d
       - name: cleanup
         run: rm -rf ~/.ssh
