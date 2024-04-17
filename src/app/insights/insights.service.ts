@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IAddressBalance } from '../shared/interfaces/addressBalance';
 import { IAddressHistory } from '../shared/interfaces/addressHistory';
 import { IBlockInfo } from '../shared/interfaces/blockInfo';
+import { ITransactionInfo } from '../shared/interfaces/transactionInfo';
 
 @Injectable({
   providedIn: 'root',
@@ -66,6 +67,12 @@ export class InsightsService {
     return this.http.get<IBlockInfo>(
       `${this.baseUrl}/getblockinfobyhash/${hash}`,
       { params }
+    );
+  }
+
+  getTransactionInfo(txHash: string): Observable<ITransactionInfo> {
+    return this.http.get<ITransactionInfo>(
+      `${this.baseUrl}/gettransactioninfo/${txHash}`
     );
   }
 }
