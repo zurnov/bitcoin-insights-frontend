@@ -1,3 +1,4 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InsightsService } from '../insights.service';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { ActivatedRoute } from '@angular/router';
@@ -21,6 +22,20 @@ export class BlockInfoComponent implements OnInit {
   ngOnInit() {
     this.blockHeight = Number(this.route.snapshot.paramMap.get('height'));
     if (!this.blockHeight) {
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updateRoute();
+  }
+
+  updateRoute() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page: this.currentPage,
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
       return;
     }
 
