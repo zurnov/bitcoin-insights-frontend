@@ -50,16 +50,30 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
       queryParamsHandling: 'merge',
     });
   }
+
+  onHashClick(event: MouseEvent): void {
+    const target = event.currentTarget as HTMLElement;
+    const hashContent = target.textContent;
+
+    if (!hashContent) {
       return;
     }
 
-    this.insightsService.getBlockInfoByHeight(this.blockHeight).subscribe({
+    const hash = hashContent.split('Block Hash')[1].trim();
+
+    this.insightsService.getBlockInfoByHash(hash, this.currentPage).subscribe({
       next: (data: IBlockInfo) => {
         this.blockInfo = data;
-        // console.log('Block info fetched:', this.blockInfo);
+        this.totalPages = Math.ceil(data.ntx / 10);
+
+        console.log('Block info by hash fetched:', this.blockInfo);
+
+        this.router.navigate(['/insights/block', hash]);
       },
       error: (err: Error) => {
         console.error('Error fetching block info:', err);
+        this.currentPage = 1;
+        this.updateRoute();
       },
     });
   }
