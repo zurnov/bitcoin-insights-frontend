@@ -62,7 +62,7 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: connect
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
       - name: pull
         run: |
           cd ${{ secrets.WORK_DIR }} && docker-compose pull && docker-compose up -d
