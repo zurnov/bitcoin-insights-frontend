@@ -39,9 +39,18 @@ export class InsightsService {
     );
   }
 
-  getBlockInfoByHeight(height: number): Observable<IBlockInfo> {
+  getBlockInfoByHeight(
+    height: number,
+    pageNumber: number = 1,
+    pageSize: number = 10
+  ): Observable<IBlockInfo> {
+    let params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
     return this.http.get<IBlockInfo>(
-      `${this.baseUrl}/getblockinfobyheight/${height}`
+      `${this.baseUrl}/getblockinfobyheight/${height}`,
+      { params }
     );
   }
 }
