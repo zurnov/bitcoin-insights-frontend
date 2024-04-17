@@ -1,27 +1,41 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InsightsService } from '../insights.service';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subject, filter, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-block-info',
   templateUrl: './block-info.component.html',
   styleUrl: './block-info.component.css',
 })
-export class BlockInfoComponent implements OnInit {
+export class BlockInfoComponent implements OnInit, OnDestroy {
   blockInfo: IBlockInfo | undefined;
   blockHeight: number | null = null;
   currentPage: number = 1;
   totalPages!: number;
 
+  private destroy$: Subject<void> = new Subject<void>();
+
   constructor(
     private insightsService: InsightsService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.blockHeight = Number(this.route.snapshot.paramMap.get('height'));
     if (!this.blockHeight) {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        window.scrollTo(0, 1060);
+      });
+  }
+
   onPageChange(page: number): void {
     this.currentPage = page;
     this.updateRoute();
@@ -55,5 +69,10 @@ export class BlockInfoComponent implements OnInit {
     const txHashContent = target.textContent?.trim();
 
     this.router.navigate(['/insights/transaction', txHashContent]);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
