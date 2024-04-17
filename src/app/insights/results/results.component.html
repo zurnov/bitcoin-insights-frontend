@@ -88,6 +88,11 @@
             </a>
           </li>
         </ul>
+
+        <app-pagination
+          [currentPage]="currentPage"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
       </div>
     </div>
   </ng-container>
