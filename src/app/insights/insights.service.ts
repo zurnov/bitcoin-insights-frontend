@@ -11,7 +11,7 @@ import { ITransactionInfo } from '../shared/interfaces/transactionInfo';
   providedIn: 'root',
 })
 export class InsightsService {
-  private baseUrl = 'https://www.zurnov.com/api/v1/btc-insights';
+  private baseUrl = 'http://46.55.172.171:8000/api/v1/btc-insights';
 
   constructor(private http: HttpClient) {}
 
