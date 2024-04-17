@@ -5,4 +5,5 @@ interface ITransaction {
 
 export interface IAddressHistory {
   transactions: ITransaction[];
+  totalPages: number;
 }
