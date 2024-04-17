@@ -27,6 +27,7 @@
       <button
         (click)="handlePageChange(page)"
         class="rounded-md px-3 py-1.5 border border-orange-400 hover:bg-orange-400 hover:text-black transition-all w-12"
+        [ngClass]="{ 'bg-orange-400 text-black': page === currentPage }"
       >
         {{ page }}
       </button>
