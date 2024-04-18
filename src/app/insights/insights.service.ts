@@ -6,14 +6,19 @@ import { IAddressBalance } from '../shared/interfaces/addressBalance';
 import { IAddressHistory } from '../shared/interfaces/addressHistory';
 import { IBlockInfo } from '../shared/interfaces/blockInfo';
 import { ITransactionInfo } from '../shared/interfaces/transactionInfo';
+import { environment } from 'environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InsightsService {
-  private baseUrl = 'http://46.55.172.171:8000/api/v1/btc-insights';
+  private baseUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.baseUrl = environment.production
+      ? 'https://46.55.172.171:8000/api/v1/btc-insights'
+      : 'http://46.55.172.171:8000/api/v1/btc-insights';
+  }
 
   getBlockchainInfo(): Observable<IBlockchainInfo> {
     return this.http.get<IBlockchainInfo>(`${this.baseUrl}/getblockchaininfo`);
