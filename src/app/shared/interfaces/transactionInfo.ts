@@ -29,7 +29,7 @@ export interface ITransactionInfo {
   hex: string;
   blockHash: string;
   confirmations: number;
-  blockTime: number;
-  time: number;
+  blockTime: Date;
+  time: Date;
   vbytes: number;
 }
