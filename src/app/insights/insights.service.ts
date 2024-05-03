@@ -12,8 +12,7 @@ import { ITransactionInfo } from '../shared/interfaces/transactionInfo';
 })
 export class InsightsService {
   // private baseUrl: string = 'http://46.55.172.171:8000/api/v1/btc-insights';
-  private baseUrl: string = 'https://46.55.172.171:8000/api/v1/btc-insights';
-
+  private baseUrl: string = 'https://api.zurnov.com/api/v1/btc-insights';
   constructor(private http: HttpClient) {}
 
   getBlockchainInfo(): Observable<IBlockchainInfo> {
