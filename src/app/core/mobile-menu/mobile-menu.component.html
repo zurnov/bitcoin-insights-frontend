@@ -8,7 +8,7 @@
       tabindex="0"
     ></div>
     <div
-      class="fixed inset-y-0 top-6 right-6 z-50 w-64 h-fit overflow-hidden bg-gray-700 px-6 py-3 rounded-2xl border border-white"
+      class="fixed inset-y-0  right-0 md:top-6 md:right-6 z-50 w-full md:w-64 h-fit overflow-hidden bg-gray-700 px-6 py-3 md:rounded-2xl border-b md:border md:border-white"
     >
       <div class="flex items-center justify-between">
         <a routerLink="/" class="mb-14" (click)="closeMobileMenu()">
@@ -21,7 +21,7 @@
         <button
           type="button"
           aria-controls="mobile-menu"
-          class="bg-transparent hover:bg-gray-200 hover:text-gray-950 text-white rounded-md text-sm w-8 h-8 absolute top-4 right-3 inline-flex items-center justify-center"
+          class="bg-transparent lg:hover:bg-gray-200 lg:hover:text-gray-950 text-white rounded-md text-sm w-8 h-8 absolute top-4 right-3 inline-flex items-center justify-center"
           (click)="closeMobileMenu()"
         >
           <svg
