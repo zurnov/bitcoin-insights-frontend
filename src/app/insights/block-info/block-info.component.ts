@@ -40,7 +40,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
               this.blockInfo = data;
               this.totalPages = Math.ceil(data.ntx / 10);
 
-              console.log('Block info by hash fetched:', this.blockInfo);
+              // console.log('Block info by hash fetched:', this.blockInfo);
             },
             error: (err: Error) => {
               console.error('Error fetching block info:', err);
@@ -107,7 +107,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         this.blockInfo = data;
         this.totalPages = Math.ceil(data.ntx / 10);
 
-        console.log('Block info by hash fetched:', this.blockInfo);
+        // console.log('Block info by hash fetched:', this.blockInfo);
 
         this.router.navigate(['/insights/block', hash]);
       },

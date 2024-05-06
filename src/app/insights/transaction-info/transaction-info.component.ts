@@ -27,7 +27,7 @@ export class TransactionInfoComponent {
       next: (data: ITransactionInfo) => {
         this.transactionInfo = data;
 
-        console.log('Transaction info fetched:', this.transactionInfo);
+        // console.log('Transaction info fetched:', this.transactionInfo);
       },
       error: (err: Error) => {
         console.error('Error fetching transaction info:', err);

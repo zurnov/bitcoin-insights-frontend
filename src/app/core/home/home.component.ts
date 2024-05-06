@@ -53,30 +53,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       return this.router.navigate(['/insights', address]);
     }
     return alert('Enter valid bitcoin address!');
+  isBlockHeight(query: string): boolean {
+    const regex = /^[0-9]+$/;
+    return regex.test(query);
   }
 
-  formatTime(timeInSeconds: number): string {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = Math.floor(timeInSeconds % 60);
-    return `${minutes}m ${seconds}s`;
+  isBlockOrTransactionHash(query: string): boolean {
+    const regex = /^[0-9a-fA-F]{64}$/;
+    return regex.test(query);
   }
 
-  getMonthName(month: number): string {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'June',
-      'July',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return months[month];
+  isWalletAddress(query: string): boolean {
+    const regex = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+    return regex.test(query);
   }
 
   ngOnDestroy(): void {
