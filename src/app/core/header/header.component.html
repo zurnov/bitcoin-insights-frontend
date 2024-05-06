@@ -1,39 +1,33 @@
-<header class="z-50 mt-4 mb-10">
-  <div class="container mx-auto max-w-screen-2xl">
-    <div class="w-full flex flex-col">
-      <nav class="flex items-center justify-between mx-4">
-        <div class="flex items-center lg:flex-1">
-          <a routerLink="/">
-            <img
-              class="h-20 md:h-24 w-auto"
-              src="/assets/btci-logo.png"
-              alt="header-logo"
-            />
-          </a>
-        </div>
+<header class="z-50 mb-10 min-w-full max-w-screen-lg">
+  <div class="flex flex-col">
+    <nav class="flex items-center justify-between mx-4">
+      <div class="">
+        <a routerLink="/">
+          <img
+            class="h-20 md:h-24 w-auto"
+            src="/assets/btci-logo.png"
+            alt="header-logo"
+          />
+        </a>
+      </div>
 
-        <div class="flex flex-1 justify-end">
-          <button
-            *ngIf="!isMobileMenuOpen"
-            type="button"
-            (click)="openMobileMenu()"
+      <div class="">
+        <button type="button" (click)="openMobileMenu()">
+          <svg
+            class="h-8 w-8 text-white transition-colors duration-200 ease-in-out hover:text-orange-400"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
           >
-            <svg
-              class="h-8 w-8 text-white transition-colors duration-200 ease-in-out hover:text-orange-400"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-          </button>
-        </div>
-      </nav>
-    </div>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </button>
+      </div>
+    </nav>
   </div>
 
   <app-mobile-menu
