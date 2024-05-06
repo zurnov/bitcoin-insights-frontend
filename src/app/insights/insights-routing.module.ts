@@ -6,7 +6,7 @@ import { TransactionInfoComponent } from './transaction-info/transaction-info.co
 
 const routes: Routes = [
   {
-    path: ':address',
+    path: 'address/:address',
     component: AddressInfoComponent,
   },
   {
