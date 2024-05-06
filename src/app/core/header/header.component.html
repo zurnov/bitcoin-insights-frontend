@@ -25,6 +25,7 @@
   </nav>
 
   <app-mobile-menu
+    class="block max-menu-w:hidden"
     *ngIf="isMobileMenuOpen"
     (isMobileMenuOpenChange)="handleCloseMobileMenu($event)"
   ></app-mobile-menu>
