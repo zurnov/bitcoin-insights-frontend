@@ -5,7 +5,6 @@ import { HeaderComponent } from './header/header.component';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { NgxTimelineModule } from '@frxjs/ngx-timeline';
 import { InsightsService } from '../insights/insights.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +22,6 @@ import { FooterComponent } from './footer/footer.component';
     RouterModule,
     HttpClientModule,
     SharedModule,
-    NgxTimelineModule,
     FormsModule,
   ],
   providers: [InsightsService],
