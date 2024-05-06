@@ -1,18 +1,18 @@
 <div class="flex flex-col justify-center items-center">
-  <div class="relative mb-8">
+  <div class="relative mb-4 lg:mb-8">
     <form (ngSubmit)="onSearch(searchInput.value)">
       <input
         #searchInput
         type="search"
         name="search"
-        placeholder="enter bitcoin address"
-        class="bg-gray-700 text-sm text-white h-12 px-4 pr-10 rounded-lg rounded-b-md focus:outline-none w-[300px] sm:w-[500px] border-b-2 focus:border-orange-400 transition-all duration-300 ease-in-out"
+        placeholder="search for address, transaction, or block..."
+        class="bg-gray-700 text-xs text-white h-10 md:h-12 px-4 pr-10 rounded-lg rounded-b-md focus:outline-none w-[300px] sm:w-[500px] border-b-2 focus:border-orange-400 transition-all duration-300 ease-in-out"
         autocomplete="off"
       />
 
       <button type="submit" class="absolute right-3 top-3.5">
         <svg
-          class="h-5 w-5 text-white hover:text-orange-400 duration-200"
+          class="h-3 w-3 md:h-5 md:w-5 text-white lg:hover:text-orange-400 duration-200"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           version="1.1"
@@ -29,21 +29,21 @@
 
   <div>
     <ul
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-6 mt-4 text-white w-[350px] sm:w-full mb-10"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-6 mt-4 text-white w-[320px] sm:w-full mb-10 lg:mb-0"
     >
       <li
-        class="border-4 border-gray-700 rounded-3xl p-6 flex items-center justify-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+        class="border border-gray-700 rounded-3xl p-3 md:p-6 flex items-center justify-center shadow-sm shadow-white md:shadow-inner md:shadow-white lg:hover:scale-105 lg:transform lg:transition-transform lg:duration-500 text-sm"
       >
-        <i class="fa-brands fa-bitcoin mr-2 text-3xl"></i>
+        <i class="fa-brands fa-bitcoin mr-2 text-2xl lg:text-3xl"></i>
         <p class="mr-2">Bitcoin</p>
         <p class="text-gray-500">BTC</p>
       </li>
 
       <li
-        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+        class="border border-gray-700 rounded-3xl p-3 md:p-6 text-center shadow-sm shadow-white md:shadow-inner md:shadow-white lg:hover:scale-105 lg:transform lg:transition-transform lg:duration-500 text-sm"
       >
         <div class="flex items-center justify-center mb-2">
-          <i class="fa-solid fa-cubes mr-2 text-2xl"></i>
+          <i class="fa-solid fa-cubes mr-2 text-xl lg:text-2xl"></i>
           <p class="text-gray-400">Blocks</p>
         </div>
 
@@ -62,10 +62,10 @@
       </li>
 
       <li
-        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+        class="border border-gray-700 rounded-3xl p-3 md:p-6 text-center shadow-sm shadow-white md:shadow-inner md:shadow-white lg:hover:scale-105 lg:transform lg:transition-transform lg:duration-500 text-sm"
       >
         <div class="flex items-center justify-center mb-2">
-          <i class="fa-solid fa-chain mr-2 text-2xl"></i>
+          <i class="fa-solid fa-chain mr-2 text-xl lg:text-2xl"></i>
           <p class="text-gray-400">Chain</p>
         </div>
 
@@ -84,10 +84,10 @@
       </li>
 
       <li
-        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+        class="border border-gray-700 rounded-3xl p-3 md:p-6 text-center shadow-white shadow-sm md:shadow-md md:shadow-white lg:hover:scale-105 lg:transform lg:transition-transform lg:duration-500 text-sm"
       >
         <div class="flex items-center justify-center mb-2">
-          <i class="fa-solid fa-chart-line mr-2 text-2xl"></i>
+          <i class="fa-solid fa-chart-line mr-2 text-xl lg:text-2xl"></i>
           <p class="text-gray-400">Difficulty</p>
         </div>
 
@@ -106,10 +106,10 @@
       </li>
 
       <li
-        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+        class="border border-gray-700 rounded-3xl p-3 md:p-6 text-center shadow-white shadow-sm md:shadow-md md:shadow-white lg:hover:scale-105 lg:transform lg:transition-transform lg:duration-500 text-sm"
       >
         <div class="flex items-center justify-center mb-2">
-          <i class="fa-solid fa-network-wired mr-2 text-2xl"></i>
+          <i class="fa-solid fa-network-wired mr-2 text-xl lg:text-2xl"></i>
           <p class="text-gray-400">Network Hash Rate</p>
         </div>
 
@@ -128,10 +128,10 @@
       </li>
 
       <li
-        class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md lg:hover:scale-110 lg:transform lg:transition-transform lg:duration-500"
+        class="border border-gray-700 rounded-3xl p-3 md:p-6 text-center shadow-white shadow-sm md:shadow-md md:shadow-white lg:hover:scale-105 lg:transform lg:transition-transform lg:duration-500 text-sm"
       >
         <div class="flex items-center justify-center mb-2">
-          <i class="fa-solid fa-coins mr-2 text-2xl"></i>
+          <i class="fa-solid fa-coins mr-2 text-xl lg:text-2xl"></i>
           <p class="text-gray-400">Pooled Transactions</p>
         </div>
 
