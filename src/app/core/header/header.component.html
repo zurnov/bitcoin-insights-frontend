@@ -1,34 +1,28 @@
-<header class="z-50 mb-10 min-w-full max-w-screen-lg">
-  <div class="flex flex-col">
-    <nav class="flex items-center justify-between mx-4">
-      <div class="">
-        <a routerLink="/">
-          <img
-            class="h-20 md:h-24 w-auto"
-            src="/assets/btci-logo.png"
-            alt="header-logo"
-          />
-        </a>
-      </div>
+<header class="z-50 mb-10 flex justify-center">
+  <nav class="flex items-center justify-between max-w-[2000px] w-full mx-4">
+    <a routerLink="/">
+      <img
+        class="h-20 md:h-24 w-auto"
+        src="/assets/btci-logo.png"
+        alt="header-logo"
+      />
+    </a>
 
-      <div class="">
-        <button type="button" (click)="openMobileMenu()">
-          <svg
-            class="h-8 w-8 text-white transition-colors duration-200 ease-in-out hover:text-orange-400"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-        </button>
-      </div>
-    </nav>
-  </div>
+    <button type="button" (click)="openMobileMenu()">
+      <svg
+        class="h-8 w-8 text-white transition-colors duration-200 ease-in-out hover:text-orange-400"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+        />
+      </svg>
+    </button>
+  </nav>
 
   <app-mobile-menu
     *ngIf="isMobileMenuOpen"

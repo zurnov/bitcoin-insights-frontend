@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'max-menu-w': '2400px',
+      },
+    },
   },
   plugins: [],
 };
