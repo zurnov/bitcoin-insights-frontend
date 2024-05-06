@@ -6,11 +6,11 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject, filter, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  styleUrl: './results.component.css',
+  selector: 'app-address-info',
+  templateUrl: './address-info.component.html',
+  styleUrl: './address-info.component.css',
 })
-export class ResultsComponent implements OnInit, OnDestroy {
+export class AddressInfoComponent implements OnInit, OnDestroy {
   addressBalance: IAddressBalance | undefined;
   addressHistory: IAddressHistory | undefined;
   walletAddress: string | null = null;

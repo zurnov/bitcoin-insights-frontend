@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ResultsComponent } from './results/results.component';
+import { AddressInfoComponent } from './address-info/address-info.component';
 import { BlockInfoComponent } from './block-info/block-info.component';
 import { TransactionInfoComponent } from './transaction-info/transaction-info.component';
 
 const routes: Routes = [
   {
     path: ':address',
-    component: ResultsComponent,
+    component: AddressInfoComponent,
   },
   {
     path: 'block/:blockParam',
