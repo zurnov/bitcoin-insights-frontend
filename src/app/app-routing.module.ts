@@ -18,6 +18,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./insights/insights.module').then((m) => m.InsightsModule),
   },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];
 
 @NgModule({
