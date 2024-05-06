@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription, interval } from 'rxjs';
+import { Observable, Subscription, combineLatest, interval } from 'rxjs';
 import { InsightsService } from 'src/app/insights/insights.service';
+import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 
 @Component({
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private refreshSubscription!: Subscription;
 
   blockchainInfo: IBlockchainInfo | undefined;
+  latestBlocks: IBlockInfo[] = [];
 
   constructor(
     private insightsService: InsightsService,
@@ -36,6 +38,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.insightsService.getBlockchainInfo().subscribe({
       next: (data: IBlockchainInfo) => {
         this.blockchainInfo = data;
+
+        const latestBlockHeight = data.blocks;
+        const blockHeights = Array.from(
+          { length: 10 },
+          (_, index) => latestBlockHeight - 1 - index //! starting from prev to last
+        );
+        const blockInfoRequests: Observable<IBlockInfo>[] = blockHeights.map(
+          (height) => {
+            return this.insightsService.getBlockInfoByHeight(height);
+          }
+        );
+
+        combineLatest(blockInfoRequests).subscribe(
+          (blockInfos: IBlockInfo[]) => {
+            this.latestBlocks = blockInfos; //! updated with refresh sub
+            // console.log('Latest blocks:', this.latestBlocks);
+          }
+        );
 
         // console.log(
         //   `Blockchain info fetched for the ${fetchCounter} time:`,
