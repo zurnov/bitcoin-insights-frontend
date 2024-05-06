@@ -48,11 +48,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSearch(address: string) {
-    if (address.trim() !== '') {
-      return this.router.navigate(['/insights', address]);
+  onSearch(query: string) {
+    let queryTrimmed = query.trim();
+    if (queryTrimmed !== '') {
+      if (this.isWalletAddress(queryTrimmed)) {
+        // console.log('received wallet address');
+        return this.router.navigate(['/insights/address', queryTrimmed]);
+      } else if (this.isBlockOrTransactionHash(queryTrimmed)) {
+        if (/^0{15,}/.test(queryTrimmed)) {
+          //! checking for 15 consecutive leading zeroes; current are 18;
+          // console.log('block hash received');
+          return this.router.navigate(['/insights/block', queryTrimmed]);
+        } else {
+          // console.log('TX hash received');
+          return this.router.navigate(['/insights/transaction', queryTrimmed]);
+        }
+      } else if (this.isBlockHeight(queryTrimmed)) {
+        // console.log('received block height');
+
+        return this.router.navigate(['/insights/block', queryTrimmed]);
+      }
     }
-    return alert('Enter valid bitcoin address!');
+    return alert('Enter valid query - address, transaction, or block...');
+  }
+
   isBlockHeight(query: string): boolean {
     const regex = /^[0-9]+$/;
     return regex.test(query);
