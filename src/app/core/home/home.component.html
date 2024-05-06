@@ -190,10 +190,10 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap">{{ block.ntx }}</td>
             <td class="px-6 py-4 whitespace-nowrap">
-              {{ block.size }}
+              {{ trimTrailingZeros((block.size / 1000).toFixed(3)) }}
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              {{ block.weight }}
+              {{ trimTrailingZeros((block.weight / 1000).toFixed(3)) }}
             </td>
           </tr>
         </tbody>

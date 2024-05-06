@@ -107,6 +107,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     return regex.test(query);
   }
 
+  trimTrailingZeros(value: string): string {
+    return value.replace(/\.?0+$/, '');
+  }
+
   ngOnDestroy(): void {
     this.refreshSubscription?.unsubscribe();
   }
