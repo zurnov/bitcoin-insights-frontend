@@ -4,6 +4,7 @@ import { Observable, Subscription, combineLatest, interval } from 'rxjs';
 import { InsightsService } from 'src/app/insights/insights.service';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
+import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   blockchainInfo: IBlockchainInfo | undefined;
   latestBlocks: IBlockInfo[] = [];
+  latestTransactions: ITransactionInfo[] = [];
 
   constructor(
     private insightsService: InsightsService,
@@ -62,6 +64,33 @@ export class HomeComponent implements OnInit, OnDestroy {
             console.error('Error fetching latest blocks details:', err);
           },
         });
+
+        //*latest txs
+        this.insightsService
+          .getBlockInfoByHeight(prevToLastBlockHeight)
+          .subscribe({
+            next: (prevToLastBlockHeightInfo: IBlockInfo) => {
+              const transactionIds = prevToLastBlockHeightInfo.transactions;
+
+              const transactionRequests: Observable<ITransactionInfo>[] =
+                transactionIds.map((txId) =>
+                  this.insightsService.getTransactionInfo(txId)
+                );
+
+              combineLatest(transactionRequests).subscribe({
+                next: (transactions: ITransactionInfo[]) => {
+                  this.latestTransactions = transactions; //! updated with refresh sub
+                  // console.log('Latest transactions:', transactions);
+                },
+                error: (err: Error) => {
+                  console.error('Error fetching transaction details:', err);
+                },
+              });
+            },
+            error: (err: Error) => {
+              console.error('Error fetching previous to last block info:', err);
+            },
+          });
 
         // console.log(
         //   `Blockchain info fetched for the ${fetchCounter} time:`,
