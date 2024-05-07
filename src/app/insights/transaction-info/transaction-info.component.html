@@ -1,4 +1,6 @@
-<div class="flex flex-col items-center space-y-4 justify-center text-xl md:mx-20">
+<div
+  class="flex flex-col items-center space-y-4 justify-center text-xl md:mx-20"
+>
   <ng-container>
     <div class="flex flex-col items-center">
       <h2 class="text-2xl font-bold mb-2 mt-4 text-white">Transaction Info</h2>
@@ -96,7 +98,7 @@
 
               <ng-container
                 *ngIf="
-                  transactionInfo && transactionInfo.lockTime;
+                  transactionInfo && transactionInfo.lockTime != undefined;
                   else spinner
                 "
               >

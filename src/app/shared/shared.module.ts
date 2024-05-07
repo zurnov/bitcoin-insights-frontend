@@ -5,18 +5,21 @@ import { DifficultyConversionPipe } from './pipes/difficulty-conversion.pipe';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
     HashRateConversionPipe,
     DifficultyConversionPipe,
+    TruncatePipe,
     SpinnerComponent,
     PaginationComponent,
   ],
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   exports: [
     HashRateConversionPipe,
     DifficultyConversionPipe,
+    TruncatePipe,
     SpinnerComponent,
     PaginationComponent,
   ],
