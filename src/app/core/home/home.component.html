@@ -151,6 +151,7 @@
     </ul>
   </div>
 
+  <!--! latest blocks -->
   <ng-container>
     <div class="bg-gray-700 rounded-lg p-4 lg:mt-4 hidden lg:block">
       <div class="relative w-[780px]">
@@ -194,6 +195,56 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               {{ trimTrailingZeros((block.weight / 1000).toFixed(3)) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <!--! latest transactions -->
+  <ng-container>
+    <div class="bg-gray-700 rounded-lg p-4 lg:mt-4 hidden lg:block">
+      <div class="relative w-[780px]">
+        <h2
+          class="text-white text-lg font-semibold mb-4 text-left my-3 ml-6 flex-grow"
+        >
+          Latest Transactions
+        </h2>
+        <ng-container *ngIf="latestBlocks && latestTransactions.length == 0">
+          <app-spinner class="absolute -top-[18px] right-[525px]"></app-spinner>
+        </ng-container>
+      </div>
+
+      <table
+        class="divide-y divide-gray-200"
+        *ngIf="latestTransactions.length > 0"
+      >
+        <thead
+          class="text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+        >
+          <tr>
+            <th class="px-6 py-3">Transaction ID</th>
+            <th class="px-6 py-3">Value (BTC)</th>
+            <th class="px-6 py-3">Size (B)</th>
+            <th class="px-6 py-3">Time</th>
+          </tr>
+        </thead>
+        <tbody class="text-white divide-y divide-gray-600">
+          <tr *ngFor="let tx of latestTransactions" class="text-center">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <a
+                routerLink="/insights/transaction/{{ tx.txId }}"
+                class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
+                >{{ tx.txId | truncate }}</a
+              >
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              {{ calculateTotalValue(tx).toFixed(8) }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ tx.size }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              {{ +tx.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
             </td>
           </tr>
         </tbody>
