@@ -146,6 +146,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     return value.replace(/\.?0+$/, '');
   }
 
+  calculateTotalValue(tx: any): number {
+    let totalValue = 0;
+    for (const output of tx.vout) {
+      if (output.value > 0) {
+        totalValue += output.value;
+      }
+    }
+    return totalValue;
+  }
+
   ngOnDestroy(): void {
     this.refreshSubscription?.unsubscribe();
   }
