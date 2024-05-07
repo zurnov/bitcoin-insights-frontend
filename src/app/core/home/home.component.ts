@@ -40,9 +40,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.blockchainInfo = data;
 
         const latestBlockHeight = data.blocks;
+        const prevToLastBlockHeight = latestBlockHeight - 1; //! starting from prev to last as api cannot fetch newest block info
+
+        //*latest blocks
         const blockHeights = Array.from(
           { length: 10 },
-          (_, index) => latestBlockHeight - 1 - index //! starting from prev to last
+          (_, index) => prevToLastBlockHeight - index
         );
         const blockInfoRequests: Observable<IBlockInfo>[] = blockHeights.map(
           (height) => {
@@ -50,12 +53,15 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         );
 
-        combineLatest(blockInfoRequests).subscribe(
-          (blockInfos: IBlockInfo[]) => {
+        combineLatest(blockInfoRequests).subscribe({
+          next: (blockInfos: IBlockInfo[]) => {
             this.latestBlocks = blockInfos; //! updated with refresh sub
             // console.log('Latest blocks:', this.latestBlocks);
-          }
-        );
+          },
+          error: (err: Error) => {
+            console.error('Error fetching latest blocks details:', err);
+          },
+        });
 
         // console.log(
         //   `Blockchain info fetched for the ${fetchCounter} time:`,
