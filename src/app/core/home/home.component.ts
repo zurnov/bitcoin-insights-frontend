@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClipboardService } from 'ngx-clipboard';
 import { Observable, Subscription, combineLatest, interval } from 'rxjs';
 import { InsightsService } from 'src/app/insights/insights.service';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
@@ -13,6 +14,7 @@ import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   tenMinsInMilliseconds = 10 * 60 * 1000;
+  animatedIndex: string | null = null;
   private refreshSubscription!: Subscription;
 
   blockchainInfo: IBlockchainInfo | undefined;
@@ -21,7 +23,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private insightsService: InsightsService,
-    private router: Router
+    private router: Router,
+    public cbService: ClipboardService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +37,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.fetchBlockchainInfo(fetchCounter);
       }
     );
+  }
+
+  copyAndAnimate(txId: string) {
+    this.cbService.copyFromContent(txId);
+
+    this.animatedIndex = txId;
+
+    setTimeout(() => {
+      this.animatedIndex = null;
+    }, 500);
   }
 
   fetchBlockchainInfo(fetchCounter: number) {

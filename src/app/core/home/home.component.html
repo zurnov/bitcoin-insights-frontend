@@ -179,21 +179,21 @@
         </thead>
         <tbody class="text-white divide-y divide-gray-600">
           <tr *ngFor="let block of latestBlocks" class="text-center">
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4">
               <a
                 routerLink="/insights/block/{{ block.blockHeight }}"
                 class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
                 >{{ block.blockHeight }}</a
               >
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4">
               {{ +block.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ block.ntx }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4">{{ block.ntx }}</td>
+            <td class="px-6 py-4">
               {{ trimTrailingZeros((block.size / 1000).toFixed(3)) }}
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4">
               {{ trimTrailingZeros((block.weight / 1000).toFixed(3)) }}
             </td>
           </tr>
@@ -232,18 +232,26 @@
         </thead>
         <tbody class="text-white divide-y divide-gray-600">
           <tr *ngFor="let tx of latestTransactions" class="text-center">
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4 flex items-center justify-between">
               <a
                 routerLink="/insights/transaction/{{ tx.txId }}"
                 class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
                 >{{ tx.txId | truncate }}</a
               >
+              <button (click)="copyAndAnimate(tx.txId)">
+                <img
+                  src="/assets/copy.svg"
+                  class="w-5 h-5 ml-2"
+                  [ngClass]="{ 'animate-bounce': animatedIndex === tx.txId }"
+                  alt=""
+                />
+              </button>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4">
               {{ calculateTotalValue(tx).toFixed(8) }}
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ tx.size }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-6 py-4">{{ tx.size }}</td>
+            <td class="px-6 py-4">
               {{ +tx.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
             </td>
           </tr>

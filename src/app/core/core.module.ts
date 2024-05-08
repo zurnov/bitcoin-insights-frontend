@@ -9,6 +9,7 @@ import { InsightsService } from '../insights/insights.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FooterComponent } from './footer/footer.component';
     HttpClientModule,
     SharedModule,
     FormsModule,
+    ClipboardModule
   ],
   providers: [InsightsService],
   exports: [HeaderComponent, FooterComponent],
