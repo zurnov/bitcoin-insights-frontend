@@ -238,13 +238,37 @@
                 class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
                 >{{ tx.txId | truncate }}</a
               >
-              <button (click)="copyAndAnimate(tx.txId)">
+              <!-- <button
+                (click)="copyAndAnimate(tx.txId)"
+                title="copy transaction ID"
+              >
                 <img
                   src="/assets/copy.svg"
                   class="w-5 h-5 ml-2"
                   [ngClass]="{ 'animate-bounce': animatedIndex === tx.txId }"
                   alt=""
                 />
+              </button> -->
+              <button
+                ngxClipboard
+                [cbContent]="tx.txId"
+                (cbOnSuccess)="showTooltip(tx.txId)"
+                (mouseenter)="showCopy(tx.txId)"
+                (mouseleave)="hideTooltip()"
+                class="relative"
+              >
+                <img
+                  src="/assets/copy.svg"
+                  class="w-5 h-5 ml-2"
+                  [ngClass]="{ 'animate-bounce': animatedIndex === tx.txId }"
+                  alt=""
+                />
+                <span
+                  *ngIf="showTooltipId === tx.txId"
+                  class="absolute top-0 left-0 mt-6 ml-2 px-2 py-1 bg-gray-800 text-white rounded whitespace-nowrap opacity-100 transition-opacity duration-200"
+                >
+                  {{ showCopied ? "copied!" : "copy" }}
+                </span>
               </button>
             </td>
             <td class="px-6 py-4">

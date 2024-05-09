@@ -9,8 +9,8 @@ export class TruncatePipe implements PipeTransform {
       return value;
     }
 
-    const firstPart = value.substring(0, 12);
-    const lastPart = value.substring(value.length - 12);
+    const firstPart = value.substring(0, 11);
+    const lastPart = value.substring(value.length - 11);
     return `${firstPart}...${lastPart}`;
   }
 }

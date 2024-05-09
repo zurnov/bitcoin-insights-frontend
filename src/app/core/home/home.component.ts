@@ -15,6 +15,9 @@ import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 export class HomeComponent implements OnInit, OnDestroy {
   tenMinsInMilliseconds = 10 * 60 * 1000;
   animatedIndex: string | null = null;
+  showTooltipId: string | null = null;
+  showCopied = false;
+
   private refreshSubscription!: Subscription;
 
   blockchainInfo: IBlockchainInfo | undefined;
@@ -37,6 +40,22 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.fetchBlockchainInfo(fetchCounter);
       }
     );
+  }
+
+  showCopy(txId: string) {
+    this.showTooltipId = txId;
+    this.showCopied = false;
+  }
+
+  showTooltip(txId: string) {
+    this.showTooltipId = txId;
+    this.showCopied = true;
+    this.copyAndAnimate(txId);
+  }
+
+  hideTooltip() {
+    this.showTooltipId = null;
+    this.showCopied = false;
   }
 
   copyAndAnimate(txId: string) {
