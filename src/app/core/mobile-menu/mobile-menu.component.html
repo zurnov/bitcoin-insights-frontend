@@ -11,10 +11,16 @@
       class="fixed inset-y-0 right-0 md:top-3 md:right-[0.2rem] z-50 w-full md:w-64 h-fit overflow-hidden bg-gray-700 px-6 py-3 md:rounded-2xl border-b md:border md:border-white"
     >
       <div class="flex items-center justify-between">
-        <a routerLink="/" class="mb-14" (click)="closeMobileMenu()">
+        <a
+          routerLink="/"
+          class="mb-14"
+          (click)="closeMobileMenu()"
+          *ngIf="showLogo"
+        >
+          <!--! to be hidden for smaller than md and shown for large -->
           <img
-            class="absolute left-5 top-3.5 h-10 w-auto"
-            src="/assets/btc-logo.png"
+            class="absolute left-2.5 -top-1 h-20 w-auto"
+            src="/assets/main-logo.png"
             alt="mobile-logo"
           />
         </a>
@@ -41,7 +47,10 @@
           </svg>
         </button>
       </div>
-      <div class="mt-8 flow-root">
+      <div
+        class="flow-root"
+        [ngClass]="{ 'mt-8': showLogo, 'mt-20': !showLogo }"
+      >
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 pb-6">
             <a

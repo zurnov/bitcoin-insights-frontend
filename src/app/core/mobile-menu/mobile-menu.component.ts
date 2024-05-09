@@ -7,8 +7,26 @@ import { NAV_LINKS } from 'src/app/shared/helpers/navLinks';
   styleUrls: ['./mobile-menu.component.css'],
 })
 export class MobileMenuComponent {
+  showLogo = true;
   navLinks = NAV_LINKS;
   @Output() isMobileMenuOpenChange = new EventEmitter<boolean>();
+
+  constructor() {
+    this.checkScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    if (window.innerWidth < 768) {
+      this.showLogo = false;
+    } else {
+      this.showLogo = true;
+    }
+  }
 
   @HostListener('document:keyup', ['$event'])
   handleKeyUp(event: KeyboardEvent) {
