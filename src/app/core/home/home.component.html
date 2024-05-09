@@ -238,17 +238,6 @@
                 class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
                 >{{ tx.txId | truncate }}</a
               >
-              <!-- <button
-                (click)="copyAndAnimate(tx.txId)"
-                title="copy transaction ID"
-              >
-                <img
-                  src="/assets/copy.svg"
-                  class="w-5 h-5 ml-2"
-                  [ngClass]="{ 'animate-bounce': animatedIndex === tx.txId }"
-                  alt=""
-                />
-              </button> -->
               <button
                 ngxClipboard
                 [cbContent]="tx.txId"

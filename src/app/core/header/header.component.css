@@ -12,3 +12,7 @@
     transform: scale(1);
   }
 }
+
+.custom-z-ind {
+  z-index: 99;
+}
