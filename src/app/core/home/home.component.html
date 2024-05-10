@@ -6,7 +6,7 @@
         type="search"
         name="search"
         placeholder="search for address, transaction, or block..."
-        class="bg-gray-700 text-xs text-white h-10 md:h-12 px-4 pr-10 rounded-lg rounded-b-md focus:outline-none w-[300px] sm:w-[500px] border-b-2 focus:border-orange-400 transition-all duration-300 ease-in-out mb-3"
+        class="bg-gray-700 text-xs text-white h-10 md:h-12 px-4 pr-10 rounded-lg rounded-b-md focus:outline-none w-[300px] sm:w-[500px] border-b-2 focus:border-orange-400 transition-all duration-300 ease-in-out mb-3 lg:mb-0"
         autocomplete="off"
       />
 
@@ -119,7 +119,9 @@
             else spinner
           "
         >
-          <p>{{ blockchainInfo.networkHashPerSecond | hashRateConversion }} EH/s</p>
+          <p>
+            {{ blockchainInfo.networkHashPerSecond | hashRateConversion }} EH/s
+          </p>
         </ng-container>
 
         <ng-template #spinner>
@@ -238,6 +240,8 @@
                 class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
                 >{{ tx.txId | truncate }}</a
               >
+
+              <!-- ! to be reviewed and refactored -->
               <button
                 ngxClipboard
                 [cbContent]="tx.txId"

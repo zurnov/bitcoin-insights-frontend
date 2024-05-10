@@ -170,7 +170,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   isWalletAddress(query: string): boolean {
-    const regex = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+    const regex =
+      /\b((bc|tb)(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|([13]|[mn2])[a-km-zA-HJ-NP-Z1-9]{25,39})\b/;
     return regex.test(query);
   }
 
