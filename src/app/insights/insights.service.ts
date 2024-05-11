@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IBlockchainInfo } from '../shared/interfaces/blockchainInfo';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { IAddressBalance } from '../shared/interfaces/addressBalance';
 import { IAddressHistory } from '../shared/interfaces/addressHistory';
 import { IBlockInfo } from '../shared/interfaces/blockInfo';
@@ -13,6 +13,8 @@ import { ITransactionInfo } from '../shared/interfaces/transactionInfo';
 export class InsightsService {
   // private baseUrl: string = 'http://46.55.172.171:8000/api/v1/btc-insights';
   private baseUrl: string = 'https://api.zurnov.com/api/v1/btc-insights';
+  private apiKey = 'EReo809/ulDgDLKm2A1VyQ==36ZVAXwepWGipXi1';
+
   constructor(private http: HttpClient) {}
 
   getBlockchainInfo(): Observable<IBlockchainInfo> {
@@ -74,5 +76,22 @@ export class InsightsService {
     return this.http.get<ITransactionInfo>(
       `${this.baseUrl}/gettransactioninfo/${txHash}`
     );
+  }
+
+  async getBtcCurrentPrice(): Promise<number> {
+    try {
+      const symbol = 'BTCUSDT';
+      const headers = new HttpHeaders().set('X-Api-Key', this.apiKey);
+      const response: any = await firstValueFrom(
+        this.http.get(
+          `https://api.api-ninjas.com/v1/cryptoprice?symbol=${symbol}`,
+          { headers }
+        )
+      );
+      return response;
+    } catch (err) {
+      console.error('error fetching current BTC price:', err);
+      throw err;
+    }
   }
 }
