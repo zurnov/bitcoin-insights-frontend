@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   animatedIndex: string | null = null;
   showTooltipId: string | null = null;
   showCopied = false;
+  btcPrice: number | undefined;
+  btcPriceTime: Date | undefined;
 
   private refreshSubscription!: Subscription;
 
@@ -40,6 +42,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.fetchBlockchainInfo(fetchCounter);
       }
     );
+
+    this.getBtcPrices();
+    // todo get historical
+  }
+
+  async getBtcPrices(): Promise<void> {
+    try {
+      const response: any = await this.insightsService.getBtcCurrentPrice();
+      this.btcPrice = response.price;
+      this.btcPriceTime = response.timestamp;
+
+      // todo get historical
+    } catch (err) {
+      console.log('error getting btc prices from service:', err);
+    }
   }
 
   showCopy(txId: string) {
