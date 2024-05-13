@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private insightsService: InsightsService,
     private router: Router,
-    public cbService: ClipboardService
+    private cbService: ClipboardService
   ) {}
 
   ngOnInit(): void {

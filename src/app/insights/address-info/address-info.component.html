@@ -1,14 +1,27 @@
-<div class="flex flex-col items-center space-y-4 justify-center text-xl md:mx-20">
-  <div class="flex flex-col items-center">
-    <h2 class="text-2xl font-bold mb-2 text-white">Address Balance</h2>
+<div
+  class="flex flex-col items-center space-y-4 justify-center text-xl md:mx-20"
+>
+  <div class="">
+    <div
+      class="flex justify-center items-center text-2xl md:text-4xl space-x-2"
+    >
+      <h2 class="font-bold text-white">Bitcoin</h2>
+      <img
+        src="/assets/outline-btc.png"
+        alt=""
+        class="w-12 h-12 md:w-14 md:h-14"
+      />
+      <p class="font-medium text-orange-500">address</p>
+    </div>
+
     <div class="flex flex-col sm:flex-row justify-center">
-      <ul class="flex flex-col sm:flex-row gap-4 px-6 mt-4 text-white">
+      <ul class="flex flex-col sm:flex-row gap-2 px-6 mt-4 text-white">
         <li
-          class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md"
+          class="border border-gray-700 rounded-3xl p-6 text-center shadow-inner shadow-white"
         >
           <div class="flex items-center justify-center mb-2">
             <i class="fas fa-check-circle mr-2 text-2xl text-green-500"></i>
-            <p class="text-gray-400">Confirmed Bitcoin</p>
+            <p class="text-gray-400">Confirmed BTC</p>
           </div>
 
           <ng-container
@@ -17,7 +30,13 @@
               else spinner
             "
           >
-            <p>{{ addressBalance.confirmedBitcoin }}</p>
+            <p class="tracking-wider">
+              {{
+                trimTrailingZeros(
+                  addressBalance.confirmedBitcoin | number : "1.20"
+                )
+              }}
+            </p>
           </ng-container>
 
           <ng-template #spinner>
@@ -25,13 +44,13 @@
           </ng-template>
         </li>
         <li
-          class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md"
+          class="border border-gray-700 rounded-3xl p-6 text-center shadow-inner shadow-white"
         >
           <div class="flex items-center justify-center mb-2">
             <i
               class="fas fa-exclamation-circle mr-2 text-2xl text-yellow-500"
             ></i>
-            <p class="text-gray-400">Unconfirmed Bitcoin</p>
+            <p class="text-gray-400">Unconfirmed BTC</p>
           </div>
 
           <ng-container
@@ -53,31 +72,56 @@
 
   <ng-container *ngIf="addressHistory; else loadingHistorySkeleton">
     <div class="flex flex-col items-center">
-      <h2 class="text-2xl font-bold mb-2 mt-4 text-white">Address History</h2>
       <div class="flex flex-col justify-center">
         <ul
           class="flex flex-col gap-4 px-6 mt-4 text-white"
           *ngFor="let transaction of addressHistory.transactions"
         >
-          <li 
-            class="border-4 border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-md"
+          <li
+            class="border border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-sm"
           >
-            <a
-              (click)="onTxHashClick($event)"
-              class="hover:text-orange-400 hover:underline cursor-pointer"
-            >
-              <div class="flex items-center justify-center mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-link mr-0.5 text-xl text-blue-500"></i>
-                  Transaction Hash
-                </p>
-              </div>
-              <p class="break-all">{{ transaction.txHash }}</p>
-            </a>
+            <div class="flex items-center justify-center">
+              <a
+                routerLink="/insights/transaction/{{ transaction.txHash }}"
+                class="hover:text-orange-400 cursor-pointer relative"
+              >
+                <div class="flex items-center justify-center mb-2">
+                  <p class="text-gray-400">
+                    <i class="fas fa-link mr-0.5 text-xl text-blue-500"></i>
+                    Transaction Hash
+                  </p>
+                </div>
+                <p class="break-all">{{ transaction.txHash | truncate }}</p>
+              </a>
+
+              <button
+                ngxClipboard
+                [cbContent]="transaction.txHash"
+                (cbOnSuccess)="showTooltip(transaction.txHash)"
+                (mouseenter)="showCopy(transaction.txHash)"
+                (mouseleave)="hideTooltip()"
+                class="relative top-[18px]"
+              >
+                <img
+                  src="/assets/copy.svg"
+                  class="w-5 h-5 ml-2"
+                  [ngClass]="{
+                    'animate-bounce': animatedIndex === transaction.txHash
+                  }"
+                  alt=""
+                />
+                <span
+                  *ngIf="showTooltipId === transaction.txHash"
+                  class="absolute top-0 left-0 mt-6 ml-2 px-2 py-1 bg-gray-800 text-white rounded whitespace-nowrap opacity-100 transition-opacity duration-200"
+                >
+                  {{ showCopied ? "copied!" : "copy" }}
+                </span>
+              </button>
+            </div>
 
             <a
-              (click)="onBlockHeightClick($event)"
-              class="hover:text-orange-400 hover:underline cursor-pointer"
+              routerLink="/insights/block/{{ transaction.blockHeight }}"
+              class="hover:text-orange-400 cursor-pointer"
             >
               <div class="flex items-center justify-center mt-3 mb-2">
                 <p class="text-gray-400">
@@ -100,7 +144,6 @@
 
   <ng-template #loadingHistorySkeleton>
     <div class="flex flex-col items-center">
-      <h2 class="text-2xl font-bold mb-2 mt-4 text-white">Address History</h2>
       <div class="flex flex-col justify-center">
         <ul
           class="flex flex-col gap-4 px-6 mt-4 text-white custom-skeleton"

@@ -8,6 +8,7 @@ import { InsightsService } from './insights.service';
 import { SharedModule } from '../shared/shared.module';
 import { BlockInfoComponent } from './block-info/block-info.component';
 import { TransactionInfoComponent } from './transaction-info/transaction-info.component';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TransactionInfoComponent } from './transaction-info/transaction-info.co
     InsightsRoutingModule,
     HttpClientModule,
     SharedModule,
+    ClipboardModule,
   ],
   providers: [InsightsService],
 })

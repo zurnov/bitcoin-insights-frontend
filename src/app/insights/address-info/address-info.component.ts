@@ -4,6 +4,7 @@ import { IAddressHistory } from 'src/app/shared/interfaces/addressHistory';
 import { IAddressBalance } from 'src/app/shared/interfaces/addressBalance';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject, filter, takeUntil } from 'rxjs';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-address-info',
@@ -16,13 +17,17 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   walletAddress: string | null = null;
   currentPage: number = 1;
   totalPages!: number;
+  animatedIndex: string | null = null;
+  showTooltipId: string | null = null;
+  showCopied = false;
 
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private insightsService: InsightsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cbService: ClipboardService
   ) {}
 
   ngOnInit(): void {
@@ -88,27 +93,37 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  onBlockHeightClick(event: MouseEvent) {
-    const target = event.currentTarget as HTMLElement;
-    const blockHeight = target.textContent;
-
-    if (blockHeight) {
-      const matchedHeight = (blockHeight.match(/\d+/) ?? [])[0];
-      this.router.navigate(['/insights/block', matchedHeight]);
+  trimTrailingZeros(value: string | null): string {
+    if (value === null) {
+      return '';
     }
+    return value.replace(/\.?0+$/, '');
   }
 
-  onTxHashClick(event: MouseEvent) {
-    const target = event.currentTarget as HTMLElement;
-    const txHashContent = target.textContent;
+  showCopy(txId: string) {
+    this.showTooltipId = txId;
+    this.showCopied = false;
+  }
 
-    if (txHashContent) {
-      const parts = txHashContent.split('Transaction Hash');
-      if (parts.length > 1) {
-        const txHash = parts[1].trim();
-        this.router.navigate(['/insights/transaction', txHash]);
-      }
-    }
+  showTooltip(txId: string) {
+    this.showTooltipId = txId;
+    this.showCopied = true;
+    this.copyAndAnimate(txId);
+  }
+
+  hideTooltip() {
+    this.showTooltipId = null;
+    this.showCopied = false;
+  }
+
+  copyAndAnimate(txId: string) {
+    this.cbService.copyFromContent(txId);
+
+    this.animatedIndex = txId;
+
+    setTimeout(() => {
+      this.animatedIndex = null;
+    }, 500);
   }
 
   ngOnDestroy() {
