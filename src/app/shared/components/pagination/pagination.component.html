@@ -3,7 +3,7 @@
     <li>
       <button
         (click)="handlePageChange('prev')"
-        class="rounded-md px-3 py-1.5 hover:bg-orange-400 hover:text-black transition-all"
+        class="rounded-md px-3 py-1.5 lg:hover:bg-orange-400 lg:hover:text-black transition-all"
         [ngClass]="{
           'pointer-events-none opacity-50': currentPage === 1
         }"
@@ -35,7 +35,7 @@
     <li>
       <button
         (click)="handlePageChange('next')"
-        class="rounded-md px-3 py-1.5 hover:bg-orange-400 hover:text-black transition-all"
+        class="rounded-md px-3 py-1.5 lg:hover:bg-orange-400 lg:hover:text-black transition-all"
         [ngClass]="{
           'pointer-events-none opacity-50': currentPage === totalPages
         }"
