@@ -140,6 +140,13 @@
         [totalPages]="totalPages"
         (pageChange)="onPageChange($event)"
       ></app-pagination>
+
+      <div
+        *ngIf="isLoading"
+        class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-950 z-50"
+      >
+        <app-spinner></app-spinner>
+      </div>
     </div>
   </ng-container>
 
