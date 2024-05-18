@@ -30,7 +30,7 @@ export class InsightsService {
   getAddressHistory(
     address: string,
     pageNumber: number = 1,
-    pageSize: number = 10
+    pageSize: number = 12
   ): Observable<IAddressHistory> {
     let params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
