@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { Observable, Subscription, combineLatest, interval } from 'rxjs';
@@ -29,8 +35,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private insightsService: InsightsService,
     private router: Router,
-    private cbService: ClipboardService
+    private cbService: ClipboardService,
+    private el: ElementRef
   ) {}
+
+  @HostListener('document:click', ['$event.target'])
+  onClick(targetElement: any) {
+    const clickedInside = this.el.nativeElement.contains(targetElement);
+    if (!clickedInside) {
+      this.blurInput();
+    }
+  }
 
   ngOnInit(): void {
     let fetchCounter = 1;
@@ -45,6 +60,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.getBtcPrices();
     // todo get historical
+  }
+
+  blurInput() {
+    const inputElement = this.el.nativeElement.querySelector('.main-search');
+    if (inputElement) {
+      inputElement.blur();
+    }
   }
 
   async getBtcPrices(): Promise<void> {
