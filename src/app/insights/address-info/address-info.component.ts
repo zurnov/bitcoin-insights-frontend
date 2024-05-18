@@ -20,6 +20,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   animatedIndex: string | null = null;
   showTooltipId: string | null = null;
   showCopied = false;
+  isLoading = false;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -38,6 +39,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
 
     this.route.queryParams.subscribe((params) => {
       this.currentPage = +params['page'] || 1;
+      this.isLoading = true;
 
       this.insightsService
         .getAddressHistory(this.walletAddress as string, this.currentPage)
@@ -45,6 +47,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
           next: (data: IAddressHistory) => {
             this.addressHistory = data;
             this.totalPages = data.totalPages;
+            this.isLoading = false;
 
             // console.log('Address history fetched:', this.addressHistory);
           },
@@ -52,6 +55,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
             console.error('Error fetching address history:', err);
             this.currentPage = 1;
             this.updateRoute();
+            this.isLoading = false;
           },
         });
     });
