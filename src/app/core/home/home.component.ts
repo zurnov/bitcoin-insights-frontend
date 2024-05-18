@@ -90,6 +90,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.showTooltipId = txId;
     this.showCopied = true;
     this.copyAndAnimate(txId);
+
+    setTimeout(() => {
+      this.showTooltipId = null;
+      this.showCopied = false;
+    }, 2000);
   }
 
   hideTooltip() {

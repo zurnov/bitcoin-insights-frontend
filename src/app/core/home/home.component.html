@@ -274,18 +274,20 @@
                   {{ block.blockHeight }}
                 </a>
               </h3>
-              <p>{{ +block.time * 1000 | date : "dd/MM/yy, HH:mm:ss" }}</p>
+              <p class="font-medium">
+                {{ +block.time * 1000 | date : "dd/MM/yy, HH:mm:ss" }}
+              </p>
             </div>
             <div class="w-1/2 flex justify-center items-center">
               <div class="text-center text-white">
                 <div class="flex">
-                  <p class="font-semibold text-white space-x-1">
+                  <p class="font-medium text-white space-x-1">
                     <span class="text-white">{{ block.ntx }}</span>
                     <span class="text-gray-400 text-xs">TXs</span>
                   </p>
                 </div>
                 <div class="flex">
-                  <p class="font-semibold text-white space-x-1">
+                  <p class="font-medium text-white space-x-1">
                     <span class="text-white">{{
                       trimTrailingZeros((block.size / 1000).toFixed(3))
                     }}</span>
@@ -293,7 +295,7 @@
                   </p>
                 </div>
                 <div class="flex">
-                  <p class="font-semibold text-white space-x-1">
+                  <p class="font-medium text-white space-x-1">
                     <span class="text-white">{{
                       trimTrailingZeros((block.weight / 1000).toFixed(3))
                     }}</span>
@@ -314,7 +316,7 @@
       <div class="w-[780px]">
         <div
           class="flex justify-start items-center text-left text-xl md:text-2xl space-x-2 mb-4 pt-2 ml-6"
-          [ngClass]="{ 'animate-pulse': latestBlocks.length === 0 }"
+          [ngClass]="{ 'animate-pulse': latestTransactions.length === 0 }"
         >
           <h2 class="font-semibold text-white">Latest</h2>
           <i class="fas fa-exchange-alt text-orange-500"></i>
@@ -380,6 +382,79 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </ng-container>
+
+  <ng-container>
+    <div
+      class="bg-transparent rounded-lg p-4 lg:hidden w-[330px] sm:w-[500px] md:w-full my-6"
+    >
+      <div
+        class="flex justify-center items-center text-xl md:text-2xl space-x-2 mb-4"
+        [ngClass]="{ 'animate-bounce': latestTransactions.length === 0 }"
+      >
+        <h2 class="font-semibold text-white">Latest</h2>
+        <i class="fas fa-exchange-alt text-orange-500"></i>
+        <p class="font-medium text-orange-500">transactions</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:mx-10">
+        <ng-container *ngFor="let tx of latestTransactions">
+          <div class="bg-gray-800 rounded-lg p-4 flex">
+            <div class="text-white w-full">
+              <div class="text-center mb-2">
+                <h3 class="text-lg font-medium">
+                  <a
+                    routerLink="/insights/transaction/{{ tx.txId }}"
+                    class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
+                  >
+                    {{ tx.txId | truncate }}
+                  </a>
+                </h3>
+              </div>
+              <div class="flex justify-between items-start px-6">
+                <div class="text-left">
+                  <p class="font-medium">
+                    {{ calculateTotalValue(tx).toFixed(8) }}
+                    <span class="text-gray-400 text-xs">BTC</span>
+                  </p>
+                  <p class="font-medium">
+                    {{ +tx.time * 1000 | date : "dd/MM/yy, HH:mm:ss" }}
+                  </p>
+                </div>
+                <div class="flex flex-col items-center">
+                  <button
+                    ngxClipboard
+                    [cbContent]="tx.txId"
+                    (cbOnSuccess)="showTooltip(tx.txId)"
+                    (mouseenter)="showCopy(tx.txId)"
+                    (mouseleave)="hideTooltip()"
+                    class="relative mb-2"
+                  >
+                    <img
+                      src="/assets/copy.svg"
+                      class="w-5 h-5"
+                      [ngClass]="{
+                        'animate-bounce': animatedIndex === tx.txId
+                      }"
+                      alt="copy"
+                    />
+                    <span
+                      *ngIf="showTooltipId === tx.txId"
+                      class="absolute top-0 left-0 mt-6 ml-2 px-2 py-1 bg-gray-800 text-white rounded whitespace-nowrap opacity-100 transition-opacity duration-200"
+                    >
+                      {{ showCopied ? "copied!" : "copy" }}
+                    </span>
+                  </button>
+                  <p class="font-medium text-white">
+                    {{ tx.size }} <span class="text-gray-400 text-xs">B</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
   </ng-container>
 </div>
