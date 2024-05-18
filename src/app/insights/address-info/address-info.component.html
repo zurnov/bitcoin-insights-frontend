@@ -5,7 +5,7 @@
     <div
       class="flex justify-center items-center text-2xl md:text-4xl space-x-2"
     >
-      <h2 class="font-bold text-white">Bitcoin</h2>
+      <h2 class="font-bold text-white ml-2">Bitcoin</h2>
       <img
         src="/assets/outline-btc.png"
         alt=""
@@ -15,11 +15,11 @@
     </div>
 
     <div class="flex flex-col sm:flex-row justify-center">
-      <ul class="flex flex-col sm:flex-row gap-2 px-6 mt-4 text-white">
+      <ul class="flex flex-col sm:flex-row gap-3 mt-4 text-white">
         <li
           class="border border-gray-700 rounded-3xl p-6 text-center shadow-inner shadow-white"
         >
-          <div class="flex items-center justify-center mb-2">
+          <div class="flex items-center justify-center mb-2 w-60">
             <i class="fas fa-check-circle mr-2 text-2xl text-green-500"></i>
             <p class="text-gray-400">Confirmed BTC</p>
           </div>
@@ -46,7 +46,7 @@
         <li
           class="border border-gray-700 rounded-3xl p-6 text-center shadow-inner shadow-white"
         >
-          <div class="flex items-center justify-center mb-2">
+          <div class="flex items-center justify-center mb-2 w-60">
             <i
               class="fas fa-exclamation-circle mr-2 text-2xl text-yellow-500"
             ></i>
@@ -72,39 +72,41 @@
 
   <ng-container *ngIf="addressHistory; else loadingHistorySkeleton">
     <div class="flex flex-col items-center">
-      <div class="flex flex-col justify-center">
-        <ul
-          class="flex flex-col gap-4 px-6 mt-4 text-white"
-          *ngFor="let transaction of addressHistory.transactions"
+      <div class="flex flex-col items-center">
+        <div
+          [ngClass]="
+            addressHistory.transactions.length >= 4
+              ? 'grid gap-4 px-6 mt-4 text-white sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+              : 'gap-4 px-6 mt-4 text-white flex  justify-center'
+          "
         >
-          <li
+          <div
+            *ngFor="let transaction of addressHistory.transactions"
             class="border border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-sm"
           >
+            <div class="flex flex-col items-center justify-center mb-2">
+              <p class="text-gray-400 flex items-center justify-center">
+                <i class="fas fa-link mr-1 text-xl text-blue-500"></i> Hash
+              </p>
+            </div>
             <div class="flex items-center justify-center">
               <a
                 routerLink="/insights/transaction/{{ transaction.txHash }}"
                 class="hover:text-orange-400 cursor-pointer relative"
               >
-                <div class="flex items-center justify-center mb-2">
-                  <p class="text-gray-400">
-                    <i class="fas fa-link mr-0.5 text-xl text-blue-500"></i>
-                    Transaction Hash
-                  </p>
-                </div>
                 <p class="break-all">{{ transaction.txHash | truncate }}</p>
               </a>
-
               <button
                 ngxClipboard
                 [cbContent]="transaction.txHash"
                 (cbOnSuccess)="showTooltip(transaction.txHash)"
                 (mouseenter)="showCopy(transaction.txHash)"
                 (mouseleave)="hideTooltip()"
-                class="relative top-[18px]"
+                class="relative top-0 ml-2"
               >
                 <img
                   src="/assets/copy.svg"
-                  class="w-5 h-5 ml-2"
+                  class="w-5 h-5"
                   [ngClass]="{
                     'animate-bounce': animatedIndex === transaction.txHash
                   }"
@@ -123,22 +125,21 @@
               routerLink="/insights/block/{{ transaction.blockHeight }}"
               class="hover:text-orange-400 cursor-pointer"
             >
-              <div class="flex items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-cube mr-2 text-xl"></i>Block Height
+              <div class="flex flex-col items-center justify-center mt-3 mb-2">
+                <p class="text-gray-400 flex items-center justify-center">
+                  <i class="fas fa-cube mr-2 text-xl"></i>Block
                 </p>
+                <p>{{ transaction.blockHeight }}</p>
               </div>
-              <p>{{ transaction.blockHeight }}</p>
             </a>
-          </li>
-        </ul>
-
-        <app-pagination
-          [currentPage]="currentPage"
-          [totalPages]="totalPages"
-          (pageChange)="onPageChange($event)"
-        ></app-pagination>
+          </div>
+        </div>
       </div>
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
     </div>
   </ng-container>
 
