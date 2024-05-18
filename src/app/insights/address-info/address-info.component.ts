@@ -74,7 +74,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        window.scrollTo(0, 320);
+        window.scrollTo(0, 180);
       });
   }
 
