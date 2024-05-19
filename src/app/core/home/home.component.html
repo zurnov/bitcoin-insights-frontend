@@ -372,7 +372,7 @@
               </div>
             </td>
             <td class="px-8 py-4 flex items-center justify-between">
-              {{ calculateTotalValue(tx).toFixed(8) }}
+              {{ calculateTotalValue(tx) | fixedLengthNumber:8 }}
               <img class="w-5 h-5 ml-2" src="/assets/white-btc.png" alt="" />
             </td>
             <td class="px-8 py-4">{{ tx.size }}</td>

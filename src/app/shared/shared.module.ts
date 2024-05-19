@@ -6,11 +6,13 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { FixedLengthNumberPipe } from './pipes/fixed-length-number.pipe';
 
 @NgModule({
   declarations: [
     HashRateConversionPipe,
     DifficultyConversionPipe,
+    FixedLengthNumberPipe,
     TruncatePipe,
     SpinnerComponent,
     PaginationComponent,
@@ -19,6 +21,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
   exports: [
     HashRateConversionPipe,
     DifficultyConversionPipe,
+    FixedLengthNumberPipe,
     TruncatePipe,
     SpinnerComponent,
     PaginationComponent,
