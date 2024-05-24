@@ -119,13 +119,6 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  onTxHashClick(event: MouseEvent) {
-    const target = event.currentTarget as HTMLElement;
-    const txHashContent = target.textContent?.trim();
-
-    this.router.navigate(['/insights/transaction', txHashContent]);
-  }
-
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

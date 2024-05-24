@@ -234,13 +234,15 @@
               <ng-container
                 *ngIf="blockInfo && blockInfo.transactions; else spinner"
               >
-                <div *ngFor="let transaction of blockInfo.transactions">
-                  <a
-                    (click)="onTxHashClick($event)"
-                    class="hover:text-orange-400 hover:underline cursor-pointer"
-                  >
-                    <p class="break-all border p-4">{{ transaction }}</p>
-                  </a>
+                <div class="divide-y divide-gray-600">
+                  <div *ngFor="let transaction of blockInfo.transactions">
+                    <a
+                      routerLink="/insights/transaction/{{ transaction }}"
+                      class="hover:text-orange-400 hover:underline cursor-pointer"
+                    >
+                      <p class="break-all px-8 py-4">{{ transaction }}</p>
+                    </a>
+                  </div>
                 </div>
               </ng-container>
 
