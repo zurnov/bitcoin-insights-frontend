@@ -21,6 +21,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   showTooltipId: string | null = null;
   showCopied = false;
   isLoading = false;
+  btcPrice!: number;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -36,6 +37,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     if (!this.walletAddress) {
       return;
     }
+
+    this.getBtcPrice()
 
     this.route.queryParams.subscribe((params) => {
       this.currentPage = +params['page'] || 1;
@@ -80,6 +83,15 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         window.scrollTo(0, 180);
       });
+  }
+
+  async getBtcPrice(): Promise<void> {
+    try {
+      const response: any = await this.insightsService.getBtcCurrentPrice();
+      this.btcPrice = response.price;
+    } catch (err) {
+      console.log('error getting btc price from service:', err);
+    }
   }
 
   onPageChange(page: number): void {
