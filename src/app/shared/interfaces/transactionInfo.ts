@@ -32,4 +32,8 @@ export interface ITransactionInfo {
   blockTime: Date;
   time: Date;
   vbytes: number;
+  direction?: {
+    receivedAmount: number;
+    sentAmount: number;
+  };
 }
