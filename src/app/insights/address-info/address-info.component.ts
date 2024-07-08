@@ -38,7 +38,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.getBtcPrice()
+    this.getBtcPrice();
 
     this.route.queryParams.subscribe((params) => {
       this.currentPage = +params['page'] || 1;
@@ -95,7 +95,11 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     this.addressHistory.transactions.forEach((tx) => {
       this.insightsService.getTransactionInfo(tx.txHash).subscribe({
         next: (txDetails) => {
-          tx.details = txDetails;
+          const direction = this.checkTransactionDirection(
+            txDetails,
+            this.walletAddress as string
+          );
+          tx.details = { ...txDetails, direction };
         },
         error: (err: Error) => {
           console.error(
@@ -105,6 +109,26 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         },
       });
     });
+  }
+
+  checkTransactionDirection(tx: any, walletAddress: string) {
+    let receivedAmount = 0;
+    let sentAmount = 0;
+
+    tx.vout.forEach((output: any) => {
+      if (output.scriptPubKey.address === walletAddress) {
+        receivedAmount += output.value;
+      }
+    });
+
+    tx.vout.forEach((output: any) => {
+      if (output.scriptPubKey.address !== walletAddress && receivedAmount == 0) {
+        //! only calc sent if nothing received
+        sentAmount += output.value;
+      }
+    });
+
+    return { receivedAmount, sentAmount };
   }
 
   async getBtcPrice(): Promise<void> {
