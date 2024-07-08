@@ -52,6 +52,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
             this.totalPages = data.totalPages;
             this.isLoading = false;
 
+            this.fetchTransactionDetails();
+
             // console.log('Address history fetched:', this.addressHistory);
           },
           error: (err: Error) => {
@@ -83,6 +85,26 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         window.scrollTo(0, 450);
       });
+  }
+
+  fetchTransactionDetails(): void {
+    if (!this.addressHistory?.transactions) {
+      return;
+    }
+
+    this.addressHistory.transactions.forEach((tx) => {
+      this.insightsService.getTransactionInfo(tx.txHash).subscribe({
+        next: (txDetails) => {
+          tx.details = txDetails;
+        },
+        error: (err: Error) => {
+          console.error(
+            `Error fetching details for transaction ${tx.txHash}:`,
+            err
+          );
+        },
+      });
+    });
   }
 
   async getBtcPrice(): Promise<void> {
