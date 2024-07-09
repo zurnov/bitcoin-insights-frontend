@@ -3,7 +3,7 @@ import { InsightsService } from '../insights.service';
 import { IAddressHistory } from 'src/app/shared/interfaces/addressHistory';
 import { IAddressBalance } from 'src/app/shared/interfaces/addressBalance';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subject, filter, takeUntil } from 'rxjs';
+import { Subject, filter, forkJoin, takeUntil } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
@@ -92,22 +92,28 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.addressHistory.transactions.forEach((tx) => {
-      this.insightsService.getTransactionInfo(tx.txHash).subscribe({
-        next: (txDetails) => {
+    const requests = this.addressHistory.transactions.map((tx) => {
+      return this.insightsService.getTransactionInfo(tx.txHash);
+    });
+
+    forkJoin(requests).subscribe({
+      next: (results: any[]) => {
+        results.forEach((txDetails, index) => {
           const direction = this.checkTransactionDirection(
             txDetails,
             this.walletAddress as string
           );
-          tx.details = { ...txDetails, direction };
-        },
-        error: (err: Error) => {
-          console.error(
-            `Error fetching details for transaction ${tx.txHash}:`,
-            err
-          );
-        },
-      });
+          if (this.addressHistory) {
+            this.addressHistory.transactions[index].details = {
+              ...txDetails,
+              direction,
+            };
+          }
+        });
+      },
+      error: (err: Error) => {
+        console.error('Error fetching transaction details:', err);
+      },
     });
   }
 
@@ -122,7 +128,10 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     });
 
     tx.vout.forEach((output: any) => {
-      if (output.scriptPubKey.address !== walletAddress && receivedAmount == 0) {
+      if (
+        output.scriptPubKey.address !== walletAddress &&
+        receivedAmount == 0
+      ) {
         //! only calc sent if nothing received
         sentAmount += output.value;
       }
