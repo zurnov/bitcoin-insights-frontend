@@ -155,11 +155,11 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  trimTrailingZeros(value: string | null): string {
+  trimTrailingZeros(value: string | number | null): string {
     if (value === null) {
       return '';
     }
-    return value.replace(/\.?0+$/, '');
+    return value.toString().replace(/\.?0+$/, '');
   }
 
   showCopy(txId: string) {

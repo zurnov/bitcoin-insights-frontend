@@ -15,110 +15,194 @@
     </div>
 
     <div
-  class="border border-gray-700 rounded-3xl p-6 text-left shadow-inner shadow-white mt-6 mx-4 md:mx-6 tracking-wider"
->
-  <div>
-    <h3 class="text-gray-400 uppercase text-sm mb-4">Hash</h3>
-    <p class="text-white break-all">{{ walletAddress }}</p>
-  </div>
-  <hr class="border-gray-600 my-4" />
-  <div>
-    <h3 class="text-gray-400 uppercase text-sm mb-4">Balance</h3>
-    <div class="text-white flex flex-col sm:flex-row items-center">
-      <ng-container
-        *ngIf="
-          btcPrice &&
-            addressBalance &&
-            addressBalance.confirmedBitcoin !== undefined;
-          else spinner
-        "
-      >
-        <span class="flex items-center">
-          <i class="fas fa-check-circle mr-2 text-xl sm:text-2xl text-green-500"></i>
-          {{
-            trimTrailingZeros(
-              addressBalance.confirmedBitcoin | number : '1.10'
-            )
-          }}
-          <span class="text-gray-400 ml-2"> BTC</span>
-        </span>
-        <span class="mx-2 sm:mx-4 text-gray-600">|</span>
-      </ng-container>
-      <ng-container
-        *ngIf="
-          btcPrice &&
-          addressBalance &&
-          addressBalance.confirmedBitcoin !== undefined
-        "
-      >
-        <span class="flex items-center">
-          {{
-            trimTrailingZeros(
-              (addressBalance.confirmedBitcoin * btcPrice) | number : '1.2-2'
-            )
-          }}
-          <span class="text-gray-400 ml-2"> USD</span>
-        </span>
-      </ng-container>
-    </div>
-    <ng-container
-      *ngIf="
-        addressBalance && addressBalance.unconfirmedBitcoin !== undefined
-      "
+      class="border border-gray-700 rounded-3xl p-6 text-left shadow-inner shadow-white mt-6 mx-4 md:mx-6 tracking-wider"
     >
+      <div>
+        <h3 class="text-gray-400 uppercase text-sm mb-4">Hash</h3>
+        <p class="text-white break-all">{{ walletAddress }}</p>
+      </div>
       <hr class="border-gray-600 my-4" />
       <div>
-        <h3 class="text-gray-400 uppercase text-sm mb-4">Unconfirmed</h3>
-        <span class="flex justify-start items-center text-white">
-          <i
-            class="fas fa-exclamation-circle mr-2 text-xl sm:text-2xl text-yellow-500"
-          ></i>
-          {{ addressBalance.unconfirmedBitcoin }}
-          <span class="text-gray-400 ml-2"> BTC</span>
-        </span>
+        <h3 class="text-gray-400 uppercase text-sm mb-4">Balance</h3>
+        <div class="text-white flex flex-col sm:flex-row items-center">
+          <ng-container
+            *ngIf="
+              btcPrice &&
+                addressBalance &&
+                addressBalance.confirmedBitcoin !== undefined;
+              else spinner
+            "
+          >
+            <span class="flex items-center">
+              <i
+                class="fas fa-check-circle mr-2 text-xl sm:text-2xl text-green-500"
+              ></i>
+              {{
+                trimTrailingZeros(
+                  addressBalance.confirmedBitcoin | number : "1.10"
+                )
+              }}
+              <span class="text-gray-400 ml-2"> BTC</span>
+            </span>
+            <span class="mx-2 sm:mx-4 text-gray-600">|</span>
+          </ng-container>
+          <ng-container
+            *ngIf="
+              btcPrice &&
+              addressBalance &&
+              addressBalance.confirmedBitcoin !== undefined
+            "
+          >
+            <span class="flex items-center">
+              {{
+                trimTrailingZeros(
+                  addressBalance.confirmedBitcoin * btcPrice | number : "1.2-2"
+                )
+              }}
+              <span class="text-gray-400 ml-2"> USD</span>
+            </span>
+          </ng-container>
+        </div>
+        <ng-container
+          *ngIf="
+            addressBalance && addressBalance.unconfirmedBitcoin !== undefined
+          "
+        >
+          <hr class="border-gray-600 my-4" />
+          <div>
+            <h3 class="text-gray-400 uppercase text-sm mb-4">Unconfirmed</h3>
+            <span class="flex justify-start items-center text-white">
+              <i
+                class="fas fa-exclamation-circle mr-2 text-xl sm:text-2xl text-yellow-500"
+              ></i>
+              {{ addressBalance.unconfirmedBitcoin }}
+              <span class="text-gray-400 ml-2"> BTC</span>
+            </span>
+          </div>
+        </ng-container>
       </div>
-    </ng-container>
-  </div>
-  <ng-template #spinner>
-    <app-spinner></app-spinner>
-  </ng-template>
-</div>
-
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
+    </div>
   </div>
 
   <ng-container *ngIf="addressHistory; else loadingHistorySkeleton">
     <div class="flex flex-col items-center">
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center w-full">
         <div
           [ngClass]="
             addressHistory.transactions.length >= 4
-              ? 'grid gap-4 px-6 mt-4 text-white sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
-              : 'gap-4 px-6 mt-4 text-white flex  justify-center'
+              ? 'grid gap-4 px-6 mt-4 text-white sm:grid-cols-1'
+              : 'gap-4 px-6 mt-4 text-white flex justify-center'
           "
+          class="w-full"
         >
           <div
             *ngFor="let transaction of addressHistory.transactions"
-            class="border border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-sm"
+            class="border border-gray-700 rounded-3xl p-6 shadow-white shadow-sm w-full space-y-6"
           >
-            <div class="flex flex-col items-center justify-center mb-2">
-              <p class="text-gray-400 flex items-center justify-center">
-                <i class="fas fa-link mr-1 text-xl text-blue-500"></i> Hash
+            <div
+              class="mb-2 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0"
+            >
+              <div class="flex items-center">
+                <img
+                  [src]="
+                    transaction.details.direction?.sentAmount == 0
+                      ? '/assets/plus.svg'
+                      : '/assets/minus.svg'
+                  "
+                  class="w-5 h-5 mr-2"
+                  alt=""
+                />
+                <p *ngIf="transaction.details?.direction?.sentAmount == 0">
+                  Received
+                </p>
+                <p *ngIf="transaction.details?.direction?.receivedAmount == 0">
+                  Sent
+                </p>
+              </div>
+              <p
+                class="text-green-500 tracking-wide"
+                *ngIf="transaction.details?.direction?.sentAmount == 0"
+              >
+                {{
+                  trimTrailingZeros(
+                    transaction.details.direction!.receivedAmount
+                  ) | number : "1.2-10"
+                }}
+                BTC
+              </p>
+              <p
+                class="text-red-500 tracking-wide"
+                *ngIf="transaction.details?.direction?.receivedAmount == 0"
+              >
+                {{
+                  trimTrailingZeros(transaction.details.direction!.sentAmount)
+                    | number : "1.2-10"
+                }}
+                BTC
               </p>
             </div>
-            <div class="flex items-center justify-center">
-              <a
-                routerLink="/insights/transaction/{{ transaction.txHash }}"
-                class="hover:text-orange-400 cursor-pointer relative"
-              >
-                <p class="break-all">{{ transaction.txHash | truncate }}</p>
-              </a>
+
+            <div
+              class="mb-2 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0 text-gray-300 text-base"
+            >
+              <p>[ {{ transaction.details.confirmations }} confirmations ]</p>
+              <p>
+                [
+                {{
+                  +transaction.details.time * 1000
+                    | date : "MMM dd, yyyy, HH:mm:ss"
+                }}
+                ]
+              </p>
+            </div>
+
+            <div
+              class="mb-2 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0"
+            >
+              <div class="flex items-center">
+                <span class="text-gray-400 mr-4 flex items-center">
+                  <i class="fas fa-cube mr-3 ml-0.5 text-xl text-white"></i>
+                  <span>Block</span>
+                </span>
+                <a
+                  routerLink="/insights/block/{{ transaction.blockHeight }}"
+                  class="hover:text-orange-400 cursor-pointer text-white"
+                >
+                  {{ transaction.blockHeight }}
+                </a>
+              </div>
+
+              <div class="items-center hidden sm:flex">
+                <p class="text-gray-300">
+                  [ {{ transaction.details.vbytes }} vBytes ]
+                </p>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+              <span class="text-gray-400 mr-4 flex items-center mb-2 md:mb-0">
+                <i class="fas fa-link mr-[9px] text-xl text-blue-500"></i>
+                <span>Hash</span>
+              </span>
+
+              <div class="flex items-center">
+                <a
+                  routerLink="/insights/transaction/{{ transaction.txHash }}"
+                  class="hover:text-orange-400 cursor-pointer relative"
+                >
+                  <p class="break-all">{{ transaction.txHash }}</p>
+                </a>
+              </div>
               <button
                 ngxClipboard
                 [cbContent]="transaction.txHash"
                 (cbOnSuccess)="showTooltip(transaction.txHash)"
                 (mouseenter)="showCopy(transaction.txHash)"
                 (mouseleave)="hideTooltip()"
-                class="relative top-0 ml-2"
+                class="relative top-0 ml-2 hidden lg:block"
               >
                 <img
                   src="/assets/copy.svg"
@@ -126,7 +210,7 @@
                   [ngClass]="{
                     'animate-bounce': animatedIndex === transaction.txHash
                   }"
-                  alt=""
+                  alt="copy"
                 />
                 <span
                   *ngIf="showTooltipId === transaction.txHash"
@@ -136,18 +220,6 @@
                 </span>
               </button>
             </div>
-
-            <a
-              routerLink="/insights/block/{{ transaction.blockHeight }}"
-              class="hover:text-orange-400 cursor-pointer"
-            >
-              <div class="flex flex-col items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400 flex items-center justify-center">
-                  <i class="fas fa-cube mr-2 text-xl"></i>Block
-                </p>
-                <p>{{ transaction.blockHeight }}</p>
-              </div>
-            </a>
           </div>
         </div>
       </div>
