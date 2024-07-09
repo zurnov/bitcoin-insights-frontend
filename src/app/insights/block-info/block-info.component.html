@@ -1,10 +1,10 @@
 <div
-  class="flex flex-col items-center space-y-4 justify-center text-xl md:mx-20 mb-10"
+  class="flex flex-col items-center space-y-4 justify-center md:mx-20 mb-10 text-base"
 >
-  <ng-container>
+  <ng-container *ngIf="blockInfo">
     <div class="flex flex-col items-center">
       <div
-        class="flex justify-center items-center text-2xl md:text-4xl space-x-2"
+        class="flex flex-wrap justify-center items-center text-2xl md:text-4xl space-x-2"
       >
         <h2 class="font-bold text-white">Bitcoin</h2>
         <img
@@ -14,251 +14,162 @@
         />
         <p class="font-medium text-orange-500">block</p>
       </div>
-      <div class="flex flex-col justify-center">
-        <ul class="flex flex-col gap-4 px-6 mt-4 text-white">
-          <li
-            class="border border-gray-700 rounded-3xl p-6 text-center shadow-white shadow-sm md:shadow-inner md:shadow-white"
-          >
-            <div>
-              <div class="flex items-center justify-center mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-expand mr-2 text-lg"></i>
-                  Size
-                </p>
-              </div>
 
-              <ng-container *ngIf="blockInfo && blockInfo.size; else spinner">
-                <p>{{ blockInfo.size }}</p>
-              </ng-container>
+      <div
+        class="flex flex-col w-full px-4 md:px-6 mt-6 space-y-4 text-white border border-gray-700 rounded-3xl p-4 md:p-6 shadow-inner shadow-gray-800"
+      >
+        <div class="flex flex-col items-center justify-center mt-3 mb-2">
+          <p class="text-gray-400 text-xl font-medium">
+            <i class="fas fa-info-circle mr-1 text-lg"></i>
+            Technical Info
+          </p>
+        </div>
 
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Block</p>
+            <p>{{ blockInfo.blockHeight }}</p>
+          </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Hash</p>
+            <p class="break-all">{{ blockInfo.hash }}</p>
+          </div>
 
-            <div>
-              <div class="flex items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-check-circle mr-2 text-lg"></i>
-                  Confirmations
-                </p>
-              </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Mined on</p>
+            <p>
+              {{ +blockInfo.time * 1000 | date : "dd MMM yyyy, HH:mm:ss" }} EEST
+            </p>
+          </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Guessed miner</p>
+            <p>PLACEHOLDER: AntPool</p>
+          </div>
 
-              <ng-container
-                *ngIf="blockInfo && blockInfo.confirmations; else spinner"
-              >
-                <p>{{ blockInfo.confirmations }}</p>
-              </ng-container>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Transactions count</p>
+            <p>{{ blockInfo.ntx }}</p>
+          </div>
 
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Witness tx count</p>
+            <p>PLACEHOLDER: 7,167</p>
+          </div>
 
-            <div>
-              <div class="flex items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-cube mr-2 text-lg"></i>
-                  Block Height
-                </p>
-              </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Inputs</p>
+            <p>PLACEHOLDER: 7,845</p>
+          </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Outputs</p>
+            <p>PLACEHOLDER: 14,890</p>
+          </div>
 
-              <ng-container
-                *ngIf="blockInfo && blockInfo.blockHeight; else spinner"
-              >
-                <p>{{ blockInfo.blockHeight }}</p>
-              </ng-container>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Input total</p>
+            <p>PLACEHOLDER: 540.63764765 BTC · 30,657,398 USD</p>
+          </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Output total</p>
+            <p>PLACEHOLDER: 543.76264765 BTC · 30,834,604 USD</p>
+          </div>
 
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Fee total</p>
+            <p>PLACEHOLDER: 0.0587451 BTC · 3,331 USD</p>
+          </div>
 
-            <div>
-              <div class="flex items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-clock mr-2 text-lg"></i>
-                  Time
-                </p>
-              </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Size</p>
+            <p>{{ blockInfo.size }}</p>
+          </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Weight</p>
+            <p>{{ blockInfo.weight }}</p>
+          </div>
 
-              <ng-container *ngIf="blockInfo && blockInfo.time; else spinner">
-                <p>
-                  {{ +blockInfo.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
-                </p>
-              </ng-container>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Stripped size</p>
+            <p>{{ blockInfo.strippedSize }}</p>
+          </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Median time</p>
+            <p>
+              {{
+                +blockInfo.medianTime * 1000 | date : "dd MMM yyyy, HH:mm:ss"
+              }}
+              UTC
+            </p>
+          </div>
 
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Version</p>
+            <p>{{ blockInfo.version }}</p>
+          </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Version (hex)</p>
+            <p>{{ blockInfo.versionHex }}</p>
+          </div>
 
-            <div>
-              <div class="flex items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400">
-                  <i class="far fa-clock mr-2 text-lg"></i>
-                  Median Time
-                </p>
-              </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Merkle root</p>
+            <p class="break-all">{{ blockInfo.merkleRoot }}</p>
+          </div>
 
-              <ng-container
-                *ngIf="blockInfo && blockInfo.medianTime; else spinner"
-              >
-                <p>
-                  {{
-                    +blockInfo.medianTime * 1000
-                      | date : "MMM dd, yyyy, HH:mm:ss"
-                  }}
-                </p>
-              </ng-container>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Difficulty</p>
+            <p>{{ blockInfo.difficulty }}</p>
+          </div>
+          <div class="p-4 border-b border-gray-700">
+            <p class="text-gray-400">Nonce</p>
+            <p>{{ blockInfo.nonce }}</p>
+          </div>
 
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
-
-            <div>
-              <div class="flex items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-chart-line mr-2 text-lg"></i>
-                  Difficulty
-                </p>
-              </div>
-
-              <ng-container
-                *ngIf="blockInfo && blockInfo.difficulty; else spinner"
-              >
-                <p class="break-all">
-                  {{ blockInfo.difficulty | difficultyConversion }}
-                </p>
-              </ng-container>
-
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
-
-            <div>
-              <div class="flex items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-hashtag mr-2 text-lg"></i>
-                  Hash
-                </p>
-              </div>
-
-              <ng-container *ngIf="blockInfo && blockInfo.hash; else spinner">
-                <p class="break-all">{{ blockInfo.hash }}</p>
-              </ng-container>
-
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
-
-            <div>
-              <a
-                (click)="onHashClick($event)"
-                class="hover:text-orange-400 hover:underline cursor-pointer"
-              >
-                <div class="flex items-center justify-center mt-3 mb-2">
-                  <p class="text-gray-400">
-                    <i class="fas fa-arrow-circle-left mr-2 text-lg"></i>
-                    Previous Block Hash
-                  </p>
-                </div>
-
-                <ng-container
-                  *ngIf="blockInfo && blockInfo.previousBlockHash; else spinner"
-                >
-                  <p class="break-all">{{ blockInfo.previousBlockHash }}</p>
-                </ng-container>
-              </a>
-
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
-
-            <div>
-              <a
-                (click)="onHashClick($event)"
-                class="hover:text-orange-400 hover:underline cursor-pointer"
-              >
-                <div class="flex items-center justify-center mt-3 mb-2">
-                  <p class="text-gray-400">
-                    <i class="fas fa-arrow-circle-right mr-2 text-lg"></i>
-                    Next Block Hash
-                  </p>
-                </div>
-
-                <ng-container
-                  *ngIf="blockInfo && blockInfo.nextBlockHash; else spinner"
-                >
-                  <p class="break-all">{{ blockInfo.nextBlockHash }}</p>
-                </ng-container>
-              </a>
-
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
-
-            <div>
-              <div class="flex items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-exchange-alt mr-2 text-lg"></i>Number of
-                  Transactions
-                </p>
-              </div>
-
-              <ng-container *ngIf="blockInfo && blockInfo.ntx; else spinner">
-                <p>{{ blockInfo.ntx }}</p>
-              </ng-container>
-
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
-          </li>
-
-          <li
-            class="border border-gray-700 rounded-3xl p-6 mt-4 text-center shadow-white shadow-sm md:shadow-inner md:shadow-white"
-          >
-            <div>
-              <div class="flex flex-col items-center justify-center mt-3 mb-2">
-                <p class="text-gray-400">
-                  <i class="fas fa-list mr-2 text-lg"></i>
-                  Transactions
-                </p>
-              </div>
-              <ng-container
-                *ngIf="blockInfo && blockInfo.transactions; else spinner"
-              >
-                <div class="divide-y divide-gray-600">
-                  <div *ngFor="let transaction of blockInfo.transactions">
-                    <a
-                      routerLink="/insights/transaction/{{ transaction }}"
-                      class="hover:text-orange-400 hover:underline cursor-pointer"
-                    >
-                      <p class="break-all px-8 py-4">{{ transaction }}</p>
-                    </a>
-                  </div>
-                </div>
-              </ng-container>
-
-              <ng-template #spinner>
-                <app-spinner></app-spinner>
-              </ng-template>
-            </div>
-
-            <app-pagination
-              [currentPage]="currentPage"
-              [totalPages]="totalPages"
-              (pageChange)="onPageChange($event)"
-            ></app-pagination>
-          </li>
-        </ul>
+          <div class="p-4">
+            <p class="text-gray-400">Bits</p>
+            <p>{{ blockInfo.bits }}</p>
+          </div>
+          <div class="p-4">
+            <p class="text-gray-400">Chainwork</p>
+            <p class="break-all">{{ blockInfo.chainWork }}</p>
+          </div>
+        </div>
       </div>
     </div>
+
+    <li
+      class="border border-gray-700 rounded-3xl p-6 mt-4 text-center shadow-gray-700 shadow-sm md:shadow-inner md:shadow-gray-700"
+    >
+      <div>
+        <div class="flex flex-col items-center justify-center mt-3 mb-2">
+          <p class="text-gray-400 text-xl font-medium">
+            <i class="fas fa-list mr-1 text-lg"></i>
+            Transactions
+          </p>
+        </div>
+        <ng-container *ngIf="blockInfo && blockInfo.transactions; else spinner">
+          <div class="divide-y divide-gray-600">
+            <div *ngFor="let transaction of blockInfo.transactions">
+              <a
+                routerLink="/insights/transaction/{{ transaction }}"
+                class="hover:text-orange-400 hover:underline cursor-pointer"
+              >
+                <p class="break-all px-8 py-4">{{ transaction }}</p>
+              </a>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #spinner>
+          <app-spinner></app-spinner>
+        </ng-template>
+      </div>
+
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
+    </li>
   </ng-container>
 </div>
