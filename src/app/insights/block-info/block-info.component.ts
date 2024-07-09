@@ -73,7 +73,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        window.scrollTo(0, 1060);
+        window.scrollTo(0, 1300);
       });
   }
 
