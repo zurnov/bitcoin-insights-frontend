@@ -15,7 +15,7 @@
     </div>
 
     <div
-      class="border border-gray-700 rounded-3xl p-6 text-left shadow-inner shadow-white mt-6 mx-4 md:mx-6 tracking-wider"
+      class="border border-gray-700 rounded-3xl p-6 text-left shadow-inner shadow-gray-700 mt-6 mx-4 md:mx-6 tracking-wider"
     >
       <div>
         <h3 class="text-gray-400 uppercase text-sm mb-4">Hash</h3>
@@ -95,17 +95,10 @@
   >
     <div class="flex flex-col items-center">
       <div class="flex flex-col items-center w-full">
-        <div
-          [ngClass]="
-            addressHistory.transactions.length >= 4
-              ? 'grid gap-4 px-6 mt-4 text-white sm:grid-cols-1'
-              : 'gap-4 px-6 mt-4 text-white flex justify-center'
-          "
-          class="w-full"
-        >
+        <div class="w-full grid gap-4 px-6 mt-4 text-white sm:grid-cols-1">
           <div
             *ngFor="let transaction of addressHistory.transactions"
-            class="border border-gray-700 rounded-3xl p-6 shadow-white shadow-sm w-full space-y-6"
+            class="border border-gray-700 rounded-3xl p-6 shadow-gray-700 shadow-sm w-full space-y-6"
           >
             <div
               class="mb-2 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0"
@@ -247,7 +240,7 @@
     <div class="w-full lg:w-[900px] px-6">
       <div
         *ngFor="let _ of [1, 2, 3, 4, 5, 6, 7, 8]"
-        class="border border-gray-700 rounded-3xl p-10 shadow-white shadow-sm mb-4"
+        class="border border-gray-700 rounded-3xl p-10 shadow-gray-700 shadow-sm mb-4"
       >
         <div class="mb-2 flex items-center justify-between space-x-2">
           <div class="w-6 h-6 bg-gray-700 rounded-full animate-pulse"></div>
