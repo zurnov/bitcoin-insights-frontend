@@ -48,7 +48,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         next: (data: IBlockInfo) => {
           this.blockInfo = data;
 
-          this.totalPages = Math.ceil(data.ntx / 10);
+          this.totalPages = Math.ceil(data.ntx / 6);
 
           this.fetchTransactionDetails();
         },
@@ -66,7 +66,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        window.scrollTo(0, 1300);
+        window.scrollTo(0, 1350);
       });
   }
 
