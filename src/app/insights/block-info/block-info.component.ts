@@ -28,16 +28,6 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {}
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    const screenWidth = window.innerWidth;
-    if (screenWidth >= 768) {
-      this.scrollToPosition(this.largeDeviceScrollPosition);
-    } else {
-      this.scrollToPosition(this.smallDeviceScrollPosition);
-    }
-  }
-
   ngOnInit() {
     this.isLoading = true;
     this.blockParam = this.route.snapshot.paramMap.get('blockParam');
