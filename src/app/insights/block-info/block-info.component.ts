@@ -16,6 +16,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   blockParam: string | null = null;
   currentPage: number = 1;
   totalPages!: number;
+  isLoading = true;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -26,6 +27,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.blockParam = this.route.snapshot.paramMap.get('blockParam');
     if (!this.blockParam) {
       return;
@@ -51,11 +53,13 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
           this.totalPages = Math.ceil(data.ntx / 6);
 
           this.fetchTransactionDetails();
+          this.isLoading = false;
         },
         error: (err: Error) => {
           console.error('Error fetching block info:', err);
           this.currentPage = 1;
           this.updateRoute();
+          this.isLoading = false;
         },
       });
     });
@@ -71,6 +75,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   }
 
   fetchTransactionDetails(): void {
+    this.isLoading = true;
     if (
       !this.blockInfo?.transactions ||
       this.blockInfo.transactions.length === 0
@@ -95,6 +100,8 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
             }
           });
 
+          this.isLoading = false;
+
           return {
             txId: this.blockInfo!.transactions[index],
             hash: txDetails.hash,
@@ -116,10 +123,9 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
             },
           };
         });
-
-        console.log(this.transactionDetails);
       },
       error: (err: Error) => {
+        this.isLoading = false;
         console.error('Error fetching transaction details:', err);
       },
     });
