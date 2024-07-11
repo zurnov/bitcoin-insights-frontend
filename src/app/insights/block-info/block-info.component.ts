@@ -1,4 +1,10 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { InsightsService } from '../insights.service';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -17,8 +23,8 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   totalPages!: number;
   isLoading = true;
-  largeDeviceScrollPosition: number = 1350;
-  smallDeviceScrollPosition: number = 2500;
+
+  @ViewChild('transactionsContainer') transactionsContainer!: ElementRef;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -72,17 +78,17 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        const initialScreenWidth = window.innerWidth;
-        if (initialScreenWidth >= 768) {
-          this.scrollToPosition(this.largeDeviceScrollPosition);
-        } else {
-          this.scrollToPosition(this.smallDeviceScrollPosition);
-        }
+        this.scrollToTxContainer();
       });
   }
 
-  private scrollToPosition(position: number) {
-    window.scrollTo(0, position);
+  private scrollToTxContainer() {
+    if (this.transactionsContainer) {
+      this.transactionsContainer.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
   }
 
   fetchTransactionDetails(): void {
