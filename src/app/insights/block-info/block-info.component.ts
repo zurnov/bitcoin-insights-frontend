@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { InsightsService } from '../insights.service';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -17,6 +17,8 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   totalPages!: number;
   isLoading = true;
+  largeDeviceScrollPosition: number = 1350;
+  smallDeviceScrollPosition: number = 2500;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -25,6 +27,16 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute
   ) {}
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 768) {
+      this.scrollToPosition(this.largeDeviceScrollPosition);
+    } else {
+      this.scrollToPosition(this.smallDeviceScrollPosition);
+    }
+  }
 
   ngOnInit() {
     this.isLoading = true;
@@ -70,8 +82,17 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        window.scrollTo(0, 1350);
+        const initialScreenWidth = window.innerWidth;
+        if (initialScreenWidth >= 768) {
+          this.scrollToPosition(this.largeDeviceScrollPosition);
+        } else {
+          this.scrollToPosition(this.smallDeviceScrollPosition);
+        }
       });
+  }
+
+  private scrollToPosition(position: number) {
+    window.scrollTo(0, position);
   }
 
   fetchTransactionDetails(): void {
