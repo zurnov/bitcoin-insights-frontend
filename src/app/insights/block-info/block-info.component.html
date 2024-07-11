@@ -135,41 +135,67 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <li
-      class="border border-gray-700 rounded-3xl p-6 mt-4 text-center shadow-gray-700 shadow-sm md:shadow-inner md:shadow-gray-700 list-none"
-    >
-      <div class="text-white">
-        <div class="flex flex-col items-center justify-center mt-3 mb-2">
-          <p class="text-gray-400 text-xl font-medium">
-            <i class="fas fa-list mr-1 text-lg"></i>
-            Transactions
-          </p>
-        </div>
-        <ng-container *ngIf="blockInfo && blockInfo.transactions; else spinner">
-          <div class="divide-y divide-gray-600">
-            <div *ngFor="let transaction of blockInfo.transactions">
-              <a
-                routerLink="/insights/transaction/{{ transaction }}"
-                class="hover:text-orange-400 hover:underline cursor-pointer"
-              >
-                <p class="break-all px-8 py-4">{{ transaction }}</p>
-              </a>
-            </div>
+      <li
+        class="border border-gray-700 rounded-3xl p-6 mt-4 text-center shadow-gray-700 shadow-sm md:shadow-inner md:shadow-gray-700 list-none"
+      >
+        <div class="text-white">
+          <div class="flex flex-col items-center justify-center mt-3 mb-2">
+            <p class="text-gray-400 text-xl font-medium">
+              <i class="fas fa-list mr-1 text-lg"></i>
+              Transactions
+            </p>
           </div>
-        </ng-container>
+          <ng-container
+            *ngIf="
+              transactionDetails && transactionDetails.length;
+              else spinner
+            "
+          >
+            <div class="divide-y divide-gray-600">
+              <div
+                *ngFor="let transaction of transactionDetails"
+                class="grid grid-cols-1 md:grid-cols-4 gap-4 py-4 px-8"
+              >
+                <div class="flex flex-col">
+                  <span class="text-gray-400">Transaction ID</span>
+                  <a
+                    routerLink="/insights/transaction/{{ transaction.txId }}"
+                    class="hover:text-orange-400 hover:underline cursor-pointer"
+                  >
+                    <p class="break-all">{{ transaction.txId }}</p>
+                  </a>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-gray-400">Amount</span>
+                  <span>
+                    {{ transaction.direction?.sentAmount | number : "1.0-8" }}
+                    BTC
+                  </span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-gray-400">Size (vB)</span>
+                  <span>{{ transaction.vbytes }}</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-gray-400">Weight (KWU)</span>
+                  <span>{{ transaction.weight }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
 
-        <ng-template #spinner>
-          <app-spinner></app-spinner>
-        </ng-template>
-      </div>
+          <ng-template #spinner>
+            <app-spinner></app-spinner>
+          </ng-template>
+        </div>
 
-      <app-pagination
-        [currentPage]="currentPage"
-        [totalPages]="totalPages"
-        (pageChange)="onPageChange($event)"
-      ></app-pagination>
-    </li>
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="totalPages"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
+      </li>
+    </div>
   </ng-container>
 </div>
