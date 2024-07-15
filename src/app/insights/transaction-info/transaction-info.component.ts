@@ -15,6 +15,8 @@ export class TransactionInfoComponent {
   blockInfo: IBlockInfo | undefined;
   txHash!: string;
   totalAmount: number = 0;
+  totalInputAmount: number = 0;
+  fee: number = 0;
   isLoading = true;
   vinDetails: { address: string; amount: number }[] = [];
 
@@ -76,20 +78,22 @@ export class TransactionInfoComponent {
     );
 
     forkJoin(requests).subscribe({
-      next: (results: any[]) => {
-        results.forEach((txDetails, index) => {
-          const voutIndex = vin[index].vout;
-          const vout = txDetails.vout[voutIndex];
-
-          if (vout && vout.scriptPubKey && vout.scriptPubKey.address) {
-            this.vinDetails.push({
-              address: vout.scriptPubKey.address,
-              amount: vout.value,
-            });
-          }
+      next: (transactions: any[]) => {
+        this.vinDetails = transactions.map((transaction, index) => {
+          const vout = transaction.vout.find(
+            (output: any) => output.n === vin[index].vout
+          );
+          return {
+            address: vout?.scriptPubKey?.address || 'N/A',
+            amount: vout?.value || 0,
+          };
         });
 
-        console.log('vin details constructed', this.vinDetails);
+        this.totalInputAmount = this.vinDetails.reduce(
+          (sum, vin) => sum + vin.amount,
+          0
+        );
+        this.fee = Math.abs(this.totalInputAmount - this.totalAmount);
       },
       error: (err: Error) => {
         console.error('Error fetching vin details:', err);
