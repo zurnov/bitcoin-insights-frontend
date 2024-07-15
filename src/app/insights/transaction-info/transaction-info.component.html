@@ -162,15 +162,8 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-6xl pt-10">
     <div class="flex flex-col w-full space-y-4">
       <h3 class="text-gray-400 text-lg font-medium mb-2 ml-4">Inputs</h3>
-      <ng-container
-        *ngIf="
-          transactionInfo &&
-            transactionInfo.vin &&
-            transactionInfo.vin.length > 0;
-          else noInputs
-        "
-      >
-        <div *ngFor="let input of transactionInfo.vin; let i = index">
+      <ng-container *ngIf="vinDetails && vinDetails.length > 0; else noInputs">
+        <div *ngFor="let input of vinDetails; let i = index">
           <div
             class="p-4 border border-gray-700 rounded-3xl shadow-inner shadow-gray-700 mb-4"
           >
@@ -179,17 +172,14 @@
                 <i class="fas fa-arrow-down mr-1 text-base text-orange-400"></i>
                 Input {{ i }}
               </p>
-              <p class="text-white break-all">INPUT-ADDRESS-PLACEHOLDER</p>
+              <p class="text-white break-all">{{ input.address }}</p>
             </div>
-
             <div class="p-4">
               <p class="text-gray-400">
                 <i class="fab fa-bitcoin mr-0.5 text-base text-orange-400"></i>
                 Amount
               </p>
-              <p class="text-white break-all">
-                INPUT-AMOUNT-PLACEHOLDER [*BTC*]
-              </p>
+              <p class="text-white break-all">{{ input.amount }} BTC</p>
             </div>
           </div>
         </div>

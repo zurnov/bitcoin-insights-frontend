@@ -3,6 +3,7 @@ import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 import { InsightsService } from '../insights.service';
 import { ActivatedRoute } from '@angular/router';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-transaction-info',
@@ -15,6 +16,7 @@ export class TransactionInfoComponent {
   txHash!: string;
   totalAmount: number = 0;
   isLoading = true;
+  vinDetails: { address: string; amount: number }[] = [];
 
   constructor(
     private insightsService: InsightsService,
@@ -39,6 +41,10 @@ export class TransactionInfoComponent {
           );
         }
 
+        if (this.transactionInfo && this.transactionInfo.vin) {
+          this.fetchVinDetails(this.transactionInfo.vin);
+        }
+
         if (this.transactionInfo && this.transactionInfo.blockHash) {
           this.insightsService
             .getBlockInfoByHash(this.transactionInfo.blockHash)
@@ -60,6 +66,33 @@ export class TransactionInfoComponent {
       error: (err: Error) => {
         this.isLoading = false;
         console.error('Error fetching transaction info:', err);
+      },
+    });
+  }
+
+  private fetchVinDetails(vin: any[]) {
+    const requests = vin.map((input) =>
+      this.insightsService.getTransactionInfo(input.txId)
+    );
+
+    forkJoin(requests).subscribe({
+      next: (results: any[]) => {
+        results.forEach((txDetails, index) => {
+          const voutIndex = vin[index].vout;
+          const vout = txDetails.vout[voutIndex];
+
+          if (vout && vout.scriptPubKey && vout.scriptPubKey.address) {
+            this.vinDetails.push({
+              address: vout.scriptPubKey.address,
+              amount: vout.value,
+            });
+          }
+        });
+
+        console.log('vin details constructed', this.vinDetails);
+      },
+      error: (err: Error) => {
+        console.error('Error fetching vin details:', err);
       },
     });
   }
