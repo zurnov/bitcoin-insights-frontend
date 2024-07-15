@@ -13,6 +13,7 @@ export class TransactionInfoComponent {
   transactionInfo: ITransactionInfo | undefined;
   blockInfo: IBlockInfo | undefined;
   txHash!: string;
+  totalAmount: number = 0;
 
   constructor(
     private insightsService: InsightsService,
@@ -28,6 +29,12 @@ export class TransactionInfoComponent {
     this.insightsService.getTransactionInfo(this.txHash).subscribe({
       next: (data: ITransactionInfo) => {
         this.transactionInfo = data;
+
+        if (this.transactionInfo && this.transactionInfo.vout) {
+          this.totalAmount = this.calculateTotalAmount(
+            this.transactionInfo.vout
+          );
+        }
 
         if (this.transactionInfo && this.transactionInfo.blockHash) {
           this.insightsService
@@ -49,5 +56,15 @@ export class TransactionInfoComponent {
         console.error('Error fetching transaction info:', err);
       },
     });
+  }
+
+  private calculateTotalAmount(vout: any[]): number {
+    let totalAmount = 0;
+    vout.forEach((output: any) => {
+      if (output.scriptPubKey && output.scriptPubKey.type !== 'nulldata') {
+        totalAmount += output.value;
+      }
+    });
+    return totalAmount;
   }
 }
