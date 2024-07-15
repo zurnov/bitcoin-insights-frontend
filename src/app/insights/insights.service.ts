@@ -45,7 +45,7 @@ export class InsightsService {
   getBlockInfoByHeight(
     height: number,
     pageNumber: number = 1,
-    pageSize: number = 6
+    pageSize: number = 5
   ): Observable<IBlockInfo> {
     let params = new HttpParams()
       .set('pageNumber', pageNumber.toString())

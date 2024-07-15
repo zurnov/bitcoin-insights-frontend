@@ -58,7 +58,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         next: (data: IBlockInfo) => {
           this.blockInfo = data;
 
-          this.totalPages = Math.ceil(data.ntx / 6);
+          this.totalPages = Math.ceil(data.ntx / 5);
 
           this.fetchTransactionDetails();
           this.isLoading = false;
@@ -176,7 +176,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     this.insightsService.getBlockInfoByHash(hash, this.currentPage).subscribe({
       next: (data: IBlockInfo) => {
         this.blockInfo = data;
-        this.totalPages = Math.ceil(data.ntx / 10);
+        this.totalPages = Math.ceil(data.ntx / 5);
 
         // console.log('Block info by hash fetched:', this.blockInfo);
 
