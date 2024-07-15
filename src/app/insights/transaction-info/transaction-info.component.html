@@ -172,7 +172,7 @@
                 <i class="fas fa-arrow-down mr-1 text-base text-orange-400"></i>
                 Input {{ i }}
               </p>
-              <p class="text-white">INPUT-ADDRESS-PLACEHOLDER</p>
+              <p class="text-white break-all">INPUT-ADDRESS-PLACEHOLDER</p>
             </div>
 
             <div class="p-4">
@@ -180,7 +180,9 @@
                 <i class="fab fa-bitcoin mr-0.5 text-base text-orange-400"></i>
                 Amount
               </p>
-              <p class="text-white">INPUT-AMOUNT-PLACEHOLDER [*BTC*]</p>
+              <p class="text-white break-all">
+                INPUT-AMOUNT-PLACEHOLDER [*BTC*]
+              </p>
             </div>
           </div>
         </div>
@@ -213,7 +215,9 @@
                 <i class="fas fa-arrow-up mr-1 text-base text-orange-400"></i>
                 Output {{ i }}
               </p>
-              <p class="text-white">{{ output.scriptPubKey?.address }}</p>
+              <p class="text-white break-all">
+                {{ output.scriptPubKey?.address }}
+              </p>
             </div>
 
             <div class="p-4">
@@ -221,7 +225,7 @@
                 <i class="fab fa-bitcoin mr-0.5 text-base text-orange-400"></i>
                 Amount
               </p>
-              <p class="text-white">{{ output.value }} BTC</p>
+              <p class="text-white break-all">{{ output.value }} BTC</p>
             </div>
           </div>
         </div>
