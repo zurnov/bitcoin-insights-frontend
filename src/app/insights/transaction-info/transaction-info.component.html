@@ -45,7 +45,13 @@
           Block Hash
         </p>
         <ng-container *ngIf="transactionInfo && transactionInfo.blockHash">
-          <p class="break-all">{{ transactionInfo.blockHash }}</p>
+          <a
+            [routerLink]="['/insights/block', transactionInfo.blockHash]"
+            class="break-all hover:text-orange-400"
+          >
+            {{ transactionInfo.blockHash }}
+            <i class="fas fa-external-link-alt text-sm ml-1 text-gray-400"></i>
+          </a>
         </ng-container>
       </div>
 
@@ -172,7 +178,14 @@
                 <i class="fas fa-arrow-down mr-1 text-base text-orange-400"></i>
                 Input {{ i }}
               </p>
-              <p class="text-white break-all">{{ input.address }}</p>
+              <p class="text-white break-all hover:text-orange-400">
+                <a [routerLink]="'/insights/address/' + input.address">
+                  {{ input.address }}
+                  <i
+                    class="fas fa-external-link-alt text-sm ml-1 text-gray-400"
+                  ></i>
+                </a>
+              </p>
             </div>
             <div class="p-4">
               <p class="text-gray-400">
@@ -212,11 +225,21 @@
                 <i class="fas fa-arrow-up mr-1 text-base text-orange-400"></i>
                 Output {{ i }}
               </p>
+
               <p
-                class="text-white break-all"
+                class="text-white break-all hover:text-orange-400"
                 *ngIf="output.scriptPubKey?.address; else opReturn"
               >
-                {{ output.scriptPubKey?.address }}
+                <a
+                  [routerLink]="
+                    '/insights/address/' + output.scriptPubKey?.address
+                  "
+                >
+                  {{ output.scriptPubKey?.address }}
+                  <i
+                    class="fas fa-external-link-alt text-sm ml-1 text-gray-400"
+                  ></i>
+                </a>
               </p>
               <ng-template #opReturn>
                 <p class="text-white">OP_RETURN</p>
