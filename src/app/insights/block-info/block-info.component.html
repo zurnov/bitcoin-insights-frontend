@@ -33,48 +33,76 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Block</p>
+            <p class="text-gray-400">
+              <i class="fas fa-cube mr-1 text-base text-orange-400"></i>
+              Block Height
+            </p>
             <p>{{ blockInfo.blockHeight }}</p>
           </div>
+
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Hash</p>
+            <p class="text-gray-400">
+              <i class="fas fa-hashtag mr-1 text-base text-orange-400"></i>
+              Hash
+            </p>
             <p class="break-all">{{ blockInfo.hash }}</p>
           </div>
 
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Mined on</p>
+            <p class="text-gray-400">
+              <i class="fas fa-calendar-alt mr-1 text-base text-orange-400"></i>
+              Mined on
+            </p>
             <p>
               {{ +blockInfo.time * 1000 | date : "dd MMM yyyy, HH:mm:ss" }} EEST
             </p>
           </div>
 
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Confirmations</p>
-            <p>
-              {{ blockInfo.confirmations }}
+            <p class="text-gray-400">
+              <i class="fas fa-check-circle mr-1 text-base text-orange-400"></i>
+              Confirmations
             </p>
+            <p>{{ blockInfo.confirmations }}</p>
           </div>
 
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Transactions count</p>
+            <p class="text-gray-400">
+              <i class="fas fa-receipt mr-1 text-base text-orange-400"></i>
+              Transactions Count
+            </p>
             <p>{{ blockInfo.ntx }}</p>
           </div>
 
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Size</p>
+            <p class="text-gray-400">
+              <i class="fas fa-expand mr-1 text-base text-orange-400"></i>
+              Size
+            </p>
             <p>{{ blockInfo.size }}</p>
           </div>
+
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Weight</p>
+            <p class="text-gray-400">
+              <i class="fas fa-weight mr-1 text-base text-orange-400"></i>
+              Weight
+            </p>
             <p>{{ blockInfo.weight }}</p>
           </div>
 
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Stripped size</p>
+            <p class="text-gray-400">
+              <i class="fas fa-ruler mr-1 text-base text-orange-400"></i>
+              Stripped Size
+            </p>
             <p>{{ blockInfo.strippedSize }}</p>
           </div>
+
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Median time</p>
+            <p class="text-gray-400">
+              <i class="far fa-clock mr-1 text-base text-orange-400"></i>
+              Median Time
+            </p>
             <p>
               {{
                 +blockInfo.medianTime * 1000 | date : "dd MMM yyyy, HH:mm:ss"
@@ -84,34 +112,60 @@
           </div>
 
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Version</p>
+            <p class="text-gray-400">
+              <i class="fas fa-code-branch mr-1 text-base text-orange-400"></i>
+              Version
+            </p>
             <p>{{ blockInfo.version }}</p>
           </div>
+
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Version (hex)</p>
+            <p class="text-gray-400">
+              <i class="fas fa-file-code mr-1 text-base text-orange-400"></i>
+              Version (Hex)
+            </p>
             <p>{{ blockInfo.versionHex }}</p>
           </div>
 
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Merkle root</p>
+            <p class="text-gray-400">
+              <i
+                class="fas fa-network-wired mr-1 text-base text-orange-400"
+              ></i>
+              Merkle Root
+            </p>
             <p class="break-all">{{ blockInfo.merkleRoot }}</p>
           </div>
 
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Difficulty</p>
+            <p class="text-gray-400">
+              <i class="fas fa-chart-line mr-1 text-base text-orange-400"></i>
+              Difficulty
+            </p>
             <p>{{ blockInfo.difficulty }}</p>
           </div>
+
           <div class="p-4 border-b border-gray-700">
-            <p class="text-gray-400">Nonce</p>
+            <p class="text-gray-400">
+              <i class="fas fa-bolt mr-1 text-base text-orange-400"></i>
+              Nonce
+            </p>
             <p>{{ blockInfo.nonce }}</p>
           </div>
 
           <div class="p-4">
-            <p class="text-gray-400">Bits</p>
+            <p class="text-gray-400">
+              <i class="fas fa-microchip mr-1 text-base text-orange-400"></i>
+              Bits
+            </p>
             <p>{{ blockInfo.bits }}</p>
           </div>
+
           <div class="p-4">
-            <p class="text-gray-400">Chainwork</p>
+            <p class="text-gray-400">
+              <i class="fas fa-link mr-1 text-base text-orange-400"></i>
+              Chainwork
+            </p>
             <p class="break-all">{{ blockInfo.chainWork }}</p>
           </div>
         </div>
@@ -140,7 +194,12 @@
                 class="grid grid-cols-1 md:grid-cols-4 gap-4 py-4 px-8"
               >
                 <div class="flex flex-col">
-                  <span class="text-gray-400">Transaction ID</span>
+                  <span class="text-gray-400">
+                    <i
+                      class="fas fa-fingerprint mr-1 text-base text-orange-400"
+                    ></i>
+                    Transaction ID
+                  </span>
                   <a
                     routerLink="/insights/transaction/{{ transaction.txId }}"
                     class="hover:text-orange-400 hover:underline cursor-pointer"
@@ -149,18 +208,33 @@
                   </a>
                 </div>
                 <div class="flex flex-col">
-                  <span class="text-gray-400">Amount</span>
-                  <span>
-                    {{ transaction.direction?.sentAmount | number : "1.0-8" }}
-                    BTC
+                  <span class="text-gray-400">
+                    <i class="fas fa-coins mr-1 text-base text-orange-400"></i>
+                    Amount
                   </span>
+                  <span
+                    >{{
+                      transaction.direction?.sentAmount | number : "1.0-8"
+                    }}
+                    BTC</span
+                  >
                 </div>
                 <div class="flex flex-col">
-                  <span class="text-gray-400">Size (vB)</span>
+                  <span class="text-gray-400">
+                    <i
+                      class="fas fa-expand-arrows-alt mr-1 text-base text-orange-400"
+                    ></i>
+                    Size (vB)
+                  </span>
                   <span>{{ transaction.vbytes }}</span>
                 </div>
                 <div class="flex flex-col">
-                  <span class="text-gray-400">Weight (KWU)</span>
+                  <span class="text-gray-400">
+                    <i
+                      class="fas fa-weight-hanging mr-1 text-base text-orange-400"
+                    ></i>
+                    Weight (KWU)
+                  </span>
                   <span>{{ transaction.weight }}</span>
                 </div>
               </div>
