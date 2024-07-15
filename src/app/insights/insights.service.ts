@@ -60,7 +60,7 @@ export class InsightsService {
   getBlockInfoByHash(
     hash: string,
     pageNumber: number = 1,
-    pageSize: number = 10
+    pageSize: number = 5
   ): Observable<IBlockInfo> {
     let params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
