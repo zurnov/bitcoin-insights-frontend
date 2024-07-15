@@ -93,12 +93,16 @@ export class TransactionInfoComponent {
           (sum, vin) => sum + vin.amount,
           0
         );
-        this.fee = Math.abs(this.totalInputAmount - this.totalAmount);
+        this.fee = this.formatFee(this.totalInputAmount - this.totalAmount);
       },
       error: (err: Error) => {
         console.error('Error fetching vin details:', err);
       },
     });
+  }
+
+  private formatFee(fee: number): number {
+    return parseFloat(fee.toFixed(8));
   }
 
   private calculateTotalAmount(vout: any[]): number {
