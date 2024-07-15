@@ -14,6 +14,7 @@ export class TransactionInfoComponent {
   blockInfo: IBlockInfo | undefined;
   txHash!: string;
   totalAmount: number = 0;
+  isLoading = true;
 
   constructor(
     private insightsService: InsightsService,
@@ -21,6 +22,8 @@ export class TransactionInfoComponent {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+
     this.txHash = this.route.snapshot.paramMap.get('txHash') || '';
     if (!this.txHash) {
       return;
@@ -50,9 +53,12 @@ export class TransactionInfoComponent {
             });
         }
 
+        this.isLoading = false;
+
         // console.log('Transaction info fetched:', this.transactionInfo);
       },
       error: (err: Error) => {
+        this.isLoading = false;
         console.error('Error fetching transaction info:', err);
       },
     });
