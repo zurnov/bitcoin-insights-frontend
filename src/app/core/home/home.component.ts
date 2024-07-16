@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { Observable, Subscription, combineLatest, interval } from 'rxjs';
 import { InsightsService } from 'src/app/insights/insights.service';
+import { addressesExamples } from 'src/app/shared/helpers/addressesExamples';
+import { blocksExamples } from 'src/app/shared/helpers/blocksExamples';
+import { transactionsExamples } from 'src/app/shared/helpers/transactionsExamples';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
@@ -32,6 +35,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   latestBlocks: IBlockInfo[] = [];
   latestTransactions: ITransactionInfo[] = [];
 
+  examplesBtc = {
+    addresses: addressesExamples,
+    blocks: blocksExamples,
+    transactions: transactionsExamples,
+  };
   constructor(
     private insightsService: InsightsService,
     private router: Router,
@@ -170,7 +178,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           combineLatest(transactionRequests).subscribe({
             next: (transactions: ITransactionInfo[]) => {
               this.latestTransactions = transactions;
-              console.log('Latest transactions:', transactions);
+              // console.log('Latest transactions:', transactions);
             },
             error: (err: Error) => {
               console.error('Error fetching transaction details:', err);
