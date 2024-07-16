@@ -70,6 +70,37 @@ export class HomeComponent implements OnInit, OnDestroy {
     // todo get historical
   }
 
+  onExampleClick(type: 'address' | 'block' | 'transaction') {
+    let selectedVal: string;
+
+    switch (type) {
+      case 'address':
+        const randomIndexAddress = Math.floor(
+          Math.random() * this.examplesBtc.addresses.length
+        );
+        selectedVal = this.examplesBtc.addresses[randomIndexAddress];
+        break;
+      case 'block':
+        const randomIndexBlock = Math.floor(
+          Math.random() * this.examplesBtc.blocks.length
+        );
+        selectedVal = this.examplesBtc.blocks[randomIndexBlock];
+        break;
+      case 'transaction':
+        const randomIndexTransaction = Math.floor(
+          Math.random() * this.examplesBtc.transactions.length
+        );
+        selectedVal = this.examplesBtc.transactions[randomIndexTransaction];
+        break;
+      default:
+        return;
+    }
+
+    if (this.searchInputRef) {
+      this.searchInputRef.nativeElement.value = selectedVal;
+    }
+  }
+
   blurInput() {
     const inputElement = this.el.nativeElement.querySelector('.main-search');
     if (inputElement) {
