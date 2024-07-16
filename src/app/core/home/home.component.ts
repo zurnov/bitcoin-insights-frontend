@@ -4,6 +4,7 @@ import {
   HostListener,
   OnDestroy,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
@@ -40,6 +41,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     blocks: blocksExamples,
     transactions: transactionsExamples,
   };
+
+  @ViewChild('searchInput', { static: false })
+  searchInputRef!: ElementRef<HTMLInputElement>;
+
   constructor(
     private insightsService: InsightsService,
     private router: Router,
