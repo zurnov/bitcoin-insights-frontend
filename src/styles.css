@@ -59,3 +59,41 @@ body {
 .fade-col-rev {
   animation: fadeColorReverse 8s infinite;
 }
+
+@property --border-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: "<angle>";
+}
+
+@keyframes spin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+.bor-gr-anim {
+  border: 3px solid transparent;
+  border-radius: 3rem;
+  overflow: hidden;
+  position: relative;
+
+  background: linear-gradient(to bottom, rgb(23, 27, 37), rgb(23, 27, 37))
+      padding-box,
+    conic-gradient(
+        from var(--border-angle),
+        rgba(249, 115, 22, 0.95),
+        rgba(245, 158, 11, 0.95) 5%,
+        rgba(253, 230, 138, 0.95) 40%,
+        rgba(255, 255, 255, 0.95) 60%,
+        rgba(253, 230, 138, 0.95) 90%,
+        rgba(249, 115, 22, 0.95)
+      )
+      border-box;
+
+  animation: spin 3s infinite linear;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
