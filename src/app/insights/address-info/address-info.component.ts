@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { InsightsService } from '../insights.service';
 import { IAddressHistory } from 'src/app/shared/interfaces/addressHistory';
 import { IAddressBalance } from 'src/app/shared/interfaces/addressBalance';
@@ -24,6 +30,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   btcPrice!: number;
 
   private destroy$: Subject<void> = new Subject<void>();
+
+  @ViewChild('transactionsContainer') transactionsContainer!: ElementRef;
 
   constructor(
     private insightsService: InsightsService,
@@ -83,8 +91,17 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        window.scrollTo(0, 450);
+        this.scrollToTxContainer();
       });
+  }
+
+  private scrollToTxContainer() {
+    if (this.transactionsContainer) {
+      this.transactionsContainer.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
   }
 
   fetchTransactionDetails(): void {
