@@ -8,14 +8,17 @@ const routes: Routes = [
   {
     path: 'address/:address',
     component: AddressInfoComponent,
+    data: { title: 'Address' },
   },
   {
     path: 'block/:blockParam',
     component: BlockInfoComponent,
+    data: { title: 'Block' },
   },
   {
     path: 'transaction/:txHash',
     component: TransactionInfoComponent,
+    data: { title: 'Transaction' },
   },
 ];
 
