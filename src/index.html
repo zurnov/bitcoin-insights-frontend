@@ -13,8 +13,30 @@
       src="https://kit.fontawesome.com/8a3442c427.js"
       crossorigin="anonymous"
     ></script>
+    <style>
+      body {
+        touch-action: manipulation;
+      }
+    </style>
   </head>
   <body>
+    <script>
+      document.addEventListener("gesturestart", function (e) {
+        e.preventDefault();
+      });
+      let lastTouchEnd = 0;
+      document.addEventListener(
+        "touchend",
+        function (event) {
+          let now = new Date().getTime();
+          if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+          }
+          lastTouchEnd = now;
+        },
+        false
+      );
+    </script>
     <app-root></app-root>
   </body>
 </html>
