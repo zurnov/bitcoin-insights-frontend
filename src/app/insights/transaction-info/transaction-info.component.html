@@ -107,7 +107,8 @@
           Fee
         </p>
         <ng-container>
-          <p>{{ fee }} BTC</p>
+          <p *ngIf="fee > 0">{{ fee }} BTC</p>
+          <p *ngIf="fee == 0">No fee</p>
         </ng-container>
       </div>
 
