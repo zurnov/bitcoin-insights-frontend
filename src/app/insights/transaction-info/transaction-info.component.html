@@ -62,8 +62,14 @@
           <i class="fas fa-cube mr-1 text-base text-orange-400"></i>
           In Block
         </p>
-        <ng-container>
-          <p class="break-all">{{ blockInfo?.blockHeight }}</p>
+        <ng-container *ngIf="blockInfo && blockInfo.blockHeight">
+          <a
+            [routerLink]="['/insights/block', blockInfo.blockHeight]"
+            class="break-all hover:text-orange-400"
+          >
+            {{ blockInfo.blockHeight }}
+            <i class="fas fa-external-link-alt text-sm ml-1 text-gray-400"></i>
+          </a>
         </ng-container>
       </div>
 
