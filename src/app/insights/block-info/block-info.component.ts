@@ -10,6 +10,7 @@ import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject, filter, forkJoin, takeUntil } from 'rxjs';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-block-info',
@@ -31,7 +32,8 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   constructor(
     private insightsService: InsightsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notifService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -65,9 +67,13 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         },
         error: (err: Error) => {
           console.error('Error fetching block info:', err);
+
           this.currentPage = 1;
           this.updateRoute();
           this.isLoading = false;
+
+          this.router.navigate(['/']);
+          return this.notifService.showError('Block info retrieval failed');
         },
       });
     });

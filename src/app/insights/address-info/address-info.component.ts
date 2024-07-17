@@ -11,6 +11,7 @@ import { IAddressBalance } from 'src/app/shared/interfaces/addressBalance';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject, filter, forkJoin, takeUntil } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-address-info',
@@ -37,7 +38,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     private insightsService: InsightsService,
     private route: ActivatedRoute,
     private router: Router,
-    private cbService: ClipboardService
+    private cbService: ClipboardService,
+    private notifService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +71,9 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
             this.currentPage = 1;
             this.updateRoute();
             this.isLoading = false;
+
+            this.router.navigate(['/']);
+            return this.notifService.showError('Address info retrieval failed');
           },
         });
     });
@@ -80,7 +85,6 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       },
       error: (err: Error) => {
         console.error('Error fetching address balance:', err);
-        this.router.navigate(['/']);
       },
     });
 

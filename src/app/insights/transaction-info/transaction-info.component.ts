@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 import { InsightsService } from '../insights.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { forkJoin } from 'rxjs';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-transaction-info',
@@ -22,7 +23,9 @@ export class TransactionInfoComponent {
 
   constructor(
     private insightsService: InsightsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private notifService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -68,6 +71,9 @@ export class TransactionInfoComponent {
       error: (err: Error) => {
         this.isLoading = false;
         console.error('Error fetching transaction info:', err);
+
+        this.router.navigate(['/']);
+        return this.notifService.showError('Transaction info retrieval failed');
       },
     });
 
