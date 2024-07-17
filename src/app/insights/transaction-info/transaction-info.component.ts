@@ -19,6 +19,7 @@ export class TransactionInfoComponent {
   totalInputAmount: number = 0;
   fee: number = 0;
   isLoading = true;
+  btcPrice!: number;
   vinDetails: { address: string; amount: number }[] = [];
 
   constructor(
@@ -35,6 +36,8 @@ export class TransactionInfoComponent {
     if (!this.txHash) {
       return;
     }
+
+    this.getBtcPrice();
 
     this.insightsService.getTransactionInfo(this.txHash).subscribe({
       next: (data: ITransactionInfo) => {
@@ -117,6 +120,15 @@ export class TransactionInfoComponent {
 
   trimTrailingZeros(value: string): string {
     return value.replace(/\.?0+$/, '');
+  }
+
+  async getBtcPrice(): Promise<void> {
+    try {
+      const response: any = await this.insightsService.getBtcCurrentPrice();
+      this.btcPrice = response.price;
+    } catch (err) {
+      console.log('error getting btc price from service:', err);
+    }
   }
 
   private calculateTotalAmount(vout: any[]): number {

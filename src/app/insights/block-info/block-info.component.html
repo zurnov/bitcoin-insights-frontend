@@ -209,18 +209,7 @@
                     <p class="break-all">{{ transaction.txId }}</p>
                   </a>
                 </div>
-                <div class="flex flex-col">
-                  <span class="text-gray-400">
-                    <i class="fas fa-coins mr-1 text-base text-orange-400"></i>
-                    Amount
-                  </span>
-                  <span
-                    >{{
-                      transaction.direction?.sentAmount | number : "1.0-8"
-                    }}
-                    BTC</span
-                  >
-                </div>
+
                 <div class="flex flex-col">
                   <span class="text-gray-400">
                     <i
@@ -228,7 +217,7 @@
                     ></i>
                     Size
                   </span>
-                  <span>{{ transaction.vbytes }}</span>
+                  <span class="md:mt-2">{{ transaction.vbytes }}</span>
                 </div>
                 <div class="flex flex-col">
                   <span class="text-gray-400">
@@ -237,7 +226,26 @@
                     ></i>
                     Weight
                   </span>
-                  <span>{{ transaction.weight }}</span>
+                  <span class="md:mt-2">{{ transaction.weight }}</span>
+                </div>
+
+                <div class="flex flex-col">
+                  <span class="text-gray-400">
+                    <i class="fas fa-coins mr-1 text-base text-orange-400"></i>
+                    Amount
+                  </span>
+                  <span
+                    >{{ transaction.direction?.sentAmount | number : "1.0-8" }}
+                    BTC
+                  </span>
+
+                  <span class="text-green-400 break-all">
+                    {{
+                      transaction.direction!.sentAmount * btcPrice
+                        | number : "1.2-2"
+                    }}
+                    USD
+                  </span>
                 </div>
               </div>
             </div>

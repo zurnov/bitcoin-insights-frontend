@@ -24,6 +24,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   totalPages!: number;
   isLoading = true;
+  btcPrice!: number;
 
   @ViewChild('transactionsContainer') transactionsContainer!: ElementRef;
 
@@ -42,6 +43,8 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     if (!this.blockParam) {
       return;
     }
+
+    this.getBtcPrice();
 
     this.route.queryParams.subscribe((params) => {
       this.currentPage = +params['page'] || 1;
@@ -180,6 +183,15 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   hexToDecimal(hex: string): string {
     const decimalNumber = parseInt(hex, 16);
     return decimalNumber.toLocaleString();
+  }
+
+  async getBtcPrice(): Promise<void> {
+    try {
+      const response: any = await this.insightsService.getBtcCurrentPrice();
+      this.btcPrice = response.price;
+    } catch (err) {
+      console.log('error getting btc price from service:', err);
+    }
   }
 
   onHashClick(event: MouseEvent): void {
