@@ -115,6 +115,10 @@ export class TransactionInfoComponent {
     return parseFloat(fee.toFixed(8));
   }
 
+  trimTrailingZeros(value: string): string {
+    return value.replace(/\.?0+$/, '');
+  }
+
   private calculateTotalAmount(vout: any[]): number {
     let totalAmount = 0;
     vout.forEach((output: any) => {

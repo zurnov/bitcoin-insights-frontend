@@ -173,6 +173,15 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     });
   }
 
+  trimTrailingZeros(value: string): string {
+    return value.replace(/\.?0+$/, '');
+  }
+
+  hexToDecimal(hex: string): string {
+    const decimalNumber = parseInt(hex, 16);
+    return decimalNumber.toLocaleString();
+  }
+
   onHashClick(event: MouseEvent): void {
     const target = event.currentTarget as HTMLElement;
     const hashContent = target.textContent;

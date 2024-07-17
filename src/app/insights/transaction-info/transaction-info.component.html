@@ -127,7 +127,7 @@
             Size
           </p>
           <ng-container *ngIf="transactionInfo && transactionInfo.size">
-            <p>{{ transactionInfo.size }}</p>
+            <p>{{ transactionInfo.size }} B</p>
           </ng-container>
         </div>
 
@@ -137,7 +137,12 @@
             Weight
           </p>
           <ng-container *ngIf="transactionInfo && transactionInfo.weight">
-            <p>{{ transactionInfo.weight }}</p>
+            <p>
+              {{
+                trimTrailingZeros((transactionInfo.weight / 1000).toFixed(3))
+              }}
+              KWU
+            </p>
           </ng-container>
         </div>
 
