@@ -100,3 +100,40 @@ body {
     animation-play-state: paused;
   }
 }
+
+.toast-err {
+  position: fixed;
+  top: 0;
+  margin: 10px;
+  background-color: #ff6347;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}
+
+.toast-warn {
+  position: fixed;
+  top: 0;
+  margin: 10px;
+  background-color: #ffa500;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}
+
+@media (min-width: 460px) {
+  .toast-err {
+    top: 0;
+    right: 0;
+  }
+
+  .toast-warn {
+    top: 0;
+    left: 0;
+  }
+}
+
+.toast-title,
+.toast-msg {
+  padding: 12px;
+}
