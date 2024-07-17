@@ -80,7 +80,6 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       },
       error: (err: Error) => {
         console.error('Error fetching address balance:', err);
-        alert('Error fetching address balance');
         this.router.navigate(['/']);
       },
     });

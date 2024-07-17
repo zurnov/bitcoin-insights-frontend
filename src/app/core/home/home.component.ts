@@ -16,6 +16,7 @@ import { transactionsExamples } from 'src/app/shared/helpers/transactionsExample
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -49,7 +50,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private insightsService: InsightsService,
     private router: Router,
     private cbService: ClipboardService,
-    private el: ElementRef
+    private el: ElementRef,
+    private notifService: NotificationService
   ) {}
 
   @HostListener('document:click', ['$event.target'])
@@ -253,7 +255,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         return this.router.navigate(['/insights/block', queryTrimmed]);
       }
     }
-    return alert('Enter valid query - address, transaction, or block...');
+    return this.notifService.showError(
+      'Enter valid query - BTC address, transaction, or block'
+    );
   }
 
   isBlockHeight(query: string): boolean {
