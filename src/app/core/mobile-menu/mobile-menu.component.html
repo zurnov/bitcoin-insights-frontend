@@ -1,6 +1,10 @@
 <header>
   <div class="z-50" role="dialog">
     <div
+      *ngIf="isMobileMenuOpenChange"
+      class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-950 z-50"
+    ></div>
+    <div
       (click)="closeMobileMenu()"
       (keyup.tab)="closeMobileMenu()"
       class="fixed inset-0 z-50"
@@ -8,7 +12,7 @@
       tabindex="0"
     ></div>
     <div
-      class="fixed inset-y-0 right-0 md:top-2 md:right-[0.2rem] z-50 w-full md:w-64 h-fit overflow-hidden bg-gray-700 px-6 py-3 md:rounded-2xl border-b md:border md:border-white"
+      class="fixed inset-y-0 right-0 md:top-2 md:right-[0.2rem] z-50 w-full md:w-64 h-fit overflow-hidden bg-gray-800 px-6 py-3 md:rounded-2xl border-b md:border md:border-white"
     >
       <div class="flex items-center justify-between">
         <a
@@ -17,7 +21,6 @@
           (click)="closeMobileMenu()"
           *ngIf="showLogo"
         >
-          <!--! to be hidden for smaller than md and shown for large -->
           <img
             class="absolute left-[18px] top-1 h-14 w-auto"
             src="/assets/main-logo.png"
