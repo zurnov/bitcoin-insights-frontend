@@ -1,13 +1,7 @@
 <div
   class="flex flex-col items-center space-y-4 justify-center md:mx-20 mb-10 text-base px-6"
 >
-  <div
-    *ngIf="isLoading"
-    class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-950 z-50"
-  >
-    <app-spinner></app-spinner>
-  </div>
-  <ng-container *ngIf="blockInfo">
+  <ng-container *ngIf="blockInfo; else techInfoSkeleton">
     <div class="flex flex-col items-center">
       <div
         class="flex flex-wrap justify-center items-center text-2xl md:text-4xl space-x-2"
@@ -254,4 +248,160 @@
       </li>
     </div>
   </ng-container>
+
+  <!--! tech info skeleton -->
+  <ng-template #techInfoSkeleton>
+    <div
+      class="flex flex-wrap justify-center items-center text-2xl md:text-4xl space-x-2 mb-2"
+    >
+      <h2 class="font-bold text-white fade-col">Bitcoin</h2>
+      <img
+        src="/assets/outline-btc.png"
+        alt=""
+        class="w-12 h-12 md:w-14 md:h-14"
+      />
+      <p class="font-medium text-orange-500 fade-col-rev">block</p>
+    </div>
+
+    <div
+      class="flex flex-col w-full px-4 md:px-6 mt-6 space-y-4 text-white border border-gray-700 rounded-3xl p-4 md:p-6 shadow-inner shadow-gray-800 max-w-6xl"
+    >
+      <div class="flex flex-col items-center justify-center mt-3 mb-2">
+        <p class="text-gray-400 text-xl font-medium">
+          <i class="fas fa-info-circle mr-1 text-lg text-orange-500"></i>
+          Technical Info
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-cube mr-1 text-base text-orange-400"></i>
+            Block Height
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-hashtag mr-1 text-base text-orange-400"></i>
+            Hash
+          </p>
+          <div class="w-96 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-calendar-alt mr-1 text-base text-orange-400"></i>
+            Mined on
+          </p>
+          <div class="w-64 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-check-circle mr-1 text-base text-orange-400"></i>
+            Confirmations
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-receipt mr-1 text-base text-orange-400"></i>
+            Transactions Count
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-expand mr-1 text-base text-orange-400"></i>
+            Size
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-weight mr-1 text-base text-orange-400"></i>
+            Weight
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-ruler mr-1 text-base text-orange-400"></i>
+            Stripped Size
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="far fa-clock mr-1 text-base text-orange-400"></i>
+            Median Time
+          </p>
+          <div class="w-64 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-code-branch mr-1 text-base text-orange-400"></i>
+            Version
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-file-code mr-1 text-base text-orange-400"></i>
+            Version (Hex)
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-network-wired mr-1 text-base text-orange-400"></i>
+            Merkle Root
+          </p>
+          <div class="w-96 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-chart-line mr-1 text-base text-orange-400"></i>
+            Difficulty
+          </p>
+          <div class="w-64 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-bolt mr-1 text-base text-orange-400"></i>
+            Nonce
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700 sm:border-none">
+          <p class="text-gray-400">
+            <i class="fas fa-microchip mr-1 text-base text-orange-400"></i>
+            Bits
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4">
+          <p class="text-gray-400">
+            <i class="fas fa-link mr-1 text-base text-orange-400"></i>
+            Chainwork
+          </p>
+          <div class="w-96 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

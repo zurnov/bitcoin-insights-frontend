@@ -2,13 +2,6 @@
   class="flex flex-col items-center space-y-4 justify-center text-base md:mx-20 text-white px-6"
 >
   <div
-    *ngIf="isLoading"
-    class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-950 z-50"
-  >
-    <app-spinner></app-spinner>
-  </div>
-
-  <div
     class="flex justify-center items-center text-2xl md:text-4xl space-x-2 mb-2"
   >
     <h2 class="font-bold text-white fade-col">Bitcoin</h2>
@@ -20,259 +13,393 @@
     <p class="font-medium text-orange-500 fade-col-rev">transaction</p>
   </div>
 
-  <div
-    class="flex flex-col w-full px-4 md:px-6 mt-6 space-y-4 text-white border border-gray-700 rounded-3xl p-4 md:p-6 shadow-inner shadow-gray-800 max-w-6xl"
-  >
-    <div class="flex flex-col items-center justify-center mt-3 mb-2">
-      <p class="text-gray-400 text-xl font-medium">
-        <i class="fas fa-info-circle mr-1 text-lg text-orange-500"></i>
-        Technical Info
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i class="fas fa-hashtag mr-1 text-base text-orange-400"></i>
-          Hash
+  <ng-container *ngIf="transactionInfo; else techInfoSkeleton">
+    <div
+      class="flex flex-col w-full px-4 md:px-6 mt-6 space-y-4 text-white border border-gray-700 rounded-3xl p-4 md:p-6 shadow-inner shadow-gray-800 max-w-6xl"
+    >
+      <div class="flex flex-col items-center justify-center mt-3 mb-2">
+        <p class="text-gray-400 text-xl font-medium">
+          <i class="fas fa-info-circle mr-1 text-lg text-orange-500"></i>
+          Technical Info
         </p>
-        <ng-container *ngIf="transactionInfo && transactionInfo.txId">
-          <p class="break-all">{{ transactionInfo.txId }}</p>
-        </ng-container>
       </div>
 
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i class="fas fa-share-square mr-1 text-base text-orange-400"></i>
-          Block Hash
-        </p>
-        <ng-container *ngIf="transactionInfo && transactionInfo.blockHash">
-          <a
-            [routerLink]="['/insights/block', transactionInfo.blockHash]"
-            class="break-all hover:text-orange-400"
-          >
-            {{ transactionInfo.blockHash }}
-            <i class="fas fa-external-link-alt text-sm ml-1 text-gray-400"></i>
-          </a>
-        </ng-container>
-      </div>
-
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i class="fas fa-cube mr-1 text-base text-orange-400"></i>
-          In Block
-        </p>
-        <ng-container *ngIf="blockInfo && blockInfo.blockHeight">
-          <a
-            [routerLink]="['/insights/block', blockInfo.blockHeight]"
-            class="break-all hover:text-orange-400"
-          >
-            {{ blockInfo.blockHeight }}
-            <i class="fas fa-external-link-alt text-sm ml-1 text-gray-400"></i>
-          </a>
-        </ng-container>
-      </div>
-
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i class="fas fa-check-circle mr-1 text-base text-orange-400"></i>
-          Confirmations
-        </p>
-        <ng-container *ngIf="transactionInfo && transactionInfo.confirmations">
-          <p>{{ transactionInfo.confirmations }}</p>
-        </ng-container>
-      </div>
-
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i class="far fa-clock mr-1 text-base text-orange-400"></i>
-          Time
-        </p>
-        <ng-container *ngIf="transactionInfo && transactionInfo.time">
-          <p>
-            {{ +transactionInfo.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
-            EEST
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-hashtag mr-1 text-base text-orange-400"></i>
+            Hash
           </p>
-        </ng-container>
-      </div>
+          <ng-container *ngIf="transactionInfo && transactionInfo.txId">
+            <p class="break-all">{{ transactionInfo.txId }}</p>
+          </ng-container>
+        </div>
 
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i class="fas fa-coins mr-1 text-base text-orange-400"></i>
-          Amount
-        </p>
-        <ng-container>
-          <p>{{ totalAmount }} BTC</p>
-        </ng-container>
-      </div>
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-share-square mr-1 text-base text-orange-400"></i>
+            Block Hash
+          </p>
+          <ng-container *ngIf="transactionInfo && transactionInfo.blockHash">
+            <a
+              [routerLink]="['/insights/block', transactionInfo.blockHash]"
+              class="break-all hover:text-orange-400"
+            >
+              {{ transactionInfo.blockHash }}
+              <i
+                class="fas fa-external-link-alt text-sm ml-1 text-gray-400"
+              ></i>
+            </a>
+          </ng-container>
+        </div>
 
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i
-            class="fas fa-money-bill-wave-alt mr-1 text-base text-orange-400"
-          ></i>
-          Fee
-        </p>
-        <ng-container>
-          <p *ngIf="fee > 0">{{ fee }} BTC</p>
-          <p *ngIf="fee == 0">No fee</p>
-        </ng-container>
-      </div>
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-cube mr-1 text-base text-orange-400"></i>
+            In Block
+          </p>
+          <ng-container *ngIf="blockInfo && blockInfo.blockHeight">
+            <a
+              [routerLink]="['/insights/block', blockInfo.blockHeight]"
+              class="break-all hover:text-orange-400"
+            >
+              {{ blockInfo.blockHeight }}
+              <i
+                class="fas fa-external-link-alt text-sm ml-1 text-gray-400"
+              ></i>
+            </a>
+          </ng-container>
+        </div>
 
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i class="fas fa-expand mr-1 text-base text-orange-400"></i>
-          Size
-        </p>
-        <ng-container *ngIf="transactionInfo && transactionInfo.size">
-          <p>{{ transactionInfo.size }}</p>
-        </ng-container>
-      </div>
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-check-circle mr-1 text-base text-orange-400"></i>
+            Confirmations
+          </p>
+          <ng-container
+            *ngIf="transactionInfo && transactionInfo.confirmations"
+          >
+            <p>{{ transactionInfo.confirmations }}</p>
+          </ng-container>
+        </div>
 
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i class="fas fa-weight mr-1 text-base text-orange-400"></i>
-          Weight
-        </p>
-        <ng-container *ngIf="transactionInfo && transactionInfo.weight">
-          <p>{{ transactionInfo.weight }}</p>
-        </ng-container>
-      </div>
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="far fa-clock mr-1 text-base text-orange-400"></i>
+            Time
+          </p>
+          <ng-container *ngIf="transactionInfo && transactionInfo.time">
+            <p>
+              {{
+                +transactionInfo.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss"
+              }}
+              EEST
+            </p>
+          </ng-container>
+        </div>
 
-      <div class="p-4 border-b border-gray-700">
-        <p class="text-gray-400">
-          <i
-            class="fas fa-expand-arrows-alt mr-1 text-base text-orange-400"
-          ></i>
-          Virtual Size
-        </p>
-        <ng-container *ngIf="transactionInfo && transactionInfo.vbytes">
-          <p>{{ transactionInfo.vbytes }} vB</p>
-        </ng-container>
-      </div>
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-coins mr-1 text-base text-orange-400"></i>
+            Amount
+          </p>
+          <ng-container>
+            <p>{{ totalAmount }} BTC</p>
+          </ng-container>
+        </div>
 
-      <div class="p-4 border-b border-gray-700 sm:border-none">
-        <p class="text-gray-400">
-          <i class="fas fa-lock-open mr-1 text-base text-orange-400"></i>
-          Lock Time
-        </p>
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i
+              class="fas fa-money-bill-wave-alt mr-1 text-base text-orange-400"
+            ></i>
+            Fee
+          </p>
+          <ng-container>
+            <p *ngIf="fee > 0">{{ fee }} BTC</p>
+            <p *ngIf="fee == 0">No fee</p>
+          </ng-container>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-expand mr-1 text-base text-orange-400"></i>
+            Size
+          </p>
+          <ng-container *ngIf="transactionInfo && transactionInfo.size">
+            <p>{{ transactionInfo.size }}</p>
+          </ng-container>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-weight mr-1 text-base text-orange-400"></i>
+            Weight
+          </p>
+          <ng-container *ngIf="transactionInfo && transactionInfo.weight">
+            <p>{{ transactionInfo.weight }}</p>
+          </ng-container>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i
+              class="fas fa-expand-arrows-alt mr-1 text-base text-orange-400"
+            ></i>
+            Virtual Size
+          </p>
+          <ng-container *ngIf="transactionInfo && transactionInfo.vbytes">
+            <p>{{ transactionInfo.vbytes }} vB</p>
+          </ng-container>
+        </div>
+
+        <div class="p-4 border-b border-gray-700 sm:border-none">
+          <p class="text-gray-400">
+            <i class="fas fa-lock-open mr-1 text-base text-orange-400"></i>
+            Lock Time
+          </p>
+          <ng-container
+            *ngIf="transactionInfo && transactionInfo.lockTime !== undefined"
+          >
+            <p>{{ transactionInfo.lockTime }}</p>
+          </ng-container>
+        </div>
+
+        <div class="p-4">
+          <p class="text-gray-400">
+            <i class="fas fa-code-branch mr-1 text-base text-orange-400"></i>
+            Version
+          </p>
+          <ng-container *ngIf="transactionInfo && transactionInfo.version">
+            <p>{{ transactionInfo.version }}</p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-6xl pt-10">
+      <div class="flex flex-col w-full space-y-4">
+        <h3 class="text-gray-400 text-lg font-medium mb-2 ml-4">Inputs</h3>
         <ng-container
-          *ngIf="transactionInfo && transactionInfo.lockTime !== undefined"
+          *ngIf="vinDetails && vinDetails.length > 0; else noInputs"
         >
-          <p>{{ transactionInfo.lockTime }}</p>
-        </ng-container>
-      </div>
-
-      <div class="p-4">
-        <p class="text-gray-400">
-          <i class="fas fa-code-branch mr-1 text-base text-orange-400"></i>
-          Version
-        </p>
-        <ng-container *ngIf="transactionInfo && transactionInfo.version">
-          <p>{{ transactionInfo.version }}</p>
-        </ng-container>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-6xl pt-10">
-    <div class="flex flex-col w-full space-y-4">
-      <h3 class="text-gray-400 text-lg font-medium mb-2 ml-4">Inputs</h3>
-      <ng-container *ngIf="vinDetails && vinDetails.length > 0; else noInputs">
-        <div *ngFor="let input of vinDetails; let i = index">
-          <div
-            class="p-4 border border-gray-700 rounded-3xl shadow-inner shadow-gray-700 mb-4"
-          >
-            <div class="p-4 border-b border-gray-700">
-              <p class="text-gray-400">
-                <i class="fas fa-arrow-down mr-1 text-base text-orange-400"></i>
-                Input {{ i }}
-              </p>
-              <p class="text-white break-all hover:text-orange-400">
-                <a [routerLink]="'/insights/address/' + input.address">
-                  {{ input.address }}
+          <div *ngFor="let input of vinDetails; let i = index">
+            <div
+              class="p-4 border border-gray-700 rounded-3xl shadow-inner shadow-gray-700 mb-4"
+            >
+              <div class="p-4 border-b border-gray-700">
+                <p class="text-gray-400">
                   <i
-                    class="fas fa-external-link-alt text-sm ml-1 text-gray-400"
+                    class="fas fa-arrow-down mr-1 text-base text-orange-400"
                   ></i>
-                </a>
-              </p>
-            </div>
-            <div class="p-4">
-              <p class="text-gray-400">
-                <i class="fab fa-bitcoin mr-0.5 text-base text-orange-400"></i>
-                Amount
-              </p>
-              <p class="text-white break-all">{{ input.amount }} BTC</p>
+                  Input {{ i }}
+                </p>
+                <p class="text-white break-all hover:text-orange-400">
+                  <a [routerLink]="'/insights/address/' + input.address">
+                    {{ input.address }}
+                    <i
+                      class="fas fa-external-link-alt text-sm ml-1 text-gray-400"
+                    ></i>
+                  </a>
+                </p>
+              </div>
+              <div class="p-4">
+                <p class="text-gray-400">
+                  <i
+                    class="fab fa-bitcoin mr-0.5 text-base text-orange-400"
+                  ></i>
+                  Amount
+                </p>
+                <p class="text-white break-all">{{ input.amount }} BTC</p>
+              </div>
             </div>
           </div>
-        </div>
-      </ng-container>
-      <ng-template #noInputs>
-        <div
-          class="p-4 border border-gray-700 rounded-3xl shadow-inner shadow-gray-700 mb-4"
-        >
-          <p class="text-white">No inputs available</p>
-        </div>
-      </ng-template>
-    </div>
-
-    <div class="flex flex-col w-full space-y-4">
-      <h3 class="text-gray-400 text-lg font-medium mb-2 ml-4">Outputs</h3>
-      <ng-container
-        *ngIf="
-          transactionInfo &&
-            transactionInfo.vout &&
-            transactionInfo.vout.length > 0;
-          else noOutputs
-        "
-      >
-        <div *ngFor="let output of transactionInfo.vout; let i = index">
+        </ng-container>
+        <ng-template #noInputs>
           <div
             class="p-4 border border-gray-700 rounded-3xl shadow-inner shadow-gray-700 mb-4"
           >
-            <div class="p-4 border-b border-gray-700">
-              <p class="text-gray-400">
-                <i class="fas fa-arrow-up mr-1 text-base text-orange-400"></i>
-                Output {{ i }}
-              </p>
+            <p class="text-white">No inputs available</p>
+          </div>
+        </ng-template>
+      </div>
 
-              <p
-                class="text-white break-all hover:text-orange-400"
-                *ngIf="output.scriptPubKey?.address; else opReturn"
-              >
-                <a
-                  [routerLink]="
-                    '/insights/address/' + output.scriptPubKey?.address
-                  "
+      <div class="flex flex-col w-full space-y-4">
+        <h3 class="text-gray-400 text-lg font-medium mb-2 ml-4">Outputs</h3>
+        <ng-container
+          *ngIf="
+            transactionInfo &&
+              transactionInfo.vout &&
+              transactionInfo.vout.length > 0;
+            else noOutputs
+          "
+        >
+          <div *ngFor="let output of transactionInfo.vout; let i = index">
+            <div
+              class="p-4 border border-gray-700 rounded-3xl shadow-inner shadow-gray-700 mb-4"
+            >
+              <div class="p-4 border-b border-gray-700">
+                <p class="text-gray-400">
+                  <i class="fas fa-arrow-up mr-1 text-base text-orange-400"></i>
+                  Output {{ i }}
+                </p>
+
+                <p
+                  class="text-white break-all hover:text-orange-400"
+                  *ngIf="output.scriptPubKey?.address; else opReturn"
                 >
-                  {{ output.scriptPubKey?.address }}
-                  <i
-                    class="fas fa-external-link-alt text-sm ml-1 text-gray-400"
-                  ></i>
-                </a>
-              </p>
-              <ng-template #opReturn>
-                <p class="text-white">OP_RETURN</p>
-              </ng-template>
-            </div>
+                  <a
+                    [routerLink]="
+                      '/insights/address/' + output.scriptPubKey?.address
+                    "
+                  >
+                    {{ output.scriptPubKey?.address }}
+                    <i
+                      class="fas fa-external-link-alt text-sm ml-1 text-gray-400"
+                    ></i>
+                  </a>
+                </p>
+                <ng-template #opReturn>
+                  <p class="text-white">OP_RETURN</p>
+                </ng-template>
+              </div>
 
-            <div class="p-4">
-              <p class="text-gray-400">
-                <i class="fab fa-bitcoin mr-0.5 text-base text-orange-400"></i>
-                Amount
-              </p>
-              <p class="text-white break-all">{{ output.value }} BTC</p>
+              <div class="p-4">
+                <p class="text-gray-400">
+                  <i
+                    class="fab fa-bitcoin mr-0.5 text-base text-orange-400"
+                  ></i>
+                  Amount
+                </p>
+                <p class="text-white break-all">{{ output.value }} BTC</p>
+              </div>
             </div>
           </div>
-        </div>
-      </ng-container>
-      <ng-template #noOutputs>
-        <div
-          class="p-4 border border-gray-700 rounded-3xl shadow-inner shadow-gray-700 mb-4"
-        >
-          <p class="text-white">No outputs available</p>
-        </div>
-      </ng-template>
+        </ng-container>
+        <ng-template #noOutputs>
+          <div
+            class="p-4 border border-gray-700 rounded-3xl shadow-inner shadow-gray-700 mb-4"
+          >
+            <p class="text-white">No outputs available</p>
+          </div>
+        </ng-template>
+      </div>
     </div>
-  </div>
+  </ng-container>
+
+  <!--! tech info skeleton -->
+  <ng-template #techInfoSkeleton>
+    <div
+      class="flex flex-col w-full px-4 md:px-6 mt-6 space-y-4 text-white border border-gray-700 rounded-3xl p-4 md:p-6 shadow-inner shadow-gray-800 max-w-6xl"
+    >
+      <div class="flex flex-col items-center justify-center mt-3 mb-2">
+        <p class="text-gray-400 text-xl font-medium">
+          <i class="fas fa-info-circle mr-1 text-lg text-orange-500"></i>
+          Technical Info
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-hashtag mr-1 text-base text-orange-400"></i>
+            Hash
+          </p>
+          <div class="w-96 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-share-square mr-1 text-base text-orange-400"></i>
+            Block Hash
+          </p>
+          <div class="w-96 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-cube mr-1 text-base text-orange-400"></i>
+            In Block
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-check-circle mr-1 text-base text-orange-400"></i>
+            Confirmations
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="far fa-clock mr-1 text-base text-orange-400"></i>
+            Time
+          </p>
+          <div class="w-64 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-coins mr-1 text-base text-orange-400"></i>
+            Amount
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i
+              class="fas fa-money-bill-wave-alt mr-1 text-base text-orange-400"
+            ></i>
+            Fee
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-expand mr-1 text-base text-orange-400"></i>
+            Size
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-weight mr-1 text-base text-orange-400"></i>
+            Weight
+          </p>
+          <div class="w-64 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i
+              class="fas fa-expand-arrows-alt mr-1 text-base text-orange-400"
+            ></i>
+            Virtual Size
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-lock-open mr-1 text-base text-orange-400"></i>
+            Lock Time
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+
+        <div class="p-4 border-b border-gray-700">
+          <p class="text-gray-400">
+            <i class="fas fa-code-branch mr-1 text-base text-orange-400"></i>
+            Version
+          </p>
+          <div class="w-36 bg-gray-700 h-4 animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>
