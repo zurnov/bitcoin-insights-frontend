@@ -93,6 +93,10 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.scrollToTxContainer();
       });
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
   }
 
   private scrollToTxContainer() {

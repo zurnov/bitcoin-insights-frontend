@@ -73,6 +73,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.getBtcPrices();
     // todo get historical
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
   }
 
   onExampleClick(type: 'address' | 'block' | 'transaction') {

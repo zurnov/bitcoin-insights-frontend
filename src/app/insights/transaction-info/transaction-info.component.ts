@@ -70,6 +70,10 @@ export class TransactionInfoComponent {
         console.error('Error fetching transaction info:', err);
       },
     });
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
   }
 
   private fetchVinDetails(vin: any[]) {
