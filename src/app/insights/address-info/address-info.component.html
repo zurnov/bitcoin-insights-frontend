@@ -146,14 +146,13 @@
             <div
               class="mb-2 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0 text-gray-300 text-base"
             >
-              <p>[ {{ transaction.details.confirmations }} confirmations ]</p>
+              <p>{{ transaction.details.confirmations }} confirmations</p>
               <p>
-                [
                 {{
                   +transaction.details.time * 1000
                     | date : "MMM dd, yyyy, HH:mm:ss"
                 }}
-                ]
+                EEST
               </p>
             </div>
 
@@ -175,7 +174,7 @@
 
               <div class="items-center hidden sm:flex">
                 <p class="text-gray-300">
-                  [ {{ transaction.details.vbytes }} vBytes ]
+                  {{ transaction.details.vbytes }} vBytes
                 </p>
               </div>
             </div>

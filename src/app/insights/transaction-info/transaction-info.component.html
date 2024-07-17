@@ -91,6 +91,7 @@
         <ng-container *ngIf="transactionInfo && transactionInfo.time">
           <p>
             {{ +transactionInfo.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
+            EEST
           </p>
         </ng-container>
       </div>

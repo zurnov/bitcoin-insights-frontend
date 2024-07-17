@@ -85,14 +85,11 @@
           <p class="text-gray-400">BTC</p>
         </div>
 
-        <ng-container *ngIf="btcPrice && btcPriceTime; else spinner">
+        <ng-container *ngIf="btcPrice; else spinner">
           <div class="flex justify-center">
             <p class="font-medium mr-1">{{ btcPrice | number : "1.2-2" }}</p>
             <p class="text-gray-400">USD</p>
           </div>
-          <!-- <p class="font-normal" *ngIf="btcPriceTime">
-            {{ +btcPriceTime * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
-          </p> -->
         </ng-container>
 
         <ng-template #spinner>
@@ -245,7 +242,7 @@
         >
           <tr>
             <th class="px-8 py-3">Height</th>
-            <th class="px-8 py-3 pl-9">Timestamp</th>
+            <th class="px-8 py-3 pl-9">Time (EEST)</th>
             <th class="px-8 py-3">Transactions</th>
             <th class="px-8 py-3 pl-9">Size (KB)</th>
             <th class="px-8 py-3 pl-10">Weight (KWU)</th>
@@ -363,7 +360,7 @@
             <th class="px-8 py-3">Transaction ID</th>
             <th class="px-8 py-3">Value (BTC)</th>
             <th class="px-8 py-3 pl-10">Size (B)</th>
-            <th class="px-8 py-3 pl-9">Time</th>
+            <th class="px-8 py-3 pl-9">Time (EEST)</th>
           </tr>
         </thead>
         <tbody class="text-white divide-y divide-gray-600">
