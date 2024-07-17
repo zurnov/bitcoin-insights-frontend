@@ -21,19 +21,22 @@
 
 <div class="flex flex-col justify-center items-center">
   <div class="relative">
-    <form (ngSubmit)="onSearch(searchInput.value)">
+    <form (ngSubmit)="onSearch(searchInput.value)" class="relative">
       <input
         #searchInput
         type="search"
         name="search"
-        placeholder="search for address, transaction, or block..."
+        placeholder="search for address, transaction, or block"
         class="main-search bg-gray-800 text-xs text-white h-10 md:h-12 px-4 pr-10 rounded-lg rounded-b-md focus:outline-none w-[300px] sm:w-[380px] md:w-[650px] border-b-2 focus:border-orange-400 transition-all duration-300 ease-in-out mb-3 lg:mb-0"
         autocomplete="off"
       />
 
-      <button type="submit" class="absolute right-3 top-3.5">
+      <button
+        type="submit"
+        class="absolute right-0 -top-1.5 lg:top-0 h-full w-10 flex items-center justify-center"
+      >
         <svg
-          class="h-3 w-3 md:h-5 md:w-5 text-white lg:hover:text-orange-400 duration-200"
+          class="h-4 w-4 md:h-5 md:w-5 text-white lg:hover:text-orange-400 duration-200"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           version="1.1"
