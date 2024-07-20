@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { NAV_LINKS } from 'src/app/shared/helpers/navLinks';
 
 @Component({
@@ -10,7 +10,12 @@ export class HeaderComponent {
   isMobileMenuOpen = false;
   navLinks = NAV_LINKS;
 
-  constructor() {}
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (this.isMobileMenuOpen) {
+      this.isMobileMenuOpen = false;
+    }
+  }
 
   openMobileMenu() {
     this.isMobileMenuOpen = true;
@@ -18,5 +23,9 @@ export class HeaderComponent {
 
   handleCloseMobileMenu(value: boolean) {
     this.isMobileMenuOpen = value;
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.onWindowScroll);
   }
 }
