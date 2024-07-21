@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { DonateComponent } from './donate/donate.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     HeaderComponent,
     MobileMenuComponent,
     FooterComponent,
+    DonateComponent,
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     HttpClientModule,
     SharedModule,
     FormsModule,
-    ClipboardModule
+    ClipboardModule,
   ],
   providers: [InsightsService],
   exports: [HeaderComponent, FooterComponent],

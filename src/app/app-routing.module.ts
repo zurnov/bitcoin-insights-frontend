@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './core/home/home.component';
+import { DonateComponent } from './core/donate/donate.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'insights',
     loadChildren: () =>
       import('./insights/insights.module').then((m) => m.InsightsModule),
+  },
+  {
+    path: 'donate',
+    component: DonateComponent,
+    data: { title: 'Donate' },
   },
   {
     path: '**',
