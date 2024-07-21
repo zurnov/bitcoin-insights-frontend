@@ -11,6 +11,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject, filter, forkJoin, takeUntil } from 'rxjs';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-block-info',
@@ -23,7 +24,6 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   blockParam: string | null = null;
   currentPage: number = 1;
   totalPages!: number;
-  isLoading = true;
   btcPrice!: number;
 
   @ViewChild('transactionsContainer') transactionsContainer!: ElementRef;
@@ -34,15 +34,17 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     private insightsService: InsightsService,
     private router: Router,
     private route: ActivatedRoute,
-    private notifService: NotificationService
+    private notifService: NotificationService,
+    public loadingService: LoadingService
   ) {}
 
   ngOnInit() {
-    this.isLoading = true;
     this.blockParam = this.route.snapshot.paramMap.get('blockParam');
     if (!this.blockParam) {
       return;
     }
+
+    this.loadingService.show();
 
     this.getBtcPrice();
 
@@ -66,14 +68,16 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
           this.totalPages = Math.ceil(data.ntx / 5);
 
           this.fetchTransactionDetails();
-          this.isLoading = false;
+
+          this.loadingService.hide();
         },
         error: (err: Error) => {
           console.error('Error fetching block info:', err);
 
           this.currentPage = 1;
           this.updateRoute();
-          this.isLoading = false;
+
+          this.loadingService.hide();
 
           this.router.navigate(['/']);
           return this.notifService.showError('Block info retrieval failed');
@@ -105,7 +109,6 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   }
 
   fetchTransactionDetails(): void {
-    this.isLoading = true;
     if (
       !this.blockInfo?.transactions ||
       this.blockInfo.transactions.length === 0
@@ -130,8 +133,6 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
             }
           });
 
-          this.isLoading = false;
-
           return {
             txId: this.blockInfo!.transactions[index],
             hash: txDetails.hash,
@@ -155,7 +156,6 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
         });
       },
       error: (err: Error) => {
-        this.isLoading = false;
         console.error('Error fetching transaction details:', err);
       },
     });

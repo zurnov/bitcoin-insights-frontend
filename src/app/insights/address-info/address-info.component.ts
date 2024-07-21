@@ -12,6 +12,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subject, filter, forkJoin, takeUntil } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-address-info',
@@ -27,7 +28,6 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   animatedIndex: string | null = null;
   showTooltipId: string | null = null;
   showCopied = false;
-  isLoading = false;
   btcPrice!: number;
 
   private destroy$: Subject<void> = new Subject<void>();
@@ -39,7 +39,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private cbService: ClipboardService,
-    private notifService: NotificationService
+    private notifService: NotificationService,
+    public loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -48,11 +49,12 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.loadingService.show();
+
     this.getBtcPrice();
 
     this.route.queryParams.subscribe((params) => {
       this.currentPage = +params['page'] || 1;
-      this.isLoading = true;
 
       this.insightsService
         .getAddressHistory(this.walletAddress as string, this.currentPage)
@@ -60,17 +62,19 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
           next: (data: IAddressHistory) => {
             this.addressHistory = data;
             this.totalPages = data.totalPages;
-            this.isLoading = false;
 
             this.fetchTransactionDetails();
 
             // console.log('Address history fetched:', this.addressHistory);
+
+            this.loadingService.hide();
           },
           error: (err: Error) => {
             console.error('Error fetching address history:', err);
             this.currentPage = 1;
             this.updateRoute();
-            this.isLoading = false;
+
+            this.loadingService.hide();
 
             this.router.navigate(['/']);
             return this.notifService.showError('Address info retrieval failed');

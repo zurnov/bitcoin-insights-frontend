@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-transaction-info',
@@ -18,7 +19,6 @@ export class TransactionInfoComponent {
   totalAmount: number = 0;
   totalInputAmount: number = 0;
   fee: number = 0;
-  isLoading = true;
   btcPrice!: number;
   vinDetails: { address: string; amount: number }[] = [];
 
@@ -26,16 +26,17 @@ export class TransactionInfoComponent {
     private insightsService: InsightsService,
     private route: ActivatedRoute,
     private router: Router,
-    private notifService: NotificationService
+    private notifService: NotificationService,
+    public loadingService: LoadingService
   ) {}
 
   ngOnInit() {
-    this.isLoading = true;
-
     this.txHash = this.route.snapshot.paramMap.get('txHash') || '';
     if (!this.txHash) {
       return;
     }
+
+    this.loadingService.show();
 
     this.getBtcPrice();
 
@@ -67,13 +68,13 @@ export class TransactionInfoComponent {
             });
         }
 
-        this.isLoading = false;
-
         // console.log('Transaction info fetched:', this.transactionInfo);
+        this.loadingService.hide();
       },
       error: (err: Error) => {
-        this.isLoading = false;
         console.error('Error fetching transaction info:', err);
+
+        this.loadingService.hide();
 
         this.router.navigate(['/']);
         return this.notifService.showError('Transaction info retrieval failed');
