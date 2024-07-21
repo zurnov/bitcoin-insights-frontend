@@ -56,14 +56,30 @@
       >
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 pb-6">
-            <a
-              *ngFor="let link of navLinks"
-              [routerLink]="[link.route]"
-              class="-mx-3 block rounded-md px-3 py-2 text-xs md:text-sm font-medium leading-7 text-white hover:bg-gray-200 hover:text-gray-950"
-              (click)="closeMobileMenu()"
-            >
-              {{ link.label }}
-            </a>
+            <ng-container *ngFor="let link of navLinks">
+              <a
+                *ngIf="!link.external"
+                [routerLink]="link.route"
+                (click)="closeMobileMenu()"
+                class="-mx-1 md:-mx-3 block rounded-md px-3 py-2 text-xs md:text-sm font-medium leading-7 text-white hover:bg-gray-200 hover:text-gray-800 border border-gray-700 transition-all duration-300"
+              >
+                {{ link.label }}
+              </a>
+
+              <a
+                *ngIf="link.external"
+                (click)="closeMobileMenu()"
+                [href]="link.route"
+                [attr.target]="'_blank'"
+                [attr.rel]="'noopener noreferrer'"
+                class="-mx-1 md:-mx-3 block rounded-md px-3 py-2 text-xs md:text-sm font-medium leading-7 text-white hover:bg-gray-200 hover:text-gray-800 border border-gray-700 transition-all duration-300"
+              >
+                {{ link.label }}
+                <ng-container *ngIf="link.icon">
+                  <i [class]="link.icon + ' ml-1'"></i>
+                </ng-container>
+              </a>
+            </ng-container>
           </div>
         </div>
       </div>
