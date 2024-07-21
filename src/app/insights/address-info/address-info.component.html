@@ -90,16 +90,16 @@
                     )
                   }}
                   <span class="text-gray-400 ml-1"> BTC</span>
-                  <span class="mx-2 sm:mx-4 text-gray-400">•</span>
-                  <span>
-                    {{
-                      trimTrailingZeros(
-                        addressBalance.unconfirmedBitcoin * btcPrice
-                          | number : "1.2-2"
-                      )
-                    }}
-                    <span class="text-gray-400 ml-1"> USD</span>
-                  </span>
+                </span>
+                <span class="mx-2 sm:mx-4 text-gray-400">•</span>
+                <span>
+                  {{
+                    trimTrailingZeros(
+                      addressBalance.unconfirmedBitcoin * btcPrice
+                        | number : "1.2-2"
+                    )
+                  }}
+                  <span class="text-gray-400 ml-1"> USD</span>
                 </span>
               </div>
             </ng-container>
