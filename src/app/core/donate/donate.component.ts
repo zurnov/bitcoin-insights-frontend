@@ -18,6 +18,10 @@ export class DonateComponent {
     private cbService: ClipboardService
   ) {
     this.loadingService.hide();
+
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100);
   }
 
   copyAddress(address: string, type: 'btc' | 'eth') {
