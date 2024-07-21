@@ -1,69 +1,71 @@
-<footer class="mt-5 md:mt-20 text-sm mx-2">
-  <div class="container max-w-7xl mx-auto">
-    <div class="flex w-full px-3 sm:px-6">
-      <div class="flex-1">
-        <p class="font-semibold md:mb-6 text-orange-400">Links</p>
-        <ul class="list-reset mb-6">
-          <li class="mt-2 block">
-            <a
-              href="#"
-              class="no-underline lg:hover:text-orange-400 text-gray-400"
-              >Home</a
-            >
-          </li>
-          <li class="mt-2 block">
-            <a
-              href="#"
-              class="no-underline lg:hover:text-orange-400 text-gray-400"
-              >About</a
-            >
-          </li>
-        </ul>
-      </div>
+<ng-container *ngIf="!(isLoading$ | async)">
+  <footer class="mt-5 md:mt-20 text-sm mx-2">
+    <div class="container max-w-7xl mx-auto">
+      <div class="flex w-full px-3 sm:px-6">
+        <div class="flex-1">
+          <p class="font-semibold md:mb-6 text-orange-400">Links</p>
+          <ul class="list-reset mb-6">
+            <li class="mt-2 block">
+              <a
+                href="#"
+                class="no-underline lg:hover:text-orange-400 text-gray-400"
+                >Home</a
+              >
+            </li>
+            <li class="mt-2 block">
+              <a
+                href="#"
+                class="no-underline lg:hover:text-orange-400 text-gray-400"
+                >About</a
+              >
+            </li>
+          </ul>
+        </div>
 
-      <div class="flex-1">
-        <p class="font-semibold md:mb-6 text-orange-400">Legal</p>
-        <ul class="list-reset mb-6">
-          <li class="mt-2 block">
-            <a
-              href="#"
-              class="no-underline lg:hover:text-orange-400 text-gray-400"
-              >Terms</a
-            >
-          </li>
-          <li class="mt-2 block">
-            <a
-              href="#"
-              class="no-underline lg:hover:text-orange-400 text-gray-400"
-              >Privacy</a
-            >
-          </li>
-        </ul>
-      </div>
+        <div class="flex-1">
+          <p class="font-semibold md:mb-6 text-orange-400">Legal</p>
+          <ul class="list-reset mb-6">
+            <li class="mt-2 block">
+              <a
+                href="#"
+                class="no-underline lg:hover:text-orange-400 text-gray-400"
+                >Terms</a
+              >
+            </li>
+            <li class="mt-2 block">
+              <a
+                href="#"
+                class="no-underline lg:hover:text-orange-400 text-gray-400"
+                >Privacy</a
+              >
+            </li>
+          </ul>
+        </div>
 
-      <div class="flex-initial">
-        <p class="font-semibold md:mb-6 text-orange-400">Social</p>
-        <ul class="list-reset mb-6">
-          <li class="mt-2 inline-block mr-2">
-            <a
-              href="https://www.linkedin.com/in/daniel-zlatanov-15a18b227/"
-              target="_blank"
-              class="text-gray-400 lg:hover:text-orange-400 text-xl"
-            >
-              <i class="fab fa-linkedin fa-2"></i>
-            </a>
-          </li>
-          <li class="mt-2 inline-block">
-            <a
-              href="https://github.com/zurnov/bitcoin-insights-frontend/"
-              target="_blank"
-              class="text-gray-400 lg:hover:text-orange-400 text-xl"
-            >
-              <i class="fab fa-github fa"></i>
-            </a>
-          </li>
-        </ul>
+        <div class="flex-initial">
+          <p class="font-semibold md:mb-6 text-orange-400">Social</p>
+          <ul class="list-reset mb-6">
+            <li class="mt-2 inline-block mr-2">
+              <a
+                href="https://www.linkedin.com/in/daniel-zlatanov-15a18b227/"
+                target="_blank"
+                class="text-gray-400 lg:hover:text-orange-400 text-xl"
+              >
+                <i class="fab fa-linkedin fa-2"></i>
+              </a>
+            </li>
+            <li class="mt-2 inline-block">
+              <a
+                href="https://github.com/zurnov/bitcoin-insights-frontend/"
+                target="_blank"
+                class="text-gray-400 lg:hover:text-orange-400 text-xl"
+              >
+                <i class="fab fa-github fa"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
+</ng-container>
