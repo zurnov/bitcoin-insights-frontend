@@ -1,1 +1,116 @@
-<p>donate works!</p>
+<div>
+  <div
+    class="max-w-screen-lg mx-6 lg:mx-auto py-6 px-8 mb-8 md:py-8 flex flex-col md:flex-row items-center justify-center bor-gr-anim"
+  >
+    <div class="text-center md:text-left md:mr-6 mb-4 md:mb-0 md:ml-6">
+      <h2 class="font-bold text-3xl md:text-4xl mb-4 fade-col md:mr-40">
+        Support BTC-I
+        <span class="font-semibold fade-col-rev"> by Donating</span>
+      </h2>
+      <p class="text-gray-400">
+        Your contribution helps us develop the platform.
+      </p>
+      <p class="text-gray-400 mt-2">Choose a donation method below.</p>
+    </div>
+
+    <div class="text-center">
+      <img src="/assets/mascot.png" alt="Mascot" class="w-32 h-auto md:ml-4" />
+    </div>
+  </div>
+
+  <div class="max-w-screen-lg mx-6 lg:mx-auto py-6 mb-8 text-white">
+    <h3 class="font-bold text-2xl mb-4 ml-0 text-center md:text-start md:ml-2">
+      Donate via Crypto
+    </h3>
+
+    <div
+      class="space-y-6 md:space-y-0 md:flex md:items-start md:justify-between border border-gray-700 rounded-3xl p-6 mt-4"
+    >
+      <div class="flex-1 md:mr-6 flex flex-col">
+        <div class="flex-1">
+          <h4 class="text-gray-300 uppercase text-sm mb-4">Bitcoin (BTC)</h4>
+
+          <div class="border border-gray-700 rounded-lg p-4 mb-4 bg-gray-800">
+            <p class="text-white mb-2">Address</p>
+            <p class="text-gray-400 mb-2 break-all">{{ btcAddress }}</p>
+
+            <button
+              (click)="copyAddress(btcAddress, 'btc')"
+              class="flex items-center text-gray-400 hover:text-white"
+            >
+              <img src="/assets/copy.svg" class="w-5 h-5" alt="Copy" />
+              <span
+                class="ml-2 transition-all duration-300"
+                [ngClass]="{
+                  'text-green-400': copiedAddress === 'btc',
+                  'text-gray-300': copiedAddress !== 'btc'
+                }"
+              >
+                {{ copiedAddress === "btc" ? "Copied!" : "Copy" }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <p class="text-gray-400 mt-6 md:mt-10">
+          Scan the QR code to donate directly.
+        </p>
+      </div>
+
+      <div class="flex-shrink-0 md:w-1/4">
+        <img
+          src="/assets/trust-BTC.png"
+          alt="BTC QR Code"
+          class="w-full h-auto rounded-lg"
+        />
+      </div>
+    </div>
+
+    <div
+      class="space-y-6 md:space-y-0 md:flex md:items-start md:justify-between border border-gray-700 rounded-3xl p-6 mt-6"
+    >
+      <div class="flex-1 md:mr-6 flex flex-col">
+        <div class="flex-1">
+          <h4 class="text-gray-300 uppercase text-sm mb-4">Ethereum (ETH)</h4>
+
+          <div class="border border-gray-700 rounded-lg p-4 mb-4 bg-gray-800">
+            <p class="text-white mb-2">Address</p>
+            <p class="text-gray-400 mb-2 break-all">{{ ethAddress }}</p>
+
+            <button
+              (click)="copyAddress(ethAddress, 'eth')"
+              class="flex items-center text-gray-400 hover:text-white"
+            >
+              <img src="/assets/copy.svg" class="w-5 h-5" alt="Copy" />
+              <span
+                class="ml-2 transition-all duration-300"
+                [ngClass]="{
+                  'text-green-400': copiedAddress === 'eth',
+                  'text-gray-300': copiedAddress !== 'eth'
+                }"
+              >
+                {{ copiedAddress === "eth" ? "Copied!" : "Copy" }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <p class="text-gray-400 mt-6 md:mt-10">
+          Scan the QR code to donate directly.
+        </p>
+      </div>
+
+      <div class="flex-shrink-0 md:w-1/4">
+        <img
+          src="/assets/trust-ETH.png"
+          alt="ETH QR Code"
+          class="w-full h-auto rounded-lg"
+        />
+      </div>
+    </div>
+
+    <div class="mt-8 text-center">
+      <p class="text-gray-400">Thank you for your support!</p>
+    </div>
+  </div>
+</div>
