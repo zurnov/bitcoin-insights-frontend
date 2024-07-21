@@ -111,7 +111,7 @@
           <ng-container>
             <p>
               {{ totalAmount }} BTC •
-              <span class="text-green-400 break-all" *ngIf="totalAmount">
+              <span class="text-green-400 break-all">
                 {{ totalAmount * btcPrice | number : "1.2-2" }} USD</span
               >
             </p>
@@ -130,7 +130,7 @@
           <ng-container>
             <p *ngIf="fee > 0">
               {{ fee }} BTC •
-              <span class="text-green-400 break-all" *ngIf="fee">
+              <span class="text-green-400 break-all">
                 {{ fee * btcPrice | number : "1.2-2" }} USD</span
               >
             </p>
@@ -234,7 +234,7 @@
                 </p>
                 <p class="text-white break-all">
                   {{ input.amount }} BTC •
-                  <span class="text-green-400" *ngIf="input.amount">
+                  <span class="text-green-400">
                     {{ input.amount * btcPrice | number : "1.2-2" }} USD</span
                   >
                 </p>
@@ -300,7 +300,7 @@
                 </p>
                 <p class="text-white break-all">
                   {{ output.value }} BTC •
-                  <span class="text-green-400" *ngIf="output.value">
+                  <span class="text-green-400">
                     {{ output.value * btcPrice | number : "1.2-2" }} USD</span
                   >
                 </p>
