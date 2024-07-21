@@ -20,7 +20,7 @@
 
   <div class="max-w-screen-lg mx-6 lg:mx-auto py-6 mb-8 text-white">
     <h3 class="font-bold text-2xl mb-4 ml-0 text-center md:text-start md:ml-2">
-      Donate via Crypto
+      Crypto
     </h3>
 
     <div
@@ -29,11 +29,9 @@
       <div class="flex-1 md:mr-6 flex flex-col">
         <div class="flex-1">
           <h4 class="text-gray-300 uppercase text-sm mb-4">Bitcoin (BTC)</h4>
-
           <div class="border border-gray-700 rounded-lg p-4 mb-4 bg-gray-800">
             <p class="text-white mb-2">Address</p>
             <p class="text-gray-400 mb-2 break-all">{{ btcAddress }}</p>
-
             <button
               (click)="copyAddress(btcAddress, 'btc')"
               class="flex items-center text-gray-400 hover:text-white"
@@ -51,12 +49,10 @@
             </button>
           </div>
         </div>
-
         <p class="text-gray-400 mt-6 md:mt-10">
           Scan the QR code to donate directly.
         </p>
       </div>
-
       <div class="flex-shrink-0 md:w-1/4">
         <img
           src="/assets/trust-BTC.png"
@@ -72,11 +68,9 @@
       <div class="flex-1 md:mr-6 flex flex-col">
         <div class="flex-1">
           <h4 class="text-gray-300 uppercase text-sm mb-4">Ethereum (ETH)</h4>
-
           <div class="border border-gray-700 rounded-lg p-4 mb-4 bg-gray-800">
             <p class="text-white mb-2">Address</p>
             <p class="text-gray-400 mb-2 break-all">{{ ethAddress }}</p>
-
             <button
               (click)="copyAddress(ethAddress, 'eth')"
               class="flex items-center text-gray-400 hover:text-white"
@@ -94,17 +88,48 @@
             </button>
           </div>
         </div>
-
         <p class="text-gray-400 mt-6 md:mt-10">
           Scan the QR code to donate directly.
         </p>
       </div>
-
       <div class="flex-shrink-0 md:w-1/4">
         <img
           src="/assets/trust-ETH.png"
           alt="ETH QR Code"
           class="w-full h-auto rounded-lg"
+        />
+      </div>
+    </div>
+
+    <h3
+      class="font-bold text-2xl mb-4 ml-0 text-center md:text-start md:ml-2 mt-6"
+    >
+      Ko-fi
+    </h3>
+    <div
+      class="space-y-6 md:space-y-0 md:flex md:items-center md:justify-between border border-gray-700 rounded-3xl p-6 md:pb-2"
+    >
+      <div class="flex-1 md:mr-6 flex flex-col">
+        <div class="flex-1">
+          <a
+            href="https://ko-fi.com/bitcoininsights"
+            target="_blank"
+            class="block"
+          >
+            <div
+              class="border border-gray-700 rounded-lg p-4 mb-4 bg-gray-800 cursor-pointer"
+            >
+              <p class="text-white mb-2">Support us on Ko-fi!</p>
+              <p class="text-gray-400 hover:text-white">Donate via Ko-fi</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="flex-shrink-0 md:w-1/4 md:flex md:items-center">
+        <img
+          src="/assets/ko-fi-logo.png"
+          alt="Ko-fi"
+          class="w-full h-auto md:mb-4"
         />
       </div>
     </div>
