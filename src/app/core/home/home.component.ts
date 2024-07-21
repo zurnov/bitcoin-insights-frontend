@@ -16,6 +16,7 @@ import { transactionsExamples } from 'src/app/shared/helpers/transactionsExample
 import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
@@ -51,7 +52,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private cbService: ClipboardService,
     private el: ElementRef,
-    private notifService: NotificationService
+    private notifService: NotificationService,
+    private loadingService: LoadingService
   ) {}
 
   @HostListener('document:click', ['$event.target'])
@@ -63,6 +65,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loadingService.show();
+
     let fetchCounter = 1;
     this.fetchBlockchainInfo(fetchCounter);
 
@@ -192,6 +196,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         //*latest txs
         this.fetchLatestTransactions();
+        this.loadingService.hide();
 
         // console.log(
         //   `Blockchain info fetched for the ${fetchCounter} time:`,
@@ -199,6 +204,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         // );
       },
       error: (err: Error) => {
+        this.loadingService.hide();
         console.error('Error fetching blockchain info:', err);
       },
     });
