@@ -13,7 +13,12 @@
     <p class="font-medium text-orange-500 fade-col-rev">transaction</p>
   </div>
 
-  <ng-container *ngIf="transactionInfo; else techInfoSkeleton">
+  <ng-container
+    *ngIf="
+      !(loadingService.isLoading$ | async) && transactionInfo && btcPrice;
+      else techInfoSkeleton
+    "
+  >
     <div
       class="flex flex-col w-full px-4 md:px-6 mt-6 space-y-4 text-white border border-gray-700 rounded-3xl p-4 md:p-6 shadow-inner shadow-gray-800 max-w-6xl"
     >

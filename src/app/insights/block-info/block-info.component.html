@@ -1,7 +1,12 @@
 <div
   class="flex flex-col items-center space-y-4 justify-center md:mx-20 mb-10 text-base px-6"
 >
-  <ng-container *ngIf="blockInfo; else techInfoSkeleton">
+  <ng-container
+    *ngIf="
+      !(loadingService.isLoading$ | async) && blockInfo && btcPrice;
+      else techInfoSkeleton
+    "
+  >
     <div class="flex flex-col items-center">
       <div
         class="flex flex-wrap justify-center items-center text-2xl md:text-4xl space-x-2"

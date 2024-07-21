@@ -89,7 +89,9 @@
 
   <ng-container
     *ngIf="
-      addressHistory && addressHistory.transactions[0].details;
+      !(loadingService.isLoading$ | async) &&
+        addressHistory &&
+        addressHistory.transactions[0].details;
       else loadingHistorySkeleton
     "
   >
@@ -225,13 +227,6 @@
         [totalPages]="totalPages"
         (pageChange)="onPageChange($event)"
       ></app-pagination>
-
-      <div
-        *ngIf="isLoading"
-        class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-950 z-50"
-      >
-        <app-spinner></app-spinner>
-      </div>
     </div>
   </ng-container>
 
