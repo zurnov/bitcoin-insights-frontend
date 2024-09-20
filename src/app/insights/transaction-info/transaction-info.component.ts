@@ -14,6 +14,7 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
 })
 export class TransactionInfoComponent {
   transactionInfo: ITransactionInfo | undefined;
+  isPendingTx: boolean = false;
   blockInfo: IBlockInfo | undefined;
   txHash!: string;
   totalAmount: number = 0;
@@ -43,6 +44,13 @@ export class TransactionInfoComponent {
     this.insightsService.getTransactionInfo(this.txHash).subscribe({
       next: (data: ITransactionInfo) => {
         this.transactionInfo = data;
+
+        if (
+          !this.transactionInfo.blockHash ||
+          this.transactionInfo.blockHash.length <= 1
+        ) {
+          this.isPendingTx = true;
+        }
 
         if (this.transactionInfo && this.transactionInfo.vout) {
           this.totalAmount = this.calculateTotalAmount(
