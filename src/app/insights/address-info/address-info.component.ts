@@ -131,10 +131,15 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
             txDetails,
             this.walletAddress as string
           );
+
+          const isPendingTx =
+            !txDetails.blockHash || txDetails.blockHash.length <= 1;
+
           if (this.addressHistory) {
             this.addressHistory.transactions[index].details = {
               ...txDetails,
               direction,
+              pending: isPendingTx,
             };
           }
         });
