@@ -29,6 +29,13 @@
         </p>
       </div>
 
+      <div
+        *ngIf="isPendingTx"
+        class="relative w-fit mx-auto mt-2 bg-yellow-500 text-black font-semibold text-xs md:text-sm px-3 py-1 rounded-full animate-pulse-slow"
+      >
+        Pending
+      </div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="p-4 border-b border-gray-700">
           <p class="text-gray-400">
@@ -40,7 +47,7 @@
           </ng-container>
         </div>
 
-        <div class="p-4 border-b border-gray-700">
+        <div class="p-4 border-b border-gray-700" *ngIf="!isPendingTx">
           <p class="text-gray-400">
             <i class="fas fa-share-square mr-1 text-base text-orange-400"></i>
             Block Hash
@@ -58,7 +65,7 @@
           </ng-container>
         </div>
 
-        <div class="p-4 border-b border-gray-700">
+        <div class="p-4 border-b border-gray-700" *ngIf="!isPendingTx">
           <p class="text-gray-400">
             <i class="fas fa-cube mr-1 text-base text-orange-400"></i>
             In Block
@@ -76,7 +83,7 @@
           </ng-container>
         </div>
 
-        <div class="p-4 border-b border-gray-700">
+        <div class="p-4 border-b border-gray-700" *ngIf="!isPendingTx">
           <p class="text-gray-400">
             <i class="fas fa-check-circle mr-1 text-base text-orange-400"></i>
             Confirmations
@@ -88,7 +95,7 @@
           </ng-container>
         </div>
 
-        <div class="p-4 border-b border-gray-700">
+        <div class="p-4 border-b border-gray-700" *ngIf="!isPendingTx">
           <p class="text-gray-400">
             <i class="far fa-clock mr-1 text-base text-orange-400"></i>
             Time
@@ -177,7 +184,7 @@
 
         <div class="p-4 border-b border-gray-700 sm:border-none">
           <p class="text-gray-400">
-            <i class="fas fa-lock-open mr-1 text-base text-orange-400"></i>
+            <i class="fas fa-lock mr-1 text-base text-orange-400"></i>
             Lock Time
           </p>
           <ng-container
