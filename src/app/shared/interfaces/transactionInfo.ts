@@ -36,4 +36,5 @@ export interface ITransactionInfo {
     receivedAmount: number;
     sentAmount: number;
   };
+  pending?: boolean;
 }
