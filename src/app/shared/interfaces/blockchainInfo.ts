@@ -4,4 +4,5 @@ export interface IBlockchainInfo {
   networkHashPerSecond: number;
   pooledTx: number;
   chain: string;
+  bitcoinPrice: number;
 }
