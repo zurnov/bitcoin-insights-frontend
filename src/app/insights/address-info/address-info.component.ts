@@ -13,6 +13,7 @@ import { Subject, filter, forkJoin, takeUntil } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 
 @Component({
   selector: 'app-address-info',
@@ -51,7 +52,14 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
 
     this.loadingService.show();
 
-    this.getBtcPrice();
+    this.insightsService.getBlockchainInfo().subscribe({
+      next: (data: IBlockchainInfo) => {
+        this.btcPrice = data.bitcoinPrice;
+      },
+      error: (err: Error) => {
+        console.error('Error fetching blockchain info:', err);
+      },
+    });
 
     this.route.queryParams.subscribe((params) => {
       this.currentPage = +params['page'] || 1;
@@ -171,15 +179,6 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     });
 
     return { receivedAmount, sentAmount };
-  }
-
-  async getBtcPrice(): Promise<void> {
-    try {
-      const response: any = await this.insightsService.getBtcCurrentPrice();
-      this.btcPrice = response.price;
-    } catch (err) {
-      console.log('error getting btc price from service:', err);
-    }
   }
 
   onPageChange(page: number): void {

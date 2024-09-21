@@ -6,6 +6,7 @@ import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 
 @Component({
   selector: 'app-transaction-info',
@@ -39,7 +40,14 @@ export class TransactionInfoComponent {
 
     this.loadingService.show();
 
-    this.getBtcPrice();
+    this.insightsService.getBlockchainInfo().subscribe({
+      next: (data: IBlockchainInfo) => {
+        this.btcPrice = data.bitcoinPrice;
+      },
+      error: (err: Error) => {
+        console.error('Error fetching blockchain info:', err);
+      },
+    });
 
     this.insightsService.getTransactionInfo(this.txHash).subscribe({
       next: (data: ITransactionInfo) => {
@@ -129,15 +137,6 @@ export class TransactionInfoComponent {
 
   trimTrailingZeros(value: string): string {
     return value.replace(/\.?0+$/, '');
-  }
-
-  async getBtcPrice(): Promise<void> {
-    try {
-      const response: any = await this.insightsService.getBtcCurrentPrice();
-      this.btcPrice = response.price;
-    } catch (err) {
-      console.log('error getting btc price from service:', err);
-    }
   }
 
   private calculateTotalAmount(vout: any[]): number {

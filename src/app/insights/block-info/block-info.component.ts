@@ -12,6 +12,7 @@ import { Subject, filter, forkJoin, takeUntil } from 'rxjs';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 
 @Component({
   selector: 'app-block-info',
@@ -46,7 +47,14 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
 
     this.loadingService.show();
 
-    this.getBtcPrice();
+    this.insightsService.getBlockchainInfo().subscribe({
+      next: (data: IBlockchainInfo) => {
+        this.btcPrice = data.bitcoinPrice;
+      },
+      error: (err: Error) => {
+        console.error('Error fetching blockchain info:', err);
+      },
+    });
 
     this.route.queryParams.subscribe((params) => {
       this.currentPage = +params['page'] || 1;
@@ -183,15 +191,6 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
   hexToDecimal(hex: string): string {
     const decimalNumber = parseInt(hex, 16);
     return decimalNumber.toLocaleString();
-  }
-
-  async getBtcPrice(): Promise<void> {
-    try {
-      const response: any = await this.insightsService.getBtcCurrentPrice();
-      this.btcPrice = response.price;
-    } catch (err) {
-      console.log('error getting btc price from service:', err);
-    }
   }
 
   onHashClick(event: MouseEvent): void {
