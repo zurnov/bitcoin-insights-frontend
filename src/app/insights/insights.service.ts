@@ -77,21 +77,4 @@ export class InsightsService {
       `${this.baseUrl}/gettransactioninfo/${txHash}`
     );
   }
-
-  async getBtcCurrentPrice(): Promise<number> {
-    try {
-      const symbol = 'BTCUSDT';
-      const headers = new HttpHeaders().set('X-Api-Key', this.apiKey);
-      const response: any = await firstValueFrom(
-        this.http.get(
-          `https://api.api-ninjas.com/v1/cryptoprice?symbol=${symbol}`,
-          { headers }
-        )
-      );
-      return response;
-    } catch (err) {
-      console.error('error fetching current BTC price:', err);
-      throw err;
-    }
-  }
 }
