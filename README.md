@@ -54,7 +54,6 @@ Discover the world of Bitcoin with this fully responsive Angular Single Page App
 - **Tailwind CSS**: For responsive and utility-first styling.
 - **ngx-clipboard**: For copying transaction IDs and addresses.
 - **ngx-toastr**: For error handling and popups.
-- **API Ninjas**: For fetching BTC price.
 - **[Bitcoin Insights API](https://github.com/zurnov/bitcoin-insights)**: Backend API for all other Bitcoin-related data.
 
 ## ⚙ Installation
