@@ -76,8 +76,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     );
 
-    // todo get historical
-
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 100);
@@ -160,71 +158,66 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         const latestBlockHeight = data.blocks;
 
-        //*latest blocks
         const blockHeights = Array.from(
-          { length: 10 },
-          (_, index) => latestBlockHeight - index
+          { length: 4 },
+          (_, index) => latestBlockHeight - 1 - index
         );
+
         const blockInfoRequests: Observable<IBlockInfo>[] = blockHeights.map(
           (height) => {
-            return this.insightsService.getBlockInfoByHeight(height);
+            return this.insightsService.getBlockInfoByHeight(height, 1, 1);
           }
         );
 
         combineLatest(blockInfoRequests).subscribe({
           next: (blockInfos: IBlockInfo[]) => {
-            this.latestBlocks = blockInfos; //! updated with refresh sub
-            // console.log('Latest blocks:', this.latestBlocks);
+            this.latestBlocks = blockInfos;
+            this.fetchLatestBlockTXs(latestBlockHeight);
           },
           error: (err: Error) => {
-            console.error('Error fetching latest blocks details:', err);
+            console.error('Error fetching latest blocks', err);
           },
         });
 
-        //*latest txs
-        this.fetchLatestTransactions();
         this.loadingService.hide();
-
-        // console.log(
-        //   `Blockchain info fetched for the ${fetchCounter} time:`,
-        //   this.blockchainInfo
-        // );
       },
       error: (err: Error) => {
         this.loadingService.hide();
-        console.error('Error fetching blockchain info:', err);
+        console.error('Error fetching blockchain info', err);
       },
     });
   }
 
-  fetchLatestTransactions() {
-    if (this.blockchainInfo) {
-      const latestBlockHeight = this.blockchainInfo.blocks;
+  fetchLatestBlockTXs(latestBlockHeight: number) {
+    this.insightsService
+      .getBlockInfoByHeight(latestBlockHeight, 1, 5)
+      .subscribe({
+        next: (latestBlockInfo: IBlockInfo) => {
+          this.latestBlocks = [latestBlockInfo, ...this.latestBlocks];
 
-      this.insightsService.getBlockInfoByHeight(latestBlockHeight).subscribe({
-        next: (lastBlockHeightInfo: IBlockInfo) => {
-          const transactionIds = lastBlockHeightInfo.transactions;
+          const txIds = latestBlockInfo.transactions;
 
-          const transactionRequests: Observable<ITransactionInfo>[] =
-            transactionIds.map((txId) =>
-              this.insightsService.getTransactionInfo(txId)
-            );
+          const txRequests: Observable<ITransactionInfo>[] = txIds.map((txId) =>
+            this.insightsService.getTransactionInfo(txId)
+          );
 
-          combineLatest(transactionRequests).subscribe({
+          combineLatest(txRequests).subscribe({
             next: (transactions: ITransactionInfo[]) => {
               this.latestTransactions = transactions;
-              // console.log('Latest transactions:', transactions);
+              console.log(
+                'Latest block transactions:',
+                this.latestTransactions
+              );
             },
             error: (err: Error) => {
-              console.error('Error fetching transaction details:', err);
+              console.error('Error fetching tx details', err);
             },
           });
         },
         error: (err: Error) => {
-          console.error('Error fetching previous to last block info:', err);
+          console.error('Error fetching latest block TXs', err);
         },
       });
-    }
   }
 
   onSearch(query: string) {
