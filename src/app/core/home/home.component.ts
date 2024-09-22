@@ -204,10 +204,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           combineLatest(txRequests).subscribe({
             next: (transactions: ITransactionInfo[]) => {
               this.latestTransactions = transactions;
-              console.log(
-                'Latest block transactions:',
-                this.latestTransactions
-              );
             },
             error: (err: Error) => {
               console.error('Error fetching tx details', err);

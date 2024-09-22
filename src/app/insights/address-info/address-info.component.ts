@@ -24,6 +24,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   addressBalance: IAddressBalance | undefined;
   addressHistory: IAddressHistory | undefined;
   walletAddress: string | null = null;
+  hasTransactions: boolean = true;
   currentPage: number = 1;
   totalPages!: number;
   animatedIndex: string | null = null;
@@ -71,6 +72,9 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
             this.addressHistory = data;
             this.totalPages = data.totalPages;
 
+            this.hasTransactions =
+              data.transactions && data.transactions.length > 0;
+
             this.fetchTransactionDetails();
 
             // console.log('Address history fetched:', this.addressHistory);
@@ -79,6 +83,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
           },
           error: (err: Error) => {
             console.error('Error fetching address history:', err);
+            this.hasTransactions = false;
             this.currentPage = 1;
             this.updateRoute();
 
@@ -124,7 +129,11 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
   }
 
   fetchTransactionDetails(): void {
-    if (!this.addressHistory?.transactions) {
+    if (
+      !this.addressHistory?.transactions ||
+      this.addressHistory.transactions.length === 0
+    ) {
+      console.warn('No TXs found for this address');
       return;
     }
 
