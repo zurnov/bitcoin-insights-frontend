@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "build"]
+CMD ["npm", "run", "build","0.0.0.0", "--disable-host-check"]
 
 EXPOSE 4200
