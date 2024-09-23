@@ -9,14 +9,14 @@ COPY . .
 
 RUN npm run build
 
-FROM node:alpine
+FROM nginx:alpine
 
-WORKDIR /usr/src/app
+RUN rm /etc/nginx/conf.d/default.conf
 
-RUN npm install http-server
+COPY nginx.conf /etc/nginx/conf.d
 
-COPY --from=build /usr/src/app/dist/btc-insights /usr/src/app/dist
+COPY --from=build /usr/src/app/dist/btc-insights /usr/share/nginx/html
 
 EXPOSE 4200
 
-CMD ["npx", "http-server", "dist", "-p", "4200"]
+CMD ["nginx", "-g", "daemon off;"]
