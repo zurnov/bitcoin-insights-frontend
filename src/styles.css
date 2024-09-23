@@ -137,3 +137,7 @@ body {
 .toast-msg {
   padding: 12px;
 }
+
+.custom-z-ind {
+  z-index: 100;
+}
