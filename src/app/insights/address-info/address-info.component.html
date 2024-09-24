@@ -25,7 +25,9 @@
 
       <div>
         <h3 class="text-gray-400 uppercase text-sm mb-4">Balance</h3>
-        <div class="text-white flex flex-col sm:flex-row items-center">
+        <div
+          class="text-white flex flex-col sm:flex-row items-center sm:items-start sm:justify-start justify-center w-full"
+        >
           <ng-container
             *ngIf="
               btcPrice &&
@@ -34,28 +36,37 @@
               else spinner
             "
           >
-            <div class="items-center flex flex-col sm:flex-row">
+            <div
+              class="flex flex-col sm:flex-row items-center text-center sm:text-left w-full"
+            >
               <i
                 class="fas fa-check-circle mr-0 mb-3 sm:mr-2 sm:mb-0 text-xl sm:text-2xl text-green-500"
               ></i>
-              <span>
-                {{
-                  trimTrailingZeros(
-                    addressBalance.confirmedBitcoin | number : "1.10"
-                  )
-                }}
-                <span class="text-gray-400 ml-1"> BTC</span>
-              </span>
+
+              <div class="flex flex-col sm:flex-row items-center">
+                <span>
+                  {{
+                    trimTrailingZeros(
+                      addressBalance.confirmedBitcoin | number : "1.10"
+                    )
+                  }}
+                </span>
+                <span class="text-gray-400 sm:ml-2">BTC</span>
+              </div>
+
               <span class="mx-2 sm:mx-4 text-gray-400">•</span>
-              <span>
-                {{
-                  trimTrailingZeros(
-                    addressBalance.confirmedBitcoin * btcPrice
-                      | number : "1.2-2"
-                  )
-                }}
-                <span class="text-gray-400 ml-1"> USD</span>
-              </span>
+
+              <div class="flex flex-col sm:flex-row items-center">
+                <span>
+                  {{
+                    trimTrailingZeros(
+                      addressBalance.confirmedBitcoin * btcPrice
+                        | number : "1.2-2"
+                    )
+                  }}
+                </span>
+                <span class="text-gray-400 sm:ml-2">USD</span>
+              </div>
             </div>
           </ng-container>
 
@@ -70,7 +81,9 @@
 
         <div>
           <h3 class="text-gray-400 uppercase text-sm mb-4">Unconfirmed</h3>
-          <div class="text-white flex flex-col sm:flex-row items-center">
+          <div
+            class="text-white flex flex-col sm:flex-row items-center sm:items-start sm:justify-start justify-center w-full"
+          >
             <ng-container
               *ngIf="
                 btcPrice &&
@@ -79,28 +92,37 @@
                 else spinner
               "
             >
-              <div class="items-center flex flex-col sm:flex-row">
+              <div
+                class="flex flex-col sm:flex-row items-center text-center sm:text-left w-full"
+              >
                 <i
                   class="fas fa-exclamation-circle mr-0 mb-3 sm:mr-2 sm:mb-0 text-xl sm:text-2xl text-yellow-500"
                 ></i>
-                <span>
-                  {{
-                    trimTrailingZeros(
-                      addressBalance.unconfirmedBitcoin | number : "1.10"
-                    )
-                  }}
-                  <span class="text-gray-400 ml-1"> BTC</span>
-                </span>
+
+                <div class="flex flex-col sm:flex-row items-center">
+                  <span>
+                    {{
+                      trimTrailingZeros(
+                        addressBalance.unconfirmedBitcoin | number : "1.10"
+                      )
+                    }}
+                  </span>
+                  <span class="text-gray-400 sm:ml-2">BTC</span>
+                </div>
+
                 <span class="mx-2 sm:mx-4 text-gray-400">•</span>
-                <span>
-                  {{
-                    trimTrailingZeros(
-                      addressBalance.unconfirmedBitcoin * btcPrice
-                        | number : "1.2-2"
-                    )
-                  }}
-                  <span class="text-gray-400 ml-1"> USD</span>
-                </span>
+
+                <div class="flex flex-col sm:flex-row items-center">
+                  <span>
+                    {{
+                      trimTrailingZeros(
+                        addressBalance.unconfirmedBitcoin * btcPrice
+                          | number : "1.2-2"
+                      )
+                    }}
+                  </span>
+                  <span class="text-gray-400 sm:ml-2">USD</span>
+                </div>
               </div>
             </ng-container>
 
