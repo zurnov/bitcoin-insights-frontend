@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { NAV_LINKS } from 'src/app/shared/helpers/navLinks';
 
 @Component({
@@ -20,13 +14,6 @@ export class HeaderComponent implements AfterViewInit {
   @ViewChild('burgerBtn', { static: false }) burgerBtn!: ElementRef;
 
   observer!: IntersectionObserver;
-
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    if (this.isMobileMenuOpen) {
-      // this.isMobileMenuOpen = false;
-    }
-  }
 
   ngAfterViewInit() {
     this.observer = new IntersectionObserver(
@@ -62,7 +49,5 @@ export class HeaderComponent implements AfterViewInit {
     if (this.observer && this.burgerBtn) {
       this.observer.unobserve(this.burgerBtn.nativeElement);
     }
-
-    window.removeEventListener('scroll', this.onWindowScroll);
   }
 }
