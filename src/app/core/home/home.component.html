@@ -221,7 +221,9 @@
 
   <!--! latest blocks -->
   <ng-container>
-    <div class="bg-transparent rounded-lg p-4 mt-12 hidden lg:block border">
+    <div
+      class="bg-transparent rounded-lg p-4 mt-12 hidden lg:block border border-orange-200"
+    >
       <div class="w-[860px]">
         <div
           class="flex justify-start items-center text-left text-xl md:text-2xl space-x-2 mb-4 pt-2 ml-6"
@@ -274,6 +276,7 @@
     </div>
   </ng-container>
 
+  <!--! latest blocks sm-->
   <ng-container>
     <div
       class="bg-transparent rounded-lg p-4 lg:hidden w-[330px] sm:w-[500px] md:w-full"
@@ -292,9 +295,11 @@
         *ngIf="latestBlocks.length == 5"
       >
         <ng-container *ngFor="let block of latestBlocks">
-          <div class="bg-gray-800 rounded-lg p-4 flex">
+          <div
+            class="bg-transparent border border-orange-200 rounded-lg p-4 flex"
+          >
             <div class="text-white text-center w-1/2">
-              <h3 class="text-lg font-semibold my-1">
+              <h3 class="text-lg font-medium my-1">
                 <a
                   routerLink="/insights/block/{{ block.blockHeight }}"
                   class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
@@ -302,20 +307,20 @@
                   {{ block.blockHeight }}
                 </a>
               </h3>
-              <p class="font-medium px-4">
+              <p class="px-4">
                 {{ +block.time * 1000 | date : "dd/MM/yy, HH:mm:ss" }}
               </p>
             </div>
             <div class="w-1/2 flex justify-center items-center mt-1">
               <div class="text-center text-white">
                 <div class="flex">
-                  <p class="font-medium text-white space-x-1">
+                  <p class="text-white space-x-1">
                     <span class="text-white">{{ block.ntx }}</span>
                     <span class="text-gray-400 text-xs">TXs</span>
                   </p>
                 </div>
                 <div class="flex">
-                  <p class="font-medium text-white space-x-1">
+                  <p class="text-white space-x-1">
                     <span class="text-white">{{
                       trimTrailingZeros((block.size / 1000).toFixed(3))
                     }}</span>
@@ -323,7 +328,7 @@
                   </p>
                 </div>
                 <div class="flex">
-                  <p class="font-medium text-white space-x-1">
+                  <p class="text-white space-x-1">
                     <span class="text-white">{{
                       trimTrailingZeros((block.weight / 1000).toFixed(3))
                     }}</span>
@@ -340,7 +345,9 @@
 
   <!--! latest transactions -->
   <ng-container>
-    <div class="bg-transparent rounded-lg p-4 lg:mt-6 hidden lg:block border">
+    <div
+      class="bg-transparent rounded-lg p-4 lg:mt-6 hidden lg:block border border-orange-200"
+    >
       <div class="w-[860px]">
         <div
           class="flex justify-start items-center text-left text-xl md:text-2xl space-x-2 mb-4 pt-2 ml-6"
@@ -413,6 +420,7 @@
     </div>
   </ng-container>
 
+  <!--! latest transactions sm-->
   <ng-container>
     <div
       class="bg-transparent rounded-lg p-4 lg:hidden w-[330px] sm:w-[500px] md:w-full my-6"
@@ -428,25 +436,27 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:mx-10">
         <ng-container *ngFor="let tx of latestTransactions">
-          <div class="bg-gray-800 rounded-lg p-4 flex">
+          <div
+            class="bg-transparent border border-orange-200 rounded-lg p-4 flex"
+          >
             <div class="text-white w-full">
               <div class="text-center mb-2">
-                <h3 class="text-lg font-medium">
+                <h2 class="text-lg font-medium">
                   <a
                     routerLink="/insights/transaction/{{ tx.txId }}"
                     class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
                   >
                     {{ tx.txId | truncate }}
                   </a>
-                </h3>
+                </h2>
               </div>
               <div class="flex justify-between items-start px-6">
                 <div class="text-left">
-                  <p class="font-medium">
+                  <p class="">
                     {{ calculateTotalValue(tx).toFixed(8) }}
                     <span class="text-gray-400 text-xs">BTC</span>
                   </p>
-                  <p class="font-medium">
+                  <p class="">
                     {{ +tx.time * 1000 | date : "dd/MM/yy, HH:mm:ss" }}
                   </p>
                 </div>
@@ -474,7 +484,7 @@
                       {{ showCopied ? "copied!" : "copy" }}
                     </span>
                   </button>
-                  <p class="font-medium text-white">
+                  <p class="text-white">
                     {{ tx.size }} <span class="text-gray-400 text-xs">B</span>
                   </p>
                 </div>
