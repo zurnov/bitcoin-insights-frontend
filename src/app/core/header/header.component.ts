@@ -20,7 +20,10 @@ export class HeaderComponent implements AfterViewInit {
       (entries) => {
         this.isButtonVisible = entries[0].isIntersecting;
       },
-      { threshold: 1.5 }
+      {
+        threshold: 1,
+        rootMargin: '-50% 0px -50% 0px',
+      }
     );
 
     this.observer.observe(this.burgerBtn.nativeElement);
