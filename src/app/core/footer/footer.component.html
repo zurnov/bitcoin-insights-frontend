@@ -47,18 +47,22 @@
         </div>
 
         <div class="flex-initial">
-          <p class="font-semibold md:mb-6 text-orange-400">Social</p>
+          <p class="font-semibold mb-2 md:mb-6 text-orange-400">Social</p>
           <ul class="list-reset mb-1 flex items-center space-x-4">
             <li class="relative inline-block">
               <i
                 class="fab fa-linkedin text-gray-400 text-xl cursor-pointer hover:text-orange-400"
                 (click)="toggleDropdown('linkedin')"
-                [ngClass]="{ 'text-orange-400': showDropdown === 'linkedin' }"
+                [ngClass]="{
+                  'mb-32':
+                    showDropdown === 'linkedin' || showDropdown === 'github',
+                  'text-orange-400': showDropdown === 'linkedin'
+                }"
               ></i>
               <ul
                 #linkedinDropdown
                 *ngIf="showDropdown === 'linkedin'"
-                class="absolute bg-transparent border border-gray-700 mt-1 text-white shadow-lg z-10 -right-[54.5px] mr-2 w-20 text-center rounded-md"
+                class="absolute bg-transparent border border-gray-700 mt-1 text-white shadow-lg z-10 -right-[54.5px] top-8 mr-2 w-20 text-center rounded-md"
               >
                 <li class="block px-2 py-1 hover:text-orange-400">
                   <a href="https://www.linkedin.com/in/dz06/" target="_blank"
@@ -80,12 +84,16 @@
               <i
                 class="fab fa-github text-gray-400 text-xl cursor-pointer hover:text-orange-400"
                 (click)="toggleDropdown('github')"
-                [ngClass]="{ 'text-orange-400': showDropdown === 'github' }"
+                [ngClass]="{
+                  'mb-32':
+                    showDropdown === 'linkedin' || showDropdown === 'github',
+                  'text-orange-400': showDropdown === 'github'
+                }"
               ></i>
               <ul
                 #githubDropdown
                 *ngIf="showDropdown === 'github'"
-                class="absolute bg-transparent border border-gray-700 mt-1 text-white shadow-lg z-10 -right-[19px] mr-2 w-20 text-center rounded-md"
+                class="absolute bg-transparent border border-gray-700 mt-1 text-white shadow-lg z-10 -right-[19px] top-8 mr-2 w-20 text-center rounded-md"
               >
                 <li class="block px-2 py-1 hover:text-orange-400">
                   <a
