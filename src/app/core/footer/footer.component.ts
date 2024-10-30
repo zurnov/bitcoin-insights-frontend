@@ -8,6 +8,11 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
 })
 export class FooterComponent {
   isLoading$ = this.loadingService.isLoading$;
+  showDropdown: string | null = null; 
 
   constructor(private loadingService: LoadingService) {}
+
+  toggleDropdown(dropdown: string) {
+    this.showDropdown = this.showDropdown === dropdown ? null : dropdown;
+  }
 }

@@ -48,52 +48,62 @@
 
         <div class="flex-initial">
           <p class="font-semibold md:mb-6 text-orange-400">Social</p>
-          <ul class="list-reset mb-1">
-            <div class="flex">
-              <li class="mt-1 inline-block mr-2">
-                <a
-                  href="https://www.linkedin.com/in/daniel-zlatanov-15a18b227/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-400 lg:hover:text-orange-400 text-xl"
-                >
-                  <i class="fab fa-linkedin fa-2"></i>
-                </a>
-              </li>
-              <li class="mt-1 inline-block mr-2">
-                <a
-                  href="https://www.linkedin.com/in/zurnov/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-400 lg:hover:text-orange-400 text-xl"
-                >
-                  <i class="fab fa-linkedin fa-2"></i>
-                </a>
-              </li>
-            </div>
+          <ul class="list-reset mb-1 flex items-center space-x-4">
+            <li class="relative inline-block">
+              <i
+                class="fab fa-linkedin text-gray-400 text-xl cursor-pointer hover:text-orange-400"
+                (click)="toggleDropdown('linkedin')"
+                [ngClass]="{ 'text-orange-400': showDropdown === 'linkedin' }"
+              ></i>
+              <ul
+                *ngIf="showDropdown === 'linkedin'"
+                class="absolute bg-transparent border border-gray-700 mt-1 text-white shadow-lg z-10 -right-[54.5px] mr-2 w-20 text-center rounded-md"
+              >
+                <li class="block px-2 py-1 hover:text-orange-400">
+                  <a href="https://www.linkedin.com/in/dz06/" target="_blank"
+                    >Daniel [FE]</a
+                  >
+                </li>
 
-            <div class="flex mt-1">
-              <li class="mt-1 inline-block mr-2">
-                <a
-                  href="https://github.com/zurnov/bitcoin-insights-frontend/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-400 lg:hover:text-orange-400 text-xl"
-                >
-                  <i class="fab fa-github fa"></i>
-                </a>
-              </li>
-              <li class="mt-1 inline-block">
-                <a
-                  href="https://github.com/zurnov/bitcoin-insights/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-400 lg:hover:text-orange-400 text-xl"
-                >
-                  <i class="fab fa-github fa"></i>
-                </a>
-              </li>
-            </div>
+                <div class="border-t border-gray-600 my-1 mx-2"></div>
+
+                <li class="block px-2 py-1 hover:text-orange-400">
+                  <a href="https://www.linkedin.com/in/zurnov/" target="_blank"
+                    >Dimitar [BE]</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li class="relative inline-block">
+              <i
+                class="fab fa-github text-gray-400 text-xl cursor-pointer hover:text-orange-400"
+                (click)="toggleDropdown('github')"
+                [ngClass]="{ 'text-orange-400': showDropdown === 'github' }"
+              ></i>
+              <ul
+                *ngIf="showDropdown === 'github'"
+                class="absolute bg-transparent border border-gray-700 mt-1 text-white shadow-lg z-10 -right-[19px] mr-2 w-20 text-center rounded-md"
+              >
+                <li class="block px-2 py-1 hover:text-orange-400">
+                  <a
+                    href="https://github.com/zurnov/bitcoin-insights-frontend/"
+                    target="_blank"
+                    >BTC-I [FE]</a
+                  >
+                </li>
+
+                <div class="border-t border-gray-600 my-1 mx-2"></div>
+
+                <li class="block px-2 py-1 hover:text-orange-400">
+                  <a
+                    href="https://github.com/zurnov/bitcoin-insights/"
+                    target="_blank"
+                    >BTC-I [BE]</a
+                  >
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
