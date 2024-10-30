@@ -56,6 +56,7 @@
                 [ngClass]="{ 'text-orange-400': showDropdown === 'linkedin' }"
               ></i>
               <ul
+                #linkedinDropdown
                 *ngIf="showDropdown === 'linkedin'"
                 class="absolute bg-transparent border border-gray-700 mt-1 text-white shadow-lg z-10 -right-[54.5px] mr-2 w-20 text-center rounded-md"
               >
@@ -82,6 +83,7 @@
                 [ngClass]="{ 'text-orange-400': showDropdown === 'github' }"
               ></i>
               <ul
+                #githubDropdown
                 *ngIf="showDropdown === 'github'"
                 class="absolute bg-transparent border border-gray-700 mt-1 text-white shadow-lg z-10 -right-[19px] mr-2 w-20 text-center rounded-md"
               >
