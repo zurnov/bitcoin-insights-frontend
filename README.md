@@ -5,7 +5,7 @@ Discover the world of Bitcoin with this fully responsive Angular Single Page App
 
 ## 🚀 Live Demo
 
-[Bitcoin Insights](https://www.zurnov.com)
+[Bitcoin Insights](https://www.explore21.com)
 
 ## 📖 Table of Contents
 - [Features](#-features)
@@ -74,7 +74,7 @@ Discover the world of Bitcoin with this fully responsive Angular Single Page App
     ```
 4. Open your browser and navigate to http://localhost:4200.
 
-Or, you can access the live deployment at [Bitcoin Insights](https://www.zurnov.com).
+Or, you can access the live deployment at [Bitcoin Insights](https://www.explore21.com).
 
 ## 📈 Usage
 
