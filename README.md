@@ -1,7 +1,9 @@
-# 🪙 Bitcoin Insights
-<img src="https://github.com/user-attachments/assets/84d415af-068b-4301-84fa-e1a6015b00c9" width="100" alt="btci-logo">
-
-Discover the world of Bitcoin with this fully responsive Angular Single Page Application (SPA). Bitcoin Insights provides a rich, interactive experience to explore BTC addresses, transactions, and blocks. This application leverages the [Bitcoin Insights API](https://github.com/zurnov/bitcoin-insights) backend, which delivers real-time data and comprehensive insights into the BTC network. 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/84d415af-068b-4301-84fa-e1a6015b00c9" width="200" alt="btci-logo">
+  <h1>₿itcoin Insights</h1>
+  <p>Explore addresses, transactions, and blocks within this Angular SPA.</p>
+  <p>Powered by the BTC-I API, it provides real-time data and insights into the ₿itcoin network.</p>
+</div>
 
 ## 🚀 Live Demo
 
