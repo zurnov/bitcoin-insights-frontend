@@ -9,9 +9,9 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
 })
 export class DonateComponent {
   btcAddress = 'bc1q409g2sesns7069w2vqz8mjfdtzwqk4r47snrxk';
-  ethAddress = '0xD3C22260D052eaFab37E571eA0B9cdf57EA55a4C';
+  lighthingAddress = 'lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhh2um9v3kh2um9w4knqvc7842z9';
 
-  copiedAddress: 'btc' | 'eth' | null = null;
+  copiedAddress: 'btc' | 'lighthing' | null = null;
 
   constructor(
     private loadingService: LoadingService,
@@ -24,7 +24,7 @@ export class DonateComponent {
     }, 100);
   }
 
-  copyAddress(address: string, type: 'btc' | 'eth') {
+  copyAddress(address: string, type: 'btc' | 'lighthing') {
     this.cbService.copy(address);
     this.copiedAddress = type;
 

@@ -67,23 +67,23 @@
     >
       <div class="flex-1 md:mr-6 flex flex-col">
         <div class="flex-1">
-          <h4 class="text-gray-300 uppercase text-sm mb-4">Ethereum (ETH)</h4>
+          <h4 class="text-gray-300 uppercase text-sm mb-4">Bitcoin Lighthing ⚡</h4>
           <div class="border border-gray-700 rounded-lg p-4 mb-4 bg-gray-800">
             <p class="text-white mb-2">Address</p>
-            <p class="text-gray-400 mb-2 break-all">{{ ethAddress }}</p>
+            <p class="text-gray-400 mb-2 break-all">{{ lighthingAddress }}</p>
             <button
-              (click)="copyAddress(ethAddress, 'eth')"
+              (click)="copyAddress(lighthingAddress, 'lighthing')"
               class="flex items-center text-gray-400 hover:text-white"
             >
               <img src="/assets/copy.svg" class="w-5 h-5" alt="Copy" />
               <span
                 class="ml-2 transition-all duration-300"
                 [ngClass]="{
-                  'text-green-400': copiedAddress === 'eth',
-                  'text-gray-300': copiedAddress !== 'eth'
+                  'text-green-400': copiedAddress === 'lighthing',
+                  'text-gray-300': copiedAddress !== 'lighthing'
                 }"
               >
-                {{ copiedAddress === "eth" ? "Copied!" : "Copy" }}
+                {{ copiedAddress === "lighthing" ? "Copied!" : "Copy" }}
               </span>
             </button>
           </div>
@@ -94,7 +94,7 @@
       </div>
       <div class="flex-shrink-0 md:w-1/4">
         <img
-          src="/assets/trust-ETH.png"
+          src="/assets/trust-BTC-Lighthing.jpeg"
           alt="ETH QR Code"
           class="w-full h-auto rounded-lg"
         />
