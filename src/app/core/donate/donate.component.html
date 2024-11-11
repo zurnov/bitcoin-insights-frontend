@@ -49,7 +49,7 @@
             </button>
           </div>
         </div>
-        <p class="text-gray-400 mt-6 md:mt-10">
+        <p class="text-gray-400 mt-6 md:mt-10 hidden md:block">
           Scan the QR code to donate directly.
         </p>
       </div>
@@ -63,43 +63,41 @@
     </div>
 
     <div
-      class="space-y-6 md:space-y-0 md:flex md:items-start md:justify-between border border-gray-700 rounded-3xl p-6 mt-6"
-    >
-      <div class="flex-1 md:mr-6 flex flex-col">
-        <div class="flex-1">
-          <h4 class="text-gray-300 uppercase text-sm mb-4">Bitcoin Lighthing ⚡</h4>
-          <div class="border border-gray-700 rounded-lg p-4 mb-4 bg-gray-800">
-            <p class="text-white mb-2">Address</p>
-            <p class="text-gray-400 mb-2 break-all">{{ lighthingAddress }}</p>
-            <button
-              (click)="copyAddress(lighthingAddress, 'lighthing')"
-              class="flex items-center text-gray-400 hover:text-white"
+    class="space-y-6 md:space-y-0 md:flex md:items-center md:justify-between border border-gray-700 rounded-3xl p-6 mt-6"
+  >
+    <div class="flex-1 md:mr-6 flex flex-col">
+      <div class="flex-1">
+        <h4 class="text-gray-300 uppercase text-sm mb-4">Bitcoin Lightning ⚡</h4>
+        <div class="border border-gray-700 rounded-lg p-4 mb-4 bg-gray-800">
+          <p class="text-white mb-2">Address</p>
+          <p class="text-gray-400 mb-2 break-all">{{ lighthingAddress }}</p>
+          <button
+            (click)="copyAddress(lighthingAddress, 'lighthing')"
+            class="flex items-center text-gray-400 hover:text-white"
+          >
+            <img src="/assets/copy.svg" class="w-5 h-5" alt="Copy" />
+            <span
+              class="ml-2 transition-all duration-300"
+              [ngClass]="{
+                'text-green-400': copiedAddress === 'lighthing',
+                'text-gray-300': copiedAddress !== 'lighthing'
+              }"
             >
-              <img src="/assets/copy.svg" class="w-5 h-5" alt="Copy" />
-              <span
-                class="ml-2 transition-all duration-300"
-                [ngClass]="{
-                  'text-green-400': copiedAddress === 'lighthing',
-                  'text-gray-300': copiedAddress !== 'lighthing'
-                }"
-              >
-                {{ copiedAddress === "lighthing" ? "Copied!" : "Copy" }}
-              </span>
-            </button>
-          </div>
+              {{ copiedAddress === "lighthing" ? "Copied!" : "Copy" }}
+            </span>
+          </button>
         </div>
-        <p class="text-gray-400 mt-6 md:mt-10">
-          Scan the QR code to donate directly.
-        </p>
-      </div>
-      <div class="flex-shrink-0 md:w-1/4">
-        <img
-          src="/assets/trust-BTC-Lighthing.jpeg"
-          alt="ETH QR Code"
-          class="w-full h-auto rounded-lg"
-        />
       </div>
     </div>
+    <div class="flex-shrink-0 md:w-1/4 h-70 flex items-center justify-center">
+      <img
+        src="/assets/BTC-Lighthing.png"
+        alt="BTC-L QR Code"
+        class="w-full h-auto rounded-lg md:mt-5 lg:mt-0"
+      />
+    </div>
+  </div>
+  
 
     <h3
       class="font-bold text-2xl mb-4 ml-0 text-center md:text-start md:ml-2 mt-6"
