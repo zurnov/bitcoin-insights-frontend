@@ -8,8 +8,8 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
   styleUrl: './donate.component.css',
 })
 export class DonateComponent {
-  btcAddress = 'bc1q409g2sesns7069w2vqz8mjfdtzwqk4r47snrxk';
-  lighthingAddress = 'lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhh2um9v3kh2um9w4knqvc7842z9';
+  btcAddress = 'bc1qpkqvjudd7wnxae0dncww37chmak7wqfyks3jt8';
+  lightningAddress = 'lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhh2um9v3kh2um9w4knqvc7842z9';
 
   copiedAddress: 'btc' | 'lightning' | null = null;
 
