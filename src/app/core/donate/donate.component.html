@@ -63,29 +63,32 @@
     </div>
 
     <div
-    class="space-y-6 md:space-y-0 md:flex md:items-center md:justify-between border border-gray-700 rounded-3xl p-6 mt-6"
-  >
-    <div class="flex-1 md:mr-6 flex flex-col">
-      <div class="flex-1">
-        <h4 class="text-gray-300 uppercase text-sm mb-4">Bitcoin Lightning ⚡</h4>
-        <div class="border border-gray-700 rounded-lg p-4 mb-4 bg-gray-800">
-          <p class="text-white mb-2">Address</p>
-          <p class="text-gray-400 mb-2 break-all">{{ lighthingAddress }}</p>
-          <button
-            (click)="copyAddress(lighthingAddress, 'lighthing')"
-            class="flex items-center text-gray-400 hover:text-white"
-          >
-            <img src="/assets/copy.svg" class="w-5 h-5" alt="Copy" />
-            <span
-              class="ml-2 transition-all duration-300"
-              [ngClass]="{
-                'text-green-400': copiedAddress === 'lighthing',
-                'text-gray-300': copiedAddress !== 'lighthing'
-              }"
+      class="space-y-6 md:space-y-0 md:flex md:items-center md:justify-between border border-gray-700 rounded-3xl p-6 mt-4"
+    >
+      <div class="flex-1 md:mr-6 flex flex-col">
+        <div class="flex-1">
+          <h4 class="text-gray-300 uppercase text-sm mb-4">
+            Bitcoin Lightning ⚡
+          </h4>
+          <div class="border border-gray-700 rounded-lg p-4 bg-gray-800">
+            <p class="text-white mb-2">Address</p>
+            <p class="text-gray-400 mb-2 break-all">{{ lightningAddress }}</p>
+            <button
+              (click)="copyAddress(lightningAddress, 'lightning')"
+              class="flex items-center text-gray-400 hover:text-white"
             >
-              {{ copiedAddress === "lighthing" ? "Copied!" : "Copy" }}
-            </span>
-          </button>
+              <img src="/assets/copy.svg" class="w-5 h-5" alt="Copy" />
+              <span
+                class="ml-2 transition-all duration-300"
+                [ngClass]="{
+                  'text-green-400': copiedAddress === 'lightning',
+                  'text-gray-300': copiedAddress !== 'lightning'
+                }"
+              >
+                {{ copiedAddress === "lightning" ? "Copied!" : "Copy" }}
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ export class DonateComponent {
   btcAddress = 'bc1q409g2sesns7069w2vqz8mjfdtzwqk4r47snrxk';
   lighthingAddress = 'lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhh2um9v3kh2um9w4knqvc7842z9';
 
-  copiedAddress: 'btc' | 'lighthing' | null = null;
+  copiedAddress: 'btc' | 'lightning' | null = null;
 
   constructor(
     private loadingService: LoadingService,
@@ -24,7 +24,7 @@ export class DonateComponent {
     }, 100);
   }
 
-  copyAddress(address: string, type: 'btc' | 'lighthing') {
+  copyAddress(address: string, type: 'btc' | 'lightning') {
     this.cbService.copy(address);
     this.copiedAddress = type;
 
