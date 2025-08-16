@@ -11,8 +11,8 @@ import { ITransactionInfo } from '../shared/interfaces/transactionInfo';
   providedIn: 'root',
 })
 export class InsightsService {
-  private baseUrl: string = 'https://api.explore21.com/api/v1/btc-insights';
-  private apiKey = 'EReo809/ulDgDLKm2A1VyQ==36ZVAXwepWGipXi1';
+  // private baseUrl: string = 'http://localhost:8000/api/v1/btc-insights';
+  private baseUrl: string = 'https://api.zurnov.com/api/v1/btc-insights';
 
   constructor(private http: HttpClient) {}
 
