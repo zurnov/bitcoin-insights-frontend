@@ -12,7 +12,7 @@ import { ITransactionInfo } from '../shared/interfaces/transactionInfo';
 })
 export class InsightsService {
   // private baseUrl: string = 'http://localhost:8000/api/v1/btc-insights';
-  private baseUrl: string = 'https://api.zurnov.com/api/v1/btc-insights';
+  private baseUrl: string = 'https://api.explore21.com/api/v1/btc-insights';
 
   constructor(private http: HttpClient) {}
 
