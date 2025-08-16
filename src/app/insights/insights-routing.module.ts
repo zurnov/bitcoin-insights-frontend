@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddressInfoComponent } from './address-info/address-info.component';
 import { BlockInfoComponent } from './block-info/block-info.component';
 import { TransactionInfoComponent } from './transaction-info/transaction-info.component';
+import { MiningCalculatorComponent } from './mining-calculator/mining-calculator.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
     path: 'transaction/:txHash',
     component: TransactionInfoComponent,
     data: { title: 'Transaction' },
+  },
+  {
+    path: 'mining-calculator',
+    component: MiningCalculatorComponent,
+    data: { title: 'Mining Calculator' },
   },
 ];
 

@@ -9,12 +9,15 @@ import { SharedModule } from '../shared/shared.module';
 import { BlockInfoComponent } from './block-info/block-info.component';
 import { TransactionInfoComponent } from './transaction-info/transaction-info.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { MiningCalculatorComponent } from './mining-calculator/mining-calculator.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AddressInfoComponent,
     BlockInfoComponent,
     TransactionInfoComponent,
+    MiningCalculatorComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     HttpClientModule,
     SharedModule,
     ClipboardModule,
+    FormsModule,
   ],
   providers: [InsightsService],
 })

@@ -1,0 +1,83 @@
+<div class="flex justify-center items-center h-full">
+  <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-white text-center mb-6">Solo Mining Calculator</h2>
+    <form>
+      <div class="mb-4">
+        <label for="hashRate" class="block text-gray-400 mb-2">Your Hashing Power</label>
+        <div class="flex rounded-lg focus-within:ring-2 focus-within:ring-orange-500 transition-all duration-300">
+          <input
+            type="number"
+            id="hashRate"
+            name="hashRate"
+            [(ngModel)]="hashRate"
+            class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none w-full"
+            placeholder="e.g., 100"
+            min="0"
+          />
+          <select
+            name="unit"
+            [(ngModel)]="selectedUnit"
+            class="bg-gray-700 text-white px-4 py-2 rounded-r-lg focus:outline-none border-l border-gray-600"
+          >
+            <option *ngFor="let unit of hashRateUnits" [value]="unit.value">{{ unit.label }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="text-center">
+        <button
+          type="button"
+          (click)="calculate()"
+          [disabled]="isLoading"
+          class="bg-orange-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-orange-600 transition-colors duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed inline-flex items-center justify-center"
+        >
+          <app-spinner *ngIf="isLoading" class="mr-2"></app-spinner>
+          {{ isLoading ? 'Calculating...' : 'Calculate' }}
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="errorMessage" class="mt-6 text-center text-red-400 bg-red-900/20 p-3 rounded-lg">
+        {{ errorMessage }}
+    </div>
+
+    <div *ngIf="showResult && calculationResult" class="mt-8 text-white animate-fade-in">
+        <h3 class="text-xl font-semibold text-center mb-4">Your Solo Mining Probability</h3>
+        <div class="bg-gray-700 rounded-lg p-4 space-y-3">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-400">Per Day:</span>
+                <span class="font-mono text-orange-400">{{ calculationResult.daily | number:'1.2-8' }}%</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-400">Per Week:</span>
+                <span class="font-mono text-orange-400">{{ calculationResult.weekly | number:'1.2-8' }}%</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-400">Per Month:</span>
+                <span class="font-mono text-orange-400">{{ calculationResult.monthly | number:'1.2-8' }}%</span>
+            </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-4 text-center">
+            Based on a network hashrate of {{ networkHashRateEH | number:'1.2-2'}} EH/s. This is an estimate and can vary.
+        </p>
+
+        <div class="mt-6">
+            <h4 class="text-lg font-semibold text-center mb-3">How do your chances stack up?</h4>
+            <div class="bg-gray-700 rounded-lg p-4 space-y-3">
+                <div *ngFor="let comp of lotteryComparisons" class="text-sm">
+                    <p class="font-semibold text-white">{{ comp.name }}</p>
+                    <p class="text-gray-300">
+                        You are 
+                        <span class="font-bold" [ngClass]="comp.moreLikely ? 'text-green-400' : 'text-red-400'">
+                            {{ comp.comparisonFactor | number:'1.2-2' }}x
+                        </span>
+                        <span *ngIf="comp.moreLikely">more</span>
+                        <span *ngIf="!comp.moreLikely">less</span>
+                        likely to mine a block today than to win the jackpot.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+</div>
