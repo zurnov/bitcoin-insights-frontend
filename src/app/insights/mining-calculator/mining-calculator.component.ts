@@ -35,9 +35,9 @@ export class MiningCalculatorComponent {
    * - 6/49: Odds of winning jackpot are 1 in 13,983,816. Probability = 1 / 13,983,816 ≈ 0.0000000715 (rounded to 0.00000715 for easier comparison).
    *   Source: https://en.wikipedia.org/wiki/Lottery_mathematics
    * - EuroMillions (Jackpot): Odds are 1 in 139,838,160. Probability = 1 / 139,838,160 ≈ 0.00000000715 (rounded to 0.000000715).
-   *   Source: https://www.national-lottery.com/euromillions/odds
+   *   Source: https://en.wikipedia.org/wiki/EuroMillions
    * - US Powerball (Jackpot): Odds are 1 in 292,201,338. Probability = 1 / 292,201,338 ≈ 0.00000000342 (rounded to 0.000000342).
-   *   Source: https://www.powerball.com/powerball-prizes-and-odds
+   *   Source: https://en.wikipedia.org/wiki/Powerball
    */
   lotteries = [
     { name: '6/49', chance: 0.00000715 }, // 1 in 13,983,816
@@ -92,11 +92,18 @@ export class MiningCalculatorComponent {
         };
 
         this.lotteryComparisons = this.lotteries.map(lottery => {
-          const comparisonFactor = dailyChance / lottery.chance;
+          const miningChance = dailyChance;
+          const lotteryChance = lottery.chance;
+          const miningIsMoreLikely = miningChance >= lotteryChance;
+
+          const comparisonFactor = miningIsMoreLikely 
+            ? miningChance / lotteryChance 
+            : lotteryChance / miningChance;
+
           return {
             name: lottery.name,
             comparisonFactor: comparisonFactor,
-            moreLikely: comparisonFactor >= 1
+            moreLikely: miningIsMoreLikely
           };
         });
 

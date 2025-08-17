@@ -66,13 +66,20 @@
                 <div *ngFor="let comp of lotteryComparisons" class="text-sm">
                     <p class="font-semibold text-white">{{ comp.name }}</p>
                     <p class="text-gray-300">
-                        You are 
-                        <span class="font-bold" [ngClass]="comp.moreLikely ? 'text-green-400' : 'text-red-400'">
-                            {{ comp.comparisonFactor | number:'1.2-2' }}x
+                        <span *ngIf="comp.moreLikely">
+                            You are 
+                            <span class="font-bold text-green-400">
+                                {{ comp.comparisonFactor | number:'1.2-2' }}x more
+                            </span>
+                            likely to mine a block today than to win the jackpot.
                         </span>
-                        <span *ngIf="comp.moreLikely">more</span>
-                        <span *ngIf="!comp.moreLikely">less</span>
-                        likely to mine a block today than to win the jackpot.
+                        <span *ngIf="!comp.moreLikely">
+                            You are 
+                            <span class="font-bold text-red-400">
+                                {{ comp.comparisonFactor | number:'1.2-2' }}x more
+                            </span>
+                            likely to win the jackpot than to mine a block today.
+                        </span>
                     </p>
                 </div>
             </div>
