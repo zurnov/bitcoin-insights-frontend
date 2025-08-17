@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IBlockchainInfo } from '../shared/interfaces/blockchainInfo';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, firstValueFrom, shareReplay } from 'rxjs';
 import { IAddressBalance } from '../shared/interfaces/addressBalance';
 import { IAddressHistory } from '../shared/interfaces/addressHistory';
 import { IBlockInfo } from '../shared/interfaces/blockInfo';
@@ -13,11 +13,25 @@ import { ITransactionInfo } from '../shared/interfaces/transactionInfo';
 export class InsightsService {
   // private baseUrl: string = 'http://localhost:8000/api/v1/btc-insights';
   private baseUrl: string = 'https://api.explore21.com/api/v1/btc-insights';
+  private blockchainInfoCache$?: Observable<IBlockchainInfo>;
+  private lastBlockchainInfoFetch: number = 0;
 
   constructor(private http: HttpClient) {}
 
   getBlockchainInfo(): Observable<IBlockchainInfo> {
-    return this.http.get<IBlockchainInfo>(`${this.baseUrl}/getblockchaininfo`);
+    const now = Date.now();
+    const tenMinutes = 10 * 60 * 1000;
+
+    if (this.blockchainInfoCache$ && now - this.lastBlockchainInfoFetch < tenMinutes) {
+      return this.blockchainInfoCache$;
+    }
+
+    this.lastBlockchainInfoFetch = now;
+    this.blockchainInfoCache$ = this.http
+      .get<IBlockchainInfo>(`${this.baseUrl}/getblockchaininfo`)
+      .pipe(shareReplay(1));
+
+    return this.blockchainInfoCache$;
   }
 
   getAddressBalance(address: string): Observable<IAddressBalance> {
