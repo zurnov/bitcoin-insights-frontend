@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InsightsService } from '../insights.service';
 import { finalize } from 'rxjs';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-mining-calculator',
   templateUrl: './mining-calculator.component.html',
   // styleUrls: ['./mining-calculator.component.css']
 })
-export class MiningCalculatorComponent {
+export class MiningCalculatorComponent implements OnInit {
   /**
    * Expected number of Bitcoin blocks per day (24 hours * 6 blocks per hour).
    */
@@ -54,7 +55,12 @@ export class MiningCalculatorComponent {
   errorMessage: string | null = null;
   networkHashRateEH: number | null = null;
 
-  constructor(private insightsService: InsightsService) {}
+  constructor(private insightsService: InsightsService, private loadingService: LoadingService) {}
+
+  ngOnInit(): void {
+    // Ensure global loader is turned off on initial load so footer appears after refresh
+    this.loadingService.hide();
+  }
 
   calculate() {
     if (!this.hashRate || this.hashRate <= 0) {
@@ -66,8 +72,15 @@ export class MiningCalculatorComponent {
     this.errorMessage = null;
     this.showResult = false;
 
+    // Show global loader while fetching network data for calculation
+    this.loadingService.show();
+
     this.insightsService.getBlockchainInfo().pipe(
-      finalize(() => this.isLoading = false)
+      finalize(() => {
+        this.isLoading = false;
+        // Hide global loader once request completes (success or error)
+        this.loadingService.hide();
+      })
     ).subscribe({
       next: (data) => {
         this.networkHashRateEH = data.networkHashPerSecond / 1e18;
