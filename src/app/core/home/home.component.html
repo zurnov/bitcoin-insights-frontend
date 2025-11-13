@@ -224,7 +224,7 @@
     <div
       class="bg-transparent rounded-lg p-4 mt-12 hidden lg:block border border-orange-200"
     >
-      <div class="w-[860px]">
+      <div class="w-[897px]">
         <div
           class="flex justify-start items-center text-left text-xl md:text-2xl space-x-2 mb-4 pt-2 ml-6"
           [ngClass]="{ 'animate-pulse': latestBlocks.length === 0 }"
@@ -244,7 +244,7 @@
         >
           <tr>
             <th class="px-8 py-3">Height</th>
-            <th class="px-8 py-3 pl-9">Time (EEST)</th>
+            <th class="px-8 py-3 pl-9">Time</th>
             <th class="px-8 py-3">Transactions</th>
             <th class="px-8 py-3 pl-9">Size (KB)</th>
             <th class="px-8 py-3 pl-10">Weight (KWU)</th>
@@ -261,7 +261,10 @@
               >
             </td>
             <td class="px-8 py-4">
-              {{ +block.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
+              {{
+                +block.time * 1000
+                  | date : "MMM dd, yyyy, HH:mm:ss zzz" : "Europe/Sofia"
+              }}
             </td>
             <td class="px-8 py-4">{{ block.ntx }}</td>
             <td class="px-8 py-4">
@@ -308,7 +311,10 @@
                 </a>
               </h3>
               <p class="px-4">
-                {{ +block.time * 1000 | date : "dd/MM/yy, HH:mm:ss" }}
+                {{
+                  +block.time * 1000
+                    | date : "MMM dd, yyyy, HH:mm:ss zzz" : "Europe/Sofia"
+                }}
               </p>
             </div>
             <div class="w-1/2 flex justify-center items-center mt-1">
@@ -348,7 +354,7 @@
     <div
       class="bg-transparent rounded-lg p-4 lg:mt-6 hidden lg:block border border-orange-200"
     >
-      <div class="w-[860px]">
+      <div class="w-[897px]">
         <div
           class="flex justify-start items-center text-left text-xl md:text-2xl space-x-2 mb-4 pt-2 ml-6"
           [ngClass]="{ 'animate-pulse': latestTransactions.length === 0 }"
@@ -370,7 +376,7 @@
             <th class="px-8 py-3">Transaction ID</th>
             <th class="px-8 py-3">Amount (BTC)</th>
             <th class="px-8 py-3 pl-10">Size (B)</th>
-            <th class="px-8 py-3 pl-9">Time (EEST)</th>
+            <th class="px-8 py-3 pl-9">Time</th>
           </tr>
         </thead>
         <tbody class="text-white divide-y divide-gray-600">
@@ -412,7 +418,10 @@
             </td>
             <td class="px-8 py-4">{{ tx.size }}</td>
             <td class="px-8 py-4">
-              {{ +tx.time * 1000 | date : "MMM dd, yyyy, HH:mm:ss" }}
+              {{
+                +tx.time * 1000
+                  | date : "MMM dd, yyyy, HH:mm:ss zzz" : "Europe/Sofia"
+              }}
             </td>
           </tr>
         </tbody>
@@ -457,7 +466,10 @@
                     <span class="text-gray-400 text-xs">BTC</span>
                   </p>
                   <p class="">
-                    {{ +tx.time * 1000 | date : "dd/MM/yy, HH:mm:ss" }}
+                    {{
+                      +tx.time * 1000
+                        | date : "MMM dd, yyyy, HH:mm:ss zzz" : "Europe/Sofia"
+                    }}
                   </p>
                 </div>
                 <div class="flex flex-col items-center">

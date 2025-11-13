@@ -211,9 +211,8 @@
               <p>
                 {{
                   +transaction.details.time * 1000
-                    | date : "MMM dd, yyyy, HH:mm:ss"
+                    | date : "MMM dd, yyyy, HH:mm:ss zzz" : "Europe/Sofia"
                 }}
-                EEST
               </p>
             </div>
 

@@ -53,7 +53,10 @@
               Mined on
             </p>
             <p>
-              {{ +blockInfo.time * 1000 | date : "dd MMM yyyy, HH:mm:ss" }} EEST
+              {{
+                +blockInfo.time * 1000
+                  | date : "MMM dd, yyyy, HH:mm:ss zzz" : "Europe/Sofia"
+              }}
             </p>
           </div>
 
@@ -111,9 +114,9 @@
             </p>
             <p>
               {{
-                +blockInfo.medianTime * 1000 | date : "dd MMM yyyy, HH:mm:ss"
+                +blockInfo.medianTime * 1000
+                  | date : "MMM dd, yyyy, HH:mm:ss zzz" : "Europe/Sofia"
               }}
-              EEST
             </p>
           </div>
 
