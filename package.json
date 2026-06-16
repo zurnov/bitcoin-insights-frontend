@@ -4,6 +4,7 @@
   "scripts": {
     "build": "ng build --configuration production",
     "postbuild": "node index-minifier.js",
+    "dev": "ng serve",
     "start": "ng serve"
   },
   "private": true,

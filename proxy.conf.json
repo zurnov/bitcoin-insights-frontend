@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://api.explore21.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "info"
+  }
+}
