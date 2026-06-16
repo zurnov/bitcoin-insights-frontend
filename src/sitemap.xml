@@ -21,6 +21,34 @@
   </url>
 
   <url>
+    <loc>https://explore21.com/about</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://explore21.com/faq</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://explore21.com/privacy</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://explore21.com/terms</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
     <loc>https://explore21.com/donate</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>

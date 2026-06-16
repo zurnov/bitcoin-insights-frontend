@@ -1,0 +1,82 @@
+<div class="max-w-screen-lg mx-6 lg:mx-auto py-8 px-4 md:px-8 mb-12 text-white">
+
+  <div class="mb-10">
+    <h1 class="font-bold text-3xl md:text-4xl mb-3 fade-col">About BTC Insights</h1>
+    <p class="text-gray-400 text-lg">A free, open-access Bitcoin blockchain explorer built for everyone.</p>
+  </div>
+
+  <div class="space-y-8">
+
+    <section class="border border-gray-700 rounded-2xl p-6 bg-gray-900/30">
+      <h2 class="font-semibold text-xl mb-3 text-orange-400">What is BTC Insights?</h2>
+      <p class="text-gray-300 leading-relaxed">
+        BTC Insights is a free Bitcoin blockchain explorer that gives anyone — from curious newcomers to
+        experienced developers — a fast, clean way to explore the Bitcoin network. No accounts, no paywalls,
+        no distractions. Just data.
+      </p>
+    </section>
+
+    <section class="border border-gray-700 rounded-2xl p-6 bg-gray-900/30">
+      <h2 class="font-semibold text-xl mb-4 text-orange-400">What You Can Do</h2>
+      <ul class="text-gray-300 space-y-3">
+        <li class="flex items-start gap-3">
+          <span class="text-orange-400 mt-1">&#9654;</span>
+          <span><strong class="text-white">Address lookup</strong> — View any Bitcoin address balance and its full transaction history, paginated across all time.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-orange-400 mt-1">&#9654;</span>
+          <span><strong class="text-white">Transaction tracking</strong> — Paste a transaction hash to see inputs, outputs, fees paid, and the number of network confirmations in real time.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-orange-400 mt-1">&#9654;</span>
+          <span><strong class="text-white">Block explorer</strong> — Browse any block by height or hash. See which transactions it contains, the miner reward, timestamp, and technical metadata.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-orange-400 mt-1">&#9654;</span>
+          <span><strong class="text-white">Mining calculator</strong> — Enter your hashrate to calculate your solo mining probability against live Bitcoin network difficulty, with comparisons to lottery odds.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="border border-gray-700 rounded-2xl p-6 bg-gray-900/30">
+      <h2 class="font-semibold text-xl mb-3 text-orange-400">Data Sources</h2>
+      <p class="text-gray-300 leading-relaxed">
+        All blockchain data is pulled directly from a Bitcoin full node connected to the live Bitcoin network.
+        This means you are always looking at real, verified on-chain data — not a third-party database that
+        might lag or be incomplete. Bitcoin price data is sourced from public market APIs. The home page
+        refreshes every 10 minutes; block and transaction pages reflect the network state at the moment of
+        your request.
+      </p>
+    </section>
+
+    <section class="border border-gray-700 rounded-2xl p-6 bg-gray-900/30">
+      <h2 class="font-semibold text-xl mb-3 text-orange-400">Why Free?</h2>
+      <p class="text-gray-300 leading-relaxed">
+        Bitcoin's transparency is one of its defining properties. The entire transaction history is public by
+        design — anyone should be able to audit it without barriers. BTC Insights was built as a public
+        utility: no ads, no subscription tiers, no data paywalls. Hosting and infrastructure costs are
+        covered out of pocket. If you find the service useful and want to help keep it running, consider
+        making a voluntary <a routerLink="/donate" class="text-orange-400 hover:text-orange-300 underline">donation</a>.
+      </p>
+    </section>
+
+    <section class="border border-gray-700 rounded-2xl p-6 bg-gray-900/30">
+      <h2 class="font-semibold text-xl mb-3 text-orange-400">Technical Stack</h2>
+      <p class="text-gray-300 leading-relaxed">
+        The frontend is built with Angular, styled with Tailwind CSS, and served globally via Cloudflare's
+        CDN. The backend connects to a Bitcoin full node over a secure API. The combination keeps latency low
+        and data fresh without any caching layer sitting between you and the actual blockchain.
+      </p>
+    </section>
+
+    <section class="border border-gray-700 rounded-2xl p-6 bg-gray-900/30">
+      <h2 class="font-semibold text-xl mb-3 text-orange-400">Have Questions?</h2>
+      <p class="text-gray-300 leading-relaxed">
+        Check the <a routerLink="/faq" class="text-orange-400 hover:text-orange-300 underline">FAQ</a> for
+        common questions about using the explorer. For everything else, reach out through the
+        <a routerLink="/donate" class="text-orange-400 hover:text-orange-300 underline">donate page</a>.
+      </p>
+    </section>
+
+  </div>
+</div>

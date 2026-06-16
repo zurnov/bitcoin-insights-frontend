@@ -190,7 +190,8 @@ ngOnInit() {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap">
 ```
 
-### 🟠 P2.3 — Create Essential Static Pages (8-10 hours)
+### ✅ P2.3 — Create Essential Static Pages (8-10 hours) — DONE 2026-06-16
+<!-- Created /about, /privacy, /terms, /faq as Angular components with full content; registered in CoreModule + AppRoutingModule; footer links updated; sitemap updated -->
 Each page needs real content — not just the Angular router shell.
 
 | Page | Priority | Content Needed |
