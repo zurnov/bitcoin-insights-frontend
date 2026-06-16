@@ -1,0 +1,252 @@
+# ============================================================================
+# RECOMMENDED NGINX CONFIGURATION FOR TECHNICAL SEO
+# File: /Users/dimitur/dev/bitcoin-insights-frontend/nginx.conf.recommended
+# ============================================================================
+#
+# This configuration addresses all critical SEO issues:
+# 1. robots.txt and sitemap.xml returned as correct MIME types
+# 2. HTTP to HTTPS redirect
+# 3. www to non-www redirect with HTTPS preservation
+# 4. Security headers (HSTS, CSP, X-Frame-Options, etc.)
+# 5. Proper caching headers
+# 6. gzip compression
+#
+# Replace the content of /etc/nginx/conf.d/default.conf with this file
+# ============================================================================
+
+# HTTP Server Block - Redirect all HTTP traffic to HTTPS
+server {
+    listen 80;
+    server_name explore21.com www.explore21.com;
+
+    # Redirect all HTTP requests to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+# HTTPS Server Block - www redirect to non-www with HTTPS
+server {
+    listen 443 ssl http2;
+    server_name www.explore21.com;
+
+    # SSL configuration would go here (handled by Cloudflare for production)
+    # ssl_certificate /path/to/cert;
+    # ssl_certificate_key /path/to/key;
+
+    # Redirect www to non-www, preserving HTTPS
+    return 301 https://explore21.com$request_uri;
+}
+
+# HTTPS Server Block - Main application (non-www)
+server {
+    listen 443 ssl http2;
+    server_name explore21.com;
+
+    # SSL configuration would go here (handled by Cloudflare for production)
+    # ssl_certificate /path/to/cert;
+    # ssl_certificate_key /path/to/key;
+    # ssl_protocols TLSv1.2 TLSv1.3;
+    # ssl_ciphers HIGH:!aNULL:!MD5;
+
+    # =========================================================================
+    # SECURITY HEADERS
+    # =========================================================================
+
+    # HSTS (HTTP Strict-Transport-Security)
+    # Forces HTTPS for 1 year, including subdomains
+    # Once verified working, add preload flag for HSTS preload list
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+
+    # Content Security Policy
+    # Restricts content sources to prevent XSS attacks
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://kit.fontawesome.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.explore21.com https://a.nel.cloudflare.com; frame-ancestors 'none';" always;
+
+    # X-Content-Type-Options
+    # Prevents MIME sniffing
+    add_header X-Content-Type-Options "nosniff" always;
+
+    # X-Frame-Options
+    # Prevents clickjacking attacks
+    add_header X-Frame-Options "DENY" always;
+
+    # Referrer-Policy
+    # Controls how much referrer information is sent
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    # Permissions-Policy (formerly Feature-Policy)
+    # Controls which browser features/APIs can be used
+    add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
+
+    # X-UA-Compatible
+    # For legacy IE browser support
+    add_header X-UA-Compatible "IE=edge" always;
+
+    # =========================================================================
+    # COMPRESSION
+    # =========================================================================
+
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css text/xml text/javascript application/json application/javascript application/xml+rss;
+
+    # =========================================================================
+    # STATIC FILES - robots.txt, sitemap.xml, favicon, assets
+    # =========================================================================
+
+    # Serve static files directly (robots.txt, sitemap.xml, favicon.ico, assets)
+    # These should NOT go through the SPA routing
+    location ~ ^/(robots\.txt|sitemap\.xml|favicon\.ico|assets)/ {
+        root /usr/share/nginx/html;
+
+        # Long cache for assets (use versioned filenames in Angular build)
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+
+        # Gzip static files
+        add_header Content-Encoding gzip;
+    }
+
+    # Special handling for favicon
+    location = /favicon.ico {
+        root /usr/share/nginx/html;
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+    }
+
+    # =========================================================================
+    # STATIC ASSETS (JS, CSS, FONTS, IMAGES)
+    # =========================================================================
+
+    location ~ \.(js|css|woff2?|eot|ttf|otf)$ {
+        root /usr/share/nginx/html;
+
+        # These are versioned by Angular build, cache for 1 year
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+        add_header Access-Control-Allow-Origin "*" always;
+
+        expires 1y;
+    }
+
+    # Images: medium cache
+    location ~ \.(png|jpg|jpeg|gif|svg|webp|ico)$ {
+        root /usr/share/nginx/html;
+
+        add_header Cache-Control "public, max-age=604800" always; # 1 week
+        add_header Vary "Accept-Encoding" always;
+
+        expires 1w;
+    }
+
+    # =========================================================================
+    # HTML - SHORT CACHE
+    # =========================================================================
+
+    location ~ \.html$ {
+        root /usr/share/nginx/html;
+
+        # Short cache for HTML to ensure users get fresh content
+        add_header Cache-Control "public, max-age=300, must-revalidate" always; # 5 minutes
+        add_header Vary "Accept-Encoding" always;
+    }
+
+    # =========================================================================
+    # API PROXY (if applicable)
+    # =========================================================================
+
+    location /api/ {
+        proxy_pass https://api.explore21.com/api/;
+        proxy_ssl_server_name on;
+        proxy_set_header Host api.explore21.com;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 10s;
+        proxy_read_timeout 120s;
+
+        # Don't cache API responses (or use conditional caching)
+        add_header Cache-Control "no-cache, no-store, must-revalidate" always;
+    }
+
+    # =========================================================================
+    # SPA ROUTING - Fallback to index.html for non-static routes
+    # =========================================================================
+
+    location / {
+        root /usr/share/nginx/html;
+
+        # Try to serve the file directly, then try as directory, finally fallback to index.html (SPA routing)
+        try_files $uri $uri/ /index.html;
+
+        # HTML caching
+        add_header Cache-Control "public, max-age=300, must-revalidate" always; # 5 minutes
+        add_header Vary "Accept-Encoding" always;
+    }
+
+    # =========================================================================
+    # ERROR PAGES
+    # =========================================================================
+
+    error_page 404 /index.html;
+    error_page 500 502 503 504 /index.html;
+
+    # =========================================================================
+    # LOGGING (optional)
+    # =========================================================================
+
+    # access_log /var/log/nginx/access.log;
+    # error_log /var/log/nginx/error.log;
+}
+
+# ============================================================================
+# NOTES FOR DOCKER DEPLOYMENT
+# ============================================================================
+#
+# In your Dockerfile, replace:
+#   COPY nginx.conf /etc/nginx/conf.d
+#
+# With:
+#   COPY nginx.conf.recommended /etc/nginx/conf.d/default.conf
+#
+# Then rebuild:
+#   docker build -t explore21.com-frontend:latest .
+#   docker push ghcr.io/zurnov/bitcoin-insights-frontend:latest
+#
+# ============================================================================
+# TESTING CHECKLIST
+# ============================================================================
+#
+# After deploying this config, verify:
+#
+# 1. Test HTTP redirect:
+#    curl -sI http://explore21.com
+#    Expected: HTTP/1.1 301 with Location: https://explore21.com
+#
+# 2. Test www redirect:
+#    curl -sI https://www.explore21.com
+#    Expected: HTTP/2 301 with Location: https://explore21.com
+#
+# 3. Test robots.txt:
+#    curl -sI https://explore21.com/robots.txt
+#    Expected: Content-Type: text/plain
+#
+# 4. Test sitemap.xml:
+#    curl -sI https://explore21.com/sitemap.xml
+#    Expected: Content-Type: application/xml
+#
+# 5. Test security headers:
+#    curl -sI https://explore21.com | grep -i "Strict-Transport-Security"
+#    Expected: See HSTS header with max-age=31536000
+#
+# 6. Check all headers:
+#    curl -sI https://explore21.com
+#    Should see:
+#      - Strict-Transport-Security
+#      - Content-Security-Policy
+#      - X-Content-Type-Options
+#      - X-Frame-Options
+#      - Referrer-Policy
+#      - Permissions-Policy
+#
+# 7. Verify with online tools:
+#    https://securityheaders.com/?q=explore21.com
+#
+# ============================================================================

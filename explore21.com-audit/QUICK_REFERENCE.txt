@@ -1,0 +1,251 @@
+================================================================================
+TECHNICAL SEO AUDIT: explore21.com (BTC Insights)
+Quick Reference Guide
+================================================================================
+
+CURRENT SCORE: 35/100  |  TARGET SCORE: 95/100  |  GAP: +60 points
+
+================================================================================
+CRITICAL ISSUES (DO IMMEDIATELY - 2-4 HOURS)
+================================================================================
+
+1. robots.txt & sitemap.xml Return HTML Instead of Text/XML
+   Status: FAIL
+   Issue: /robots.txt returns HTML (200, text/html)
+          /sitemap.xml returns HTML (200, text/html)
+   Fix: Create static files and update Nginx to serve them before SPA routing
+
+2. Missing Security Headers
+   Status: FAIL
+   Missing: HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+   Fix: Add headers to Nginx config in nginx.conf
+
+3. HTTP/HTTPS Redirects Broken
+   Status: FAIL
+   Issues: http://explore21.com → 200 OK (should be 301 to https://)
+           https://www.explore21.com → 301 to http:// (wrong protocol!)
+   Fix: Configure Nginx HTTP server block with proper redirects
+
+4. No Server-Side Rendering
+   Status: FAIL
+   Issue: Pure CSR (Client-Side Rendering) Angular SPA
+   Impact: Crawlers see empty page; slow Core Web Vitals; no per-page metadata
+   Fix: Implement Angular Universal for SSR (20-40 hours effort)
+
+5. Missing Open Graph Tags
+   Status: FAIL
+   Missing: og:image, og:url
+   Fix: Add to HTML and implement dynamic tags per route
+
+================================================================================
+ACTION ITEMS - PHASE 1 (This Week)
+================================================================================
+
+STEP 1: CREATE STATIC FILES
+  [ ] Create /src/robots.txt with proper directives
+  [ ] Create /src/sitemap.xml with URL list (or implement dynamic endpoint)
+
+STEP 2: UPDATE CONFIGURATION
+  [ ] Update angular.json to include robots.txt and sitemap.xml in assets:
+      "assets": ["src/favicon.ico", "src/robots.txt", "src/sitemap.xml", "src/assets"]
+
+STEP 3: FIX NGINX CONFIGURATION
+  [ ] Update nginx.conf to serve static files before SPA routing:
+      location ~ ^/(robots\.txt|sitemap\.xml|favicon\.ico) {
+          root /usr/share/nginx/html;
+          expires 1w;
+      }
+
+  [ ] Add HTTP to HTTPS redirect:
+      server {
+          listen 80;
+          server_name explore21.com www.explore21.com;
+          return 301 https://$host$request_uri;
+      }
+
+  [ ] Add www to non-www redirect (preserve HTTPS):
+      server {
+          listen 443 ssl http2;
+          server_name www.explore21.com;
+          return 301 https://explore21.com$request_uri;
+      }
+
+STEP 4: ADD SECURITY HEADERS
+  [ ] Add to nginx.conf:
+      add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+      add_header X-Content-Type-Options "nosniff" always;
+      add_header X-Frame-Options "DENY" always;
+      add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+      add_header Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=()" always;
+      add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://kit.fontawesome.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';" always;
+
+STEP 5: ADD OG TAGS
+  [ ] Update /src/index.html:
+      <meta property="og:image" content="https://explore21.com/assets/main-logo.png" />
+      <meta property="og:url" content="https://explore21.com/" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
+STEP 6: FIX VIEWPORT
+  [ ] Update /src/index.html viewport meta tag:
+      <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      (Remove: maximum-scale=1, user-scalable=no)
+
+STEP 7: REBUILD & DEPLOY
+  [ ] npm run build
+  [ ] npm run postbuild
+  [ ] Deploy Docker image
+  [ ] Verify with curl:
+      curl -sI https://explore21.com/robots.txt (should be text/plain)
+      curl -sI https://explore21.com/sitemap.xml (should be application/xml)
+      curl -sI http://explore21.com (should be 301)
+
+EXPECTED IMPACT: +35-40 points (35 → 70)
+
+================================================================================
+ACTION ITEMS - PHASE 2 (Next 2-4 Weeks)
+================================================================================
+
+STEP 8: IMPLEMENT SERVER-SIDE RENDERING
+  [ ] ng add @nguniversal/express-engine
+  [ ] Configure server.ts for SSR
+  [ ] Update package.json scripts with build:ssr and serve:ssr
+  [ ] Test locally with npm run serve:ssr
+  [ ] Deploy with SSR-enabled Docker image
+
+STEP 9: ADD STRUCTURED DATA
+  [ ] Add Organization schema to index.html (JSON-LD)
+  [ ] Add dynamic per-page schemas using Angular Meta service
+  [ ] Test with https://search.google.com/test/rich-results
+
+STEP 10: OPTIMIZE CORE WEB VITALS
+  [ ] Add preload hints for critical resources
+  [ ] Enable gzip/brotli compression (already done by Cloudflare)
+  [ ] Lazy load below-fold images
+  [ ] Monitor with PageSpeed Insights
+
+STEP 11: SET UP CACHING
+  [ ] Add Cache-Control headers in Nginx for static assets
+  [ ] Configure Cloudflare page rules
+  [ ] Test cache behavior with curl -I
+
+EXPECTED IMPACT: +20-30 points (70 → 90-95)
+
+================================================================================
+VERIFICATION CHECKLIST
+================================================================================
+
+Testing URLs:
+
+curl -sI https://explore21.com/robots.txt
+→ Should see: Content-Type: text/plain
+
+curl -s https://explore21.com/robots.txt | head -5
+→ Should show robots directives, not HTML
+
+curl -sI https://explore21.com/sitemap.xml
+→ Should see: Content-Type: application/xml
+
+curl -sI http://explore21.com
+→ Should see: 301 with Location: https://explore21.com
+
+curl -sI https://www.explore21.com
+→ Should see: 301 with Location: https://explore21.com
+
+curl -sI https://explore21.com
+→ Check for security headers:
+   - Strict-Transport-Security
+   - X-Frame-Options
+   - X-Content-Type-Options
+   - Referrer-Policy
+   - Content-Security-Policy
+
+Online Tools:
+
+1. Verify robots.txt: https://www.screaming-frog.co.uk/seo-spider/
+2. Check security headers: https://securityheaders.com
+3. Test structured data: https://search.google.com/test/rich-results
+4. Check Core Web Vitals: https://pagespeed.web.dev
+5. Validate XML: https://www.freeformatter.com/xml-validator-xsd.html
+
+Google Search Console:
+
+1. Add property for https://explore21.com
+2. Verify ownership
+3. Submit sitemap.xml
+4. Monitor for crawl errors
+5. Check coverage report
+
+================================================================================
+EFFORT ESTIMATE
+================================================================================
+
+Phase 1 (Critical): 2-4 hours
+  - Create static files: 15 min
+  - Update Nginx config: 30 min
+  - Add security headers: 30 min
+  - Update HTML: 15 min
+  - Test & verify: 30 min
+  - Deploy: 30 min
+
+Phase 2 (High): 20-40 hours
+  - Implement SSR: 15-30 hours (bulk of effort)
+  - Add structured data: 2-3 hours
+  - Optimize CWV: 3-7 hours
+
+Phase 3 (Medium): 15-25 hours
+  - Dynamic meta tags: 3-5 hours
+  - PWA implementation: 3-5 hours
+  - Caching strategy: 2-3 hours
+  - Monitoring/testing: 5-12 hours
+
+TOTAL: 37-69 hours over 4-8 weeks
+
+================================================================================
+EXPECTED SEO IMPROVEMENT
+================================================================================
+
+Current: 35/100
+After Phase 1: 70/100 (crawlability, security, redirects fixed)
+After Phase 2: 90/100 (SSR, structured data, CWV optimized)
+After Phase 3: 95/100 (complete SEO optimization)
+
+Key Metrics to Monitor:
+  - Google Search Console: Coverage, Indexing, Crawl Stats
+  - PageSpeed Insights: Core Web Vitals (LCP, INP, CLS)
+  - Lighthouse: SEO score, Performance score
+  - CrUX API: Real-world Core Web Vitals data
+
+================================================================================
+RESOURCES
+================================================================================
+
+Angular SEO & SSR:
+  - https://angular.io/guide/seo
+  - https://angular.io/guide/universal
+
+Google Search Central:
+  - https://developers.google.com/search
+  - https://search.google.com/test/rich-results
+
+Performance Optimization:
+  - https://web.dev/vitals/
+  - https://pagespeed.web.dev
+
+Security:
+  - https://securityheaders.com
+  - https://hstspreload.org
+
+Structured Data:
+  - https://schema.org
+  - https://json-ld.org
+
+================================================================================
+CONTACTS & QUESTIONS
+================================================================================
+
+For questions about this audit, refer to the full report:
+/Users/dimitur/dev/bitcoin-insights-frontend/explore21.com-audit/findings/technical.md
+
+For structured data, see:
+/Users/dimitur/dev/bitcoin-insights-frontend/explore21.com-audit/audit-data-technical.json

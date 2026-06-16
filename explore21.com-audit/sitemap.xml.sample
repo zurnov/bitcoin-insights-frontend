@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  BTC Insights - sitemap.xml
+
+  Place this file at: /src/sitemap.xml
+  Add to angular.json assets array: "src/sitemap.xml"
+
+  IMPORTANT: This is a static sample. For a dynamic sitemap that updates
+  when new blocks/transactions are added, implement a backend endpoint at
+  /api/sitemap.xml that generates this XML dynamically.
+
+  See recommendation in technical.md for dynamic sitemap implementation.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://explore21.com/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://explore21.com/assets/main-logo.png</image:loc>
+      <image:title>BTC Insights Logo</image:title>
+    </image:image>
+  </url>
+
+  <!-- Main Pages/Routes -->
+  <url>
+    <loc>https://explore21.com/blocks</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://explore21.com/transactions</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://explore21.com/address</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Additional Pages (adjust based on your actual routes) -->
+  <url>
+    <loc>https://explore21.com/mining</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://explore21.com/statistics</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
+
+<!--
+  NOTES ON SITEMAP FORMAT:
+
+  <loc> (required): Full URL of the page (must start with http or https)
+  <lastmod> (optional): Date page was last modified (YYYY-MM-DD format)
+  <changefreq> (optional): How often page likely changes (always, hourly, daily, weekly, monthly, yearly, never)
+  <priority> (optional): Priority relative to other pages on site (0.0-1.0, default 0.5)
+
+  RECOMMENDED FOR DYNAMIC IMPLEMENTATION:
+
+  Instead of static file, create a backend endpoint (e.g., Node.js/Express):
+
+  GET /api/sitemap.xml
+  - Query your blockchain database for recent blocks/transactions
+  - Generate XML dynamically
+  - Set Cache-Control: max-age=3600 (cache for 1 hour)
+  - Update robots.txt Sitemap: line to point to /api/sitemap.xml
+
+  This ensures:
+  - Always includes latest blocks/transactions
+  - Reflects actual site content
+  - Crawlers get fresh index information
+
+  SITEMAP INDEX (for multiple sitemaps):
+
+  If you have many pages (>50,000), use sitemap index:
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <sitemap>
+      <loc>https://explore21.com/api/sitemap-blocks.xml</loc>
+    </sitemap>
+    <sitemap>
+      <loc>https://explore21.com/api/sitemap-transactions.xml</loc>
+    </sitemap>
+    <sitemap>
+      <loc>https://explore21.com/api/sitemap-addresses.xml</loc>
+    </sitemap>
+  </sitemapindex>
+
+  Then update robots.txt:
+  Sitemap: https://explore21.com/sitemap-index.xml
+-->

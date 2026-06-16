@@ -1,0 +1,337 @@
+{
+  "meta": {
+    "domain": "explore21.com",
+    "audited_url": "https://explore21.com",
+    "audit_date": "2026-06-16",
+    "business_type": "Bitcoin Blockchain Data Explorer Tool",
+    "brand_name": "BTC Insights",
+    "technology_stack": "Angular 17+ SPA, Cloudflare CDN",
+    "agents_deployed": ["seo-technical", "seo-content", "seo-schema", "seo-geo", "seo-sxo", "seo-backlinks"]
+  },
+  "summary": {
+    "health_score": 30,
+    "grade": "F",
+    "business_type": "Bitcoin Blockchain Explorer Tool (SaaS/Free Tool)",
+    "top_findings": [
+      "robots.txt returns HTML — Angular SPA intercepts all paths including /robots.txt",
+      "HTTPS not enforced — http://explore21.com serves without redirect; www redirects to HTTP",
+      "No security headers — missing HSTS, CSP, X-Frame-Options, X-Content-Type-Options",
+      "Angular CSR-only (no SSR) — no server-rendered content visible to crawlers",
+      "Zero schema markup — no JSON-LD, no structured data of any kind",
+      "No backlinks — new domain (~5 weeks old), not in Common Crawl",
+      "Title tag 'BTC Insights' is brand-only — contains no target keywords"
+    ],
+    "quick_wins": [
+      "Create static robots.txt and configure Nginx to serve before SPA fallback (30 min)",
+      "Enable Cloudflare Always Use HTTPS and fix www redirect to https:// (15 min)",
+      "Add security headers via Cloudflare Transform Rules (20 min)",
+      "Rewrite title tag to include primary keywords (5 min)",
+      "Add og:image and Twitter Card meta tags for social sharing (1 hour)",
+      "Add WebSite + SoftwareApplication JSON-LD schema (30 min)",
+      "Remove user-scalable=no from viewport meta (5 min)"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 35,
+      "what_works": [
+        "HTTPS on main domain via Cloudflare",
+        "HTTP/2 and HTTP/3 (alt-svc h3) enabled",
+        "Gzip compression (460KB main.js → 142KB)",
+        "Cloudflare CDN with fast TTFB (~92ms from SOF edge)",
+        "Critters critical CSS inlining active",
+        "html lang='en' set correctly"
+      ],
+      "findings": [
+        {
+          "title": "robots.txt Returns HTML (Angular SPA Intercept)",
+          "severity": "Critical",
+          "description": "GET /robots.txt returns text/html with Angular SPA shell (HTTP 200). Googlebot cannot parse crawl directives. All well-known file paths (sitemap.xml, llms.txt, security.txt) return the same SPA shell.",
+          "recommendation": "Create /src/assets/robots.txt as a static file. Configure Nginx: location = /robots.txt { root /var/www/explore21/assets; try_files /robots.txt =404; }"
+        },
+        {
+          "title": "sitemap.xml Returns HTML",
+          "severity": "Critical",
+          "description": "GET /sitemap.xml returns text/html (200 OK). No XML sitemap exists. Google cannot discover or inventory site pages.",
+          "recommendation": "Create static sitemap.xml listing homepage and key tool pages. Serve like robots.txt. Submit to Google Search Console."
+        },
+        {
+          "title": "HTTP Not Redirected to HTTPS",
+          "severity": "Critical",
+          "description": "http://explore21.com returns 200 OK over plain HTTP. No redirect to HTTPS. Users on HTTP are exposed to MITM attacks.",
+          "recommendation": "Enable Cloudflare 'Always Use HTTPS' in SSL/TLS settings."
+        },
+        {
+          "title": "www Redirects to HTTP Instead of HTTPS",
+          "severity": "Critical",
+          "description": "https://www.explore21.com issues 301 redirect to http://explore21.com/ — downgrading from HTTPS to HTTP. This is a security vulnerability.",
+          "recommendation": "Add Cloudflare Redirect Rule: www.explore21.com → https://explore21.com${uri} (301)"
+        },
+        {
+          "title": "No Security Headers",
+          "severity": "High",
+          "description": "Missing: Strict-Transport-Security, Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy. Site is vulnerable to clickjacking, MIME sniffing, and protocol downgrade attacks.",
+          "recommendation": "Add via Cloudflare Transform Rules: X-Frame-Options: SAMEORIGIN, X-Content-Type-Options: nosniff, Referrer-Policy: strict-origin-when-cross-origin, HSTS: max-age=31536000"
+        },
+        {
+          "title": "Angular CSR-Only — No Server-Side Rendering",
+          "severity": "High",
+          "description": "Pure client-side Angular SPA. HTML shell contains only <app-root></app-root>. All meta tags are static — every page shares the same title/description. Googlebot must execute JavaScript to see any content.",
+          "recommendation": "Implement Angular Universal SSR (ng add @nguniversal/express-engine) or Angular 17+ built-in SSR. Minimum: implement Angular Meta service + Router-based meta tag updates per route."
+        },
+        {
+          "title": "No Canonical Tag",
+          "severity": "High",
+          "description": "No <link rel='canonical'> found. Same content accessible via http://, https://, and potentially with/without trailing slash.",
+          "recommendation": "Add canonical tag to index.html. Update dynamically per route via Angular's Meta service."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 28,
+      "what_works": [
+        "Meta description present and reasonable length (112 chars)",
+        "Meta keywords include relevant terms",
+        "Tool appears functional (Bitcoin explorer)"
+      ],
+      "findings": [
+        {
+          "title": "Zero Indexable Content — JS-Rendered SPA",
+          "severity": "Critical",
+          "description": "HTML shell contains no visible text content. <app-root></app-root> is empty without JS execution. Crawlers without JS execution see no content whatsoever.",
+          "recommendation": "Implement SSR to server-render at minimum the homepage content."
+        },
+        {
+          "title": "E-E-A-T Score: 18/100",
+          "severity": "Critical",
+          "description": "No Experience or Expertise signals. No About page, no team info, no data source citations, no contact info. Trustworthiness extremely low for a financial tool (crypto explorer).",
+          "recommendation": "Create About, Privacy, Terms, Contact pages. Add data source attribution. Consider adding team/founder information."
+        },
+        {
+          "title": "Brand/Domain Mismatch",
+          "severity": "High",
+          "description": "Product is called 'BTC Insights' but domain is explore21.com. No brand alignment. Users won't remember the domain. AI systems will be confused about citations.",
+          "recommendation": "Either rebrand to align with domain (explore21.com) or acquire btcinsights.com or btcinsights.io."
+        },
+        {
+          "title": "Missing Essential Pages",
+          "severity": "High",
+          "description": "No /about, /privacy, /terms, /contact, /faq pages with real content. All return the SPA shell. These are E-E-A-T signals and trust factors, especially for a crypto tool.",
+          "recommendation": "Create static content pages with 300+ words each. Start with Privacy Policy and About page."
+        },
+        {
+          "title": "No Content Hub",
+          "severity": "Medium",
+          "description": "Tool-only site with no educational content. Competitors (mempool.space, blockchain.com) have rich blog/resource sections capturing long-tail traffic.",
+          "recommendation": "Create /learn or /blog with Bitcoin explorer tutorials and concept explanations."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 32,
+      "what_works": [
+        "Meta description 112 chars (acceptable length)",
+        "og:title and og:description present",
+        "og:type: website set",
+        "charset and lang attributes correct"
+      ],
+      "findings": [
+        {
+          "title": "Weak Title Tag — No Keywords",
+          "severity": "Critical",
+          "description": "Title is 'BTC Insights' (11 chars). No target keywords. Does not describe page purpose to users or search engines.",
+          "recommendation": "Change to: 'Bitcoin Blockchain Explorer – Address & Transaction Lookup | BTC Insights'"
+        },
+        {
+          "title": "Missing og:image",
+          "severity": "High",
+          "description": "No Open Graph image. Shared links on Discord/Telegram/X show no preview. Critical for crypto community engagement.",
+          "recommendation": "Create 1200x630px branded image. Add og:image, og:image:width, og:image:height meta tags."
+        },
+        {
+          "title": "Missing Twitter Card",
+          "severity": "High",
+          "description": "No twitter:card meta tag. X/Twitter shows no rich preview for shared links.",
+          "recommendation": "Add: <meta name='twitter:card' content='summary_large_image'> and related twitter:* tags."
+        },
+        {
+          "title": "Missing og:url and og:site_name",
+          "severity": "Medium",
+          "description": "Open Graph URL and site name not specified.",
+          "recommendation": "Add: <meta property='og:url' content='https://explore21.com/'> and <meta property='og:site_name' content='BTC Insights'>"
+        },
+        {
+          "title": "Viewport Blocks Zoom — Accessibility Violation",
+          "severity": "Medium",
+          "description": "user-scalable=no and maximum-scale=1 prevent zooming. Violates WCAG 1.4.4 (Resize Text, Level AA).",
+          "recommendation": "Change to: <meta name='viewport' content='width=device-width,initial-scale=1'>"
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 5,
+      "what_works": [],
+      "findings": [
+        {
+          "title": "Zero Schema Markup",
+          "severity": "Critical",
+          "description": "No JSON-LD, Microdata, or RDFa detected anywhere. No WebSite, Organization, SoftwareApplication, or BreadcrumbList schema.",
+          "recommendation": "Add WebSite + SearchAction schema (enables Google Sitelinks Search Box), Organization, and SoftwareApplication. See FULL-AUDIT-REPORT.md Section 4 for ready-to-use JSON-LD code."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 45,
+      "what_works": [
+        "Fast TTFB: ~92ms (Cloudflare CDN)",
+        "HTTP/2 + HTTP/3",
+        "Gzip compression enabled",
+        "Critical CSS inlined (Critters)",
+        "Non-critical CSS deferred (media=print onload trick)"
+      ],
+      "findings": [
+        {
+          "title": "FontAwesome Synchronous Load — Render Blocking",
+          "severity": "Critical",
+          "description": "<script src='kit.fontawesome.com/...'> with no async or defer. Blocks rendering by 300-500ms.",
+          "recommendation": "Add defer attribute: <script defer src='https://kit.fontawesome.com/8a3442c427.js' crossorigin='anonymous'>"
+        },
+        {
+          "title": "Google Fonts via @import — Worst Loading Pattern",
+          "severity": "High",
+          "description": "@import url(fonts.googleapis.com) in inline CSS blocks CSS parsing, delaying FCP by 200-400ms.",
+          "recommendation": "Replace with: <link rel='preconnect' href='https://fonts.googleapis.com'> + <link rel='stylesheet' href='...'> in <head>."
+        },
+        {
+          "title": "Angular CSR — JS-Gated LCP (3-7s on mobile)",
+          "severity": "High",
+          "description": "Largest Contentful Paint blocked until 460KB JS loads and executes. Estimated LCP: 3-7s on typical mobile connection.",
+          "recommendation": "Implement Angular Universal SSR to server-render first paint."
+        },
+        {
+          "title": "Short Cache TTL on Hashed Static Assets",
+          "severity": "Medium",
+          "description": "max-age=63,675s (~17h) on hash-named JS/CSS files. Files with content-hash are safe to cache for 1 year.",
+          "recommendation": "Set Cache-Control: public, max-age=31536000, immutable for all *.hash.js and *.hash.css files."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 34,
+      "what_works": [
+        "Domain responds to HTTPS requests",
+        "Cloudflare CDN accessible by AI crawlers"
+      ],
+      "findings": [
+        {
+          "title": "No llms.txt — AI Crawler Guidance Missing",
+          "severity": "High",
+          "description": "/llms.txt returns the SPA HTML shell (200 OK). No explicit RSL 1.0 compliance file for AI crawlers.",
+          "recommendation": "Create /src/assets/llms.txt with explicit allow rules and site description. Serve as static file."
+        },
+        {
+          "title": "Uncitable — No Static Authority Content",
+          "severity": "High",
+          "description": "AI systems (ChatGPT, Claude, Perplexity) cannot cite this site reliably. No About page, no author attribution, no static explanatory content.",
+          "recommendation": "Create About page with 200+ words. Add Organization schema. Build static FAQ content."
+        },
+        {
+          "title": "Brand/Domain Confusion for AI Citations",
+          "severity": "Medium",
+          "description": "AI systems would cite 'explore21.com' but the brand is 'BTC Insights' — confusing for users trying to find the cited tool.",
+          "recommendation": "Add og:site_name='BTC Insights', Organization schema with sameAs links."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 20,
+      "what_works": [
+        "Favicon present (/favicon.ico)"
+      ],
+      "findings": [
+        {
+          "title": "No Social Preview Image (og:image)",
+          "severity": "High",
+          "description": "No og:image means blank previews when links shared on Discord, X, Telegram, Reddit — all key crypto community platforms.",
+          "recommendation": "Create 1200x630px branded image. Add og:image and twitter:image meta tags."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical Fixes",
+        "timeframe": "Week 1 (2-4 hours)",
+        "estimated_score_gain": "+25 → 55/100",
+        "items": [
+          "P1.1 Create static robots.txt and fix Nginx routing (30 min)",
+          "P1.2 Enable Cloudflare Always Use HTTPS + fix www redirect to https:// (15 min)",
+          "P1.3 Add security headers via Cloudflare Transform Rules (20 min)",
+          "P1.4 Create static sitemap.xml and submit to Google Search Console (30 min)",
+          "P1.5 Rewrite title tag with primary keywords (10 min)",
+          "P1.6 Add og:image (1200x630), og:url, og:site_name, Twitter Card meta (1 hour)",
+          "P1.7 Add WebSite + SoftwareApplication JSON-LD schema to index.html (30 min)",
+          "P1.8 Remove user-scalable=no from viewport meta (5 min)"
+        ]
+      },
+      {
+        "name": "Phase 2: High-Impact Improvements",
+        "timeframe": "Weeks 2-3 (20-30 hours)",
+        "estimated_score_gain": "+15 → 70/100",
+        "items": [
+          "P2.1 Implement Angular dynamic meta tags per route (3-4 hours)",
+          "P2.2 Fix FontAwesome defer + replace Google Fonts @import (2 hours)",
+          "P2.3 Create About, Privacy, Terms, FAQ, Contact pages (8-10 hours)",
+          "P2.4 Create static llms.txt for AI crawler guidance (30 min)",
+          "P2.5 Fix static asset Cache-Control to 1 year (30 min)",
+          "P2.6 Set up and verify Google Search Console (1 hour)"
+        ]
+      },
+      {
+        "name": "Phase 3: Content & Authority",
+        "timeframe": "Month 2 (40-60 hours)",
+        "estimated_score_gain": "+10 → 80/100",
+        "items": [
+          "P3.1 Implement Angular Universal SSR (15-20 hours)",
+          "P3.2 Implement route-level lazy loading to reduce main.js bundle (4-6 hours)",
+          "P3.3 Start link building: Bitcoin.org, CoinMarketCap, GitHub open-source",
+          "P3.4 Create 3-5 blog/learn articles targeting long-tail Bitcoin queries"
+        ]
+      },
+      {
+        "name": "Phase 4: Monitoring & Iteration",
+        "timeframe": "Ongoing",
+        "estimated_score_gain": "+5 → 85/100",
+        "items": [
+          "Weekly Google Search Console review",
+          "Monthly PageSpeed/Core Web Vitals audit",
+          "Monthly security headers check (securityheaders.com)",
+          "Monthly backlink monitoring",
+          "Quarterly full SEO re-audit"
+        ]
+      }
+    ]
+  },
+  "backlinks": {
+    "referring_domains": 0,
+    "common_crawl_status": "Not indexed",
+    "estimated_da": "0-5",
+    "domain_age_weeks": 5,
+    "link_velocity": "0 (new domain)"
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/",
+    "nginx_config": "nginx.conf.recommended",
+    "robots_txt_sample": "robots.txt.sample",
+    "sitemap_sample": "sitemap.xml.sample"
+  }
+}

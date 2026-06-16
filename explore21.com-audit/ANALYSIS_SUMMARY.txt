@@ -1,0 +1,142 @@
+================================================================================
+BACKLINK PROFILE ANALYSIS - explore21.com (BTC Insights)
+================================================================================
+
+Analysis Date: June 16, 2026
+Domain Age: < 1 day (New Launch)
+Analysis Tier: 0 (Common Crawl + Verification Only)
+Status: INSUFFICIENT DATA for numeric scoring (zero backlinks detected)
+
+================================================================================
+KEY FINDINGS
+================================================================================
+
+1. CURRENT BACKLINK STATUS
+   - Referring Domains: 0
+   - Data Source: Common Crawl Q1-Q2 2026 release
+   - Status: Domain too new for Common Crawl index
+   - Confidence: 0.50 (absence in index = expected for new domains)
+
+2. DOMAIN AUTHORITY ESTIMATE
+   - Estimated DA: 0-5/100
+   - Confidence: 0.10 (no historical data)
+   - Status: Newborn domain with zero organic authority
+   - Timeline: 3-6 months required to establish credibility
+
+3. DOMAIN TECHNICAL HEALTH
+   - Hosting: Cloudflare CDN (trust signal)
+   - HTTPS: Enabled (security signal)
+   - Mobile Responsive: Yes
+   - HTML Structure: Clean, professional
+   - Outbound Links: 0 external (homepage)
+
+4. RISK ASSESSMENT
+   - Spam Link Vulnerability: HIGH (new domains are targets)
+   - Toxic Link Ratio: Unknown (no backlinks exist)
+   - Recommendation: Monthly audits once backlinks acquired
+
+================================================================================
+ANALYSIS LIMITATIONS (Tier 0)
+================================================================================
+
+No Data Available For:
+- Domain Authority (requires Moz API - Tier 1)
+- Spam Score (requires Moz API - Tier 1)
+- Anchor Text Distribution (zero backlinks)
+- Link Velocity Trends (free sources lack historical tracking)
+- Geographic Link Distribution (Bing data - Tier 2)
+
+Result: Cannot produce numeric Health Score (fewer than 4 factors have data)
+
+================================================================================
+LINK BUILDING ROADMAP
+================================================================================
+
+WEEK 1-2 (Foundation)
+- Set up Google Search Console
+- Create launch press release
+- Identify 20 crypto news outlets for outreach
+- Draft Tier 1 prospect emails
+
+WEEK 3-4 (Initial Campaign)
+- Secure 3-5 feature mentions on crypto news
+- Submit to Bitcoin.org resource library
+- List on CoinMarketCap & CoinGecko
+- Publish Dev.to/Medium launch story
+
+MONTH 2 (Community Building)
+- Bitcoin analysis tutorials on GitHub
+- BitcoinTalk community participation
+- Partner with crypto education platforms
+- Monitor Google Search Console
+
+MONTH 3 (Velocity & Scale)
+- Target: 10-15 referring domains
+- Analyze anchor text distribution
+- Disavow any suspicious links
+- Re-run analysis to track progress
+
+================================================================================
+HIGH-PRIORITY LINK TARGETS
+================================================================================
+
+Tier 1 (DA 70+)
+- Bitcoin.org (DA 85+) - Official Bitcoin reference
+- CoinMarketCap (DA 80+) - Largest crypto data platform
+- CoinGecko (DA 80+) - Major crypto data platform
+- CoinDesk (DA 70+) - Crypto news leader
+- Cointelegraph (DA 70+) - Major crypto news
+
+Tier 2 (DA 40-70)
+- BitcoinTalk (DA 65+) - Community participation
+- GitHub (DA 95+, profile: 20-30 DA) - Open-source tools
+- Dev.to (DA 60+) - Developer tutorials
+- Medium (DA 70+) - Educational content
+
+Tier 3 (DA 20-50)
+- Crypto tool directories
+- Bitcoin meetup groups
+- Reddit communities (r/Bitcoin, r/CryptoCurrency)
+- Educational resource sites
+
+================================================================================
+EXPECTED PROGRESSION
+================================================================================
+
+Month 1: 5-10 referring domains (avg DA 30-50) → Est. DA: 5-10
+Month 3: 15-25 referring domains (avg DA 40-70) → Est. DA: 15-20
+Month 6: 40-60 referring domains (mixed quality) → Est. DA: 25-35
+
+Note: Timeline assumes 2-3 link acquisitions per week from quality sources.
+
+================================================================================
+UPGRADE RECOMMENDATIONS
+================================================================================
+
+Immediate (Week 1):
+- [ ] Set up Google Search Console
+- [ ] Create Bing Webmaster account (free, real-time link data)
+
+Month 1 (10+ backlinks):
+- [ ] Upgrade to Moz API (Tier 1) - $99/month
+- [ ] Benefits: DA/PA tracking, competitor analysis, spam score
+
+Month 3+ (20+ backlinks, budget permitting):
+- [ ] DataForSEO extension (premium) - highest-fidelity data
+- [ ] Benefits: Link velocity trends, semantic anchor analysis
+
+================================================================================
+OUTPUT FILES
+================================================================================
+
+Primary Report:
+- /Users/dimitur/dev/bitcoin-insights-frontend/explore21.com-audit/findings/backlinks.md
+  (287 lines, comprehensive analysis with link building strategy)
+
+Structured Data:
+- /Users/dimitur/dev/bitcoin-insights-frontend/explore21.com-audit/backlink-data.json
+  (JSON format for audit integration and trend tracking)
+
+================================================================================
+NEXT REVIEW SCHEDULED: July 16, 2026
+================================================================================

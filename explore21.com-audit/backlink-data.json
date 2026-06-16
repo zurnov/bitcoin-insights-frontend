@@ -1,0 +1,232 @@
+{
+  "domain": "explore21.com",
+  "analysis_date": "2026-06-16",
+  "tier": 0,
+  "tier_description": "Common Crawl + Verification Only (no Moz/Bing APIs)",
+  "domain_metrics": {
+    "domain_age_days": 0.02,
+    "domain_created": "2026-06-16",
+    "last_modified": "2026-06-16T06:27:50Z",
+    "hosting_provider": "Cloudflare",
+    "domain_status": "active",
+    "https_enabled": true,
+    "mobile_responsive": true
+  },
+  "backlink_profile": {
+    "referring_domains_count": 0,
+    "referring_domains_source": "Common Crawl Q1-Q2 2026",
+    "referring_domains_confidence": 0.5,
+    "referring_domains_note": "Domain not yet crawled by Common Crawl; expected for new domains",
+    "in_common_crawl_index": false,
+    "in_google_index": false,
+    "in_bing_index": false,
+    "top_referring_domains": [],
+    "pagerank": null,
+    "pagerank_confidence": 0,
+    "harmonic_centrality": null
+  },
+  "outbound_links": {
+    "external_links_detected": 0,
+    "internal_links_detected": 4,
+    "homepage_link_profile": "clean"
+  },
+  "anchor_text": {
+    "anchor_text_data_available": false,
+    "reason": "zero backlinks detected",
+    "recommended_primary_anchors": [
+      "BTC Insights",
+      "Bitcoin explorer",
+      "explore21",
+      "blockchain explorer"
+    ],
+    "recommended_distribution": {
+      "branded": "40-50%",
+      "generic": "20-30%",
+      "long_tail": "15-20%",
+      "keyword_specific": "10-15%"
+    }
+  },
+  "domain_authority": {
+    "estimated_da": "0-5",
+    "estimated_pa": "0-5",
+    "confidence": 0.1,
+    "data_source": "none (Tier 0 analysis)",
+    "data_source_confidence": "0.00",
+    "estimated_organic_traffic": 0,
+    "authority_assessment": "newborn domain with zero organic authority"
+  },
+  "link_quality": {
+    "toxic_link_ratio": null,
+    "spam_score_estimate": null,
+    "follow_nofollow_ratio": null,
+    "quality_assessment": "new domain vulnerable to spam; requires monthly audits",
+    "risk_level": "medium",
+    "positive_signals": [
+      "Professional Cloudflare CDN",
+      "HTTPS/TLS encryption",
+      "Mobile-responsive design",
+      "Clean HTML structure",
+      "Proper meta tags"
+    ],
+    "risk_factors": [
+      "Zero established authority",
+      "New domain spam target risk",
+      "No historical link profile",
+      "Not yet in search indexes"
+    ]
+  },
+  "scoring": {
+    "health_score": "INSUFFICIENT DATA",
+    "health_score_numeric": null,
+    "confidence_overall": 0.5,
+    "factors_with_data": 1,
+    "factors_required": 4,
+    "reason_insufficient": "fewer than 4 scoring factors have data sources; zero backlinks = no link quality metrics",
+    "scoring_notes": {
+      "referring_domain_count": "no data",
+      "domain_quality_distribution": "no data",
+      "anchor_text_naturalness": "no data",
+      "toxic_link_ratio": "no data",
+      "link_velocity_trend": "no data",
+      "follow_nofollow_ratio": "no data",
+      "geographic_relevance": "no data"
+    }
+  },
+  "link_building_recommendations": {
+    "tier_1_targets": [
+      {
+        "site": "CoinMarketCap",
+        "da_estimate": "80+",
+        "difficulty": "medium",
+        "anchor_suggestion": "Bitcoin address explorer",
+        "expected_impact": "high"
+      },
+      {
+        "site": "CoinGecko",
+        "da_estimate": "80+",
+        "difficulty": "medium",
+        "anchor_suggestion": "BTC blockchain viewer",
+        "expected_impact": "high"
+      },
+      {
+        "site": "Bitcoin.org",
+        "da_estimate": "85+",
+        "difficulty": "medium",
+        "anchor_suggestion": "Bitcoin insights platform",
+        "expected_impact": "very high"
+      },
+      {
+        "site": "CoinDesk",
+        "da_estimate": "70+",
+        "difficulty": "high",
+        "anchor_suggestion": "BTC Insights",
+        "expected_impact": "high"
+      }
+    ],
+    "tier_2_targets": [
+      {
+        "site": "BitcoinTalk",
+        "da_estimate": "65+",
+        "difficulty": "low",
+        "strategy": "community participation with natural links"
+      },
+      {
+        "site": "GitHub",
+        "da_estimate": "95+ (profile: 20-30 DA)",
+        "difficulty": "medium",
+        "strategy": "open-source Bitcoin analysis tools"
+      },
+      {
+        "site": "Dev.to / Medium",
+        "da_estimate": "60-70",
+        "difficulty": "low",
+        "strategy": "blockchain analysis tutorials"
+      }
+    ],
+    "tier_3_targets": [
+      "Crypto tool directories",
+      "Bitcoin meetup groups",
+      "Educational resource pages",
+      "Niche forums and communities"
+    ]
+  },
+  "monitoring_plan": {
+    "month_1_target_domains": "5-10",
+    "month_3_target_domains": "15-25",
+    "month_6_target_domains": "40-60",
+    "expected_da_month_1": "5-10",
+    "expected_da_month_3": "15-20",
+    "expected_da_month_6": "25-35",
+    "recommended_tools": [
+      "Google Search Console (free)",
+      "Monthly Common Crawl analysis",
+      "Moz API (Tier 1 upgrade recommended after 20+ backlinks)"
+    ],
+    "audit_frequency": "monthly",
+    "next_analysis_date": "2026-07-16"
+  },
+  "data_sources": {
+    "domain_headers": {
+      "source": "HTTP headers (Cloudflare)",
+      "freshness": "real-time",
+      "confidence": 1.0
+    },
+    "common_crawl": {
+      "source": "Common Crawl Q1-Q2 2026",
+      "freshness": "1-6 months old",
+      "confidence": 0.5,
+      "status": "domain not in index"
+    },
+    "page_fetch": {
+      "source": "raw HTML fetch",
+      "freshness": "real-time",
+      "confidence": 0.95
+    },
+    "moz_api": {
+      "available": false,
+      "reason": "Tier 0 analysis only"
+    },
+    "bing_webmaster": {
+      "available": false,
+      "reason": "Tier 0 analysis only"
+    }
+  },
+  "upgrade_recommendations": {
+    "tier_1": {
+      "description": "Add Moz API",
+      "cost": "$99/month",
+      "benefits": [
+        "Domain Authority tracking",
+        "Page Authority metrics",
+        "Spam Score analysis",
+        "Competitor DA distribution",
+        "Anchor text analysis from Moz index"
+      ],
+      "recommended_at": "10+ backlinks acquired",
+      "roi": "high"
+    },
+    "tier_2": {
+      "description": "Add Bing Webmaster API",
+      "cost": "free",
+      "benefits": [
+        "Real-time inbound links (Bing crawl)",
+        "Competitor comparison",
+        "Country-level link distribution"
+      ],
+      "recommended_at": "immediately",
+      "roi": "high"
+    },
+    "tier_3": {
+      "description": "DataForSEO Extension",
+      "cost": "premium",
+      "benefits": [
+        "highest-fidelity backlink data",
+        "link velocity historical trends",
+        "anchor text semantic analysis",
+        "cross-validation with other sources"
+      ],
+      "recommended_at": "month 3+, if budget available",
+      "roi": "medium-high"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+# BTC Insights - robots.txt
+# Place this file at: /src/robots.txt
+# Add to angular.json assets array: "src/robots.txt"
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin paths (if they exist)
+Disallow: /admin
+Disallow: /admin/
+Disallow: /*.json
+Disallow: /*.xml
+
+# Specific crawler rules (optional)
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: GPTBot
+Allow: /
+
+# Block bad crawlers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Sitemap location (important for SEO)
+Sitemap: https://explore21.com/sitemap.xml
+
+# Crawl delay (optional, in seconds)
+# This tells crawlers not to hit your site too hard
+# Crawl-delay: 1

@@ -1,0 +1,446 @@
+{
+  "category": "Technical SEO",
+  "site": "https://explore21.com",
+  "date": "2026-06-16",
+  "overall_score": 35,
+  "target_score": 95,
+  "findings": [
+    {
+      "id": "crawlability_robots_txt",
+      "title": "robots.txt Returns HTML Instead of Text",
+      "severity": "critical",
+      "category": "Crawlability",
+      "status": "FAIL",
+      "description": "The robots.txt file is being intercepted by Angular SPA routing and returns HTML (200 OK, text/html) instead of a plain text file. This prevents search engines from reading crawl directives.",
+      "evidence": {
+        "url": "https://explore21.com/robots.txt",
+        "status": 200,
+        "content_type": "text/html",
+        "expected": "text/plain"
+      },
+      "impact": "Search engines cannot read robots.txt directives; site treated as non-compliant",
+      "root_cause": "Nginx try_files rule routes all requests to index.html, including /robots.txt",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Create /src/robots.txt static file with proper directives",
+          "code": "User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: https://explore21.com/sitemap.xml"
+        },
+        {
+          "priority": "2",
+          "action": "Add robots.txt to angular.json assets array",
+          "code": "\"assets\": [\"src/favicon.ico\", \"src/robots.txt\", \"src/sitemap.xml\", \"src/assets\"]"
+        },
+        {
+          "priority": "3",
+          "action": "Update nginx.conf to explicitly serve static files",
+          "code": "location ~ ^/(robots\\.txt|sitemap\\.xml|favicon\\.ico) {\n    root /usr/share/nginx/html;\n    expires 1w;\n}"
+        }
+      ]
+    },
+    {
+      "id": "crawlability_sitemap_xml",
+      "title": "sitemap.xml Returns HTML Instead of XML",
+      "severity": "critical",
+      "category": "Crawlability",
+      "status": "FAIL",
+      "description": "The sitemap.xml file returns HTML (200 OK, text/html) instead of XML. Search engines cannot parse the sitemap to discover pages.",
+      "evidence": {
+        "url": "https://explore21.com/sitemap.xml",
+        "status": 200,
+        "content_type": "text/html",
+        "expected": "application/xml"
+      },
+      "impact": "Crawlers cannot fetch or parse the XML sitemap; no page inventory discovery",
+      "root_cause": "Same as robots.txt - Nginx try_files routing to index.html",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Create /src/sitemap.xml static file with proper XML format",
+          "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n<url><loc>https://explore21.com/</loc></url>\n</urlset>"
+        },
+        {
+          "priority": "2",
+          "action": "Consider implementing dynamic sitemap generation at /api/sitemap.xml"
+        },
+        {
+          "priority": "3",
+          "action": "Use Angular Universal with SSR for automatic sitemap generation"
+        }
+      ]
+    },
+    {
+      "id": "security_missing_headers",
+      "title": "Missing Critical Security Headers",
+      "severity": "critical",
+      "category": "Security",
+      "status": "FAIL",
+      "description": "Multiple critical security headers are missing from HTTP responses.",
+      "evidence": {
+        "missing_headers": [
+          "Strict-Transport-Security (HSTS)",
+          "Content-Security-Policy",
+          "X-Content-Type-Options",
+          "X-Frame-Options",
+          "Referrer-Policy",
+          "Permissions-Policy"
+        ]
+      },
+      "impact": "Exposes site to protocol downgrade attacks, XSS, clickjacking, MIME sniffing, and privacy leaks",
+      "root_cause": "Nginx configuration missing security headers directives",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Add HSTS header",
+          "code": "add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains; preload\" always;"
+        },
+        {
+          "priority": "2",
+          "action": "Add Content-Security-Policy",
+          "code": "add_header Content-Security-Policy \"default-src 'self'; script-src 'self' 'unsafe-inline' https://kit.fontawesome.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';\" always;"
+        },
+        {
+          "priority": "3",
+          "action": "Add remaining security headers",
+          "code": "add_header X-Content-Type-Options \"nosniff\" always;\nadd_header X-Frame-Options \"DENY\" always;\nadd_header Referrer-Policy \"strict-origin-when-cross-origin\" always;\nadd_header Permissions-Policy \"accelerometer=(), camera=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()\" always;"
+        }
+      ]
+    },
+    {
+      "id": "redirect_http_to_https",
+      "title": "HTTP Does Not Redirect to HTTPS",
+      "severity": "critical",
+      "category": "URL Structure",
+      "status": "FAIL",
+      "description": "HTTP requests return 200 OK with full HTML content instead of redirecting to HTTPS. This creates mixed-protocol access and SEO issues.",
+      "evidence": {
+        "url": "http://explore21.com",
+        "actual_status": 200,
+        "expected_status": "301/302"
+      },
+      "impact": "Protocol downgrade vulnerability, mixed content warnings, SEO penalty for HTTP crawling",
+      "root_cause": "Nginx not configured to redirect HTTP to HTTPS",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Configure HTTP server block to redirect to HTTPS",
+          "code": "server {\n    listen 80;\n    server_name explore21.com www.explore21.com;\n    return 301 https://$host$request_uri;\n}"
+        },
+        {
+          "priority": "2",
+          "action": "Verify Cloudflare 'Always Use HTTPS' is enabled"
+        }
+      ]
+    },
+    {
+      "id": "redirect_www_https",
+      "title": "www Subdomain Redirects to HTTP Instead of HTTPS",
+      "severity": "critical",
+      "category": "URL Structure",
+      "status": "FAIL",
+      "description": "HTTPS requests to www.explore21.com redirect to HTTP (not HTTPS), causing protocol downgrade.",
+      "evidence": {
+        "url": "https://www.explore21.com",
+        "redirect_target": "http://explore21.com/",
+        "expected_target": "https://explore21.com/"
+      },
+      "impact": "Protocol downgrade, broken HSTS, security vulnerability, SEO penalty",
+      "root_cause": "Nginx redirect rule not preserving HTTPS protocol",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Configure www redirect to preserve HTTPS",
+          "code": "server {\n    listen 443 ssl http2;\n    server_name www.explore21.com;\n    return 301 https://explore21.com$request_uri;\n}"
+        }
+      ]
+    },
+    {
+      "id": "indexability_no_ssr",
+      "title": "No Server-Side Rendering (CSR-Only SPA)",
+      "severity": "critical",
+      "category": "Indexability",
+      "status": "FAIL",
+      "description": "The site is a pure Client-Side Rendered (CSR) Angular SPA with no Server-Side Rendering. Initial HTML contains only an <app-root> placeholder; content renders after JavaScript execution.",
+      "evidence": {
+        "initial_html": "<app-root></app-root>",
+        "javascript_files": [
+          "runtime.js",
+          "polyfills.js",
+          "main.js"
+        ],
+        "framework": "Angular 17"
+      },
+      "impact": "Crawlers with limited JS support see empty page; slower indexing; poor Core Web Vitals; no per-page metadata on initial fetch",
+      "root_cause": "Angular SPA built without Universal/SSR configuration",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Implement Angular Universal for Server-Side Rendering",
+          "code": "ng add @nguniversal/express-engine\nnpm run build:ssr\nnpm run serve:ssr"
+        },
+        {
+          "priority": "2",
+          "action": "Or: Implement prerendering for static pages",
+          "code": "npm install @angular/prerender"
+        },
+        {
+          "priority": "3",
+          "action": "Benefits of SSR: faster LCP, dynamic meta tags per page, better social sharing, improved crawlability"
+        }
+      ]
+    },
+    {
+      "id": "indexability_missing_og_tags",
+      "title": "Missing Open Graph Tags (og:image, og:url)",
+      "severity": "high",
+      "category": "Indexability",
+      "status": "FAIL",
+      "description": "og:image and og:url meta tags are missing. Only og:title, og:description, and og:type are present.",
+      "evidence": {
+        "missing": ["og:image", "og:url"],
+        "present": ["og:title", "og:description", "og:type"]
+      },
+      "impact": "Poor social media preview; no featured image when shared; reduced click-through from social shares",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Add og:image and og:url to base HTML",
+          "code": "<meta property=\"og:image\" content=\"https://explore21.com/assets/main-logo.png\" />\n<meta property=\"og:url\" content=\"https://explore21.com/\" />\n<meta property=\"og:image:width\" content=\"1200\" />\n<meta property=\"og:image:height\" content=\"630\" />"
+        },
+        {
+          "priority": "2",
+          "action": "Implement dynamic og tags per route using Angular Meta service",
+          "code": "this.meta.updateTag({ property: 'og:image', content: imageUrl });\nthis.meta.updateTag({ property: 'og:url', content: window.location.href });"
+        }
+      ]
+    },
+    {
+      "id": "indexability_no_structured_data",
+      "title": "Missing Structured Data (JSON-LD)",
+      "severity": "high",
+      "category": "Indexability",
+      "status": "FAIL",
+      "description": "No JSON-LD schema markup or other structured data detected. No Organization, WebApplication, or BreadcrumbList schemas.",
+      "evidence": {
+        "schemas_missing": [
+          "Organization",
+          "WebApplication",
+          "BreadcrumbList",
+          "Thing (for blockchain items)"
+        ]
+      },
+      "impact": "No rich snippets in search results; no knowledge panel eligibility; missed featured snippet opportunities",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Add base Organization/WebApplication schema to index.html",
+          "code": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"WebApplication\",\n  \"name\": \"BTC Insights\",\n  \"description\": \"Bitcoin blockchain explorer\",\n  \"url\": \"https://explore21.com\"\n}\n</script>"
+        },
+        {
+          "priority": "2",
+          "action": "Add per-page schemas dynamically using Angular Meta service"
+        },
+        {
+          "priority": "3",
+          "action": "Validate with Google Structured Data Testing Tool"
+        }
+      ]
+    },
+    {
+      "id": "mobile_viewport_user_scalable",
+      "title": "Viewport Prevents User Zoom (user-scalable=no)",
+      "severity": "medium",
+      "category": "Mobile & Accessibility",
+      "status": "FAIL",
+      "description": "Viewport meta tag includes user-scalable=no, preventing users from pinch-zooming on mobile devices.",
+      "evidence": {
+        "current": "width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no",
+        "issue": "user-scalable=no disables pinch-zoom"
+      },
+      "impact": "Accessibility violation (WCAG 2.1 Level AAA); poor UX for vision-impaired users; potential Core Web Vitals penalty",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Remove user-scalable=no from viewport",
+          "code": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\" />"
+        },
+        {
+          "priority": "2",
+          "action": "Ensure touch targets are at least 48x48px (or 44x44px minimum)"
+        }
+      ]
+    },
+    {
+      "id": "core_web_vitals_lcp",
+      "title": "Large Contentful Paint (LCP) Likely Poor",
+      "severity": "high",
+      "category": "Core Web Vitals",
+      "status": "FAIL",
+      "description": "Based on source analysis, LCP is likely > 2.5s (Poor). No critical rendering optimization; JavaScript execution required before content renders.",
+      "evidence": {
+        "threshold_good": "< 2.5s",
+        "threshold_needs_improvement": "2.5s - 4s",
+        "threshold_poor": "> 4s",
+        "estimated_current": "likely > 3s due to CSR"
+      },
+      "impact": "Poor user experience; Core Web Vitals penalty in search rankings; low PageSpeed Insights scores",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Implement Server-Side Rendering (SSR) via Angular Universal"
+        },
+        {
+          "priority": "2",
+          "action": "Preload critical resources",
+          "code": "<link rel=\"preload\" href=\"/styles.css\" as=\"style\">\n<link rel=\"preload\" href=\"/runtime.js\" as=\"script\">"
+        },
+        {
+          "priority": "3",
+          "action": "Optimize bundle size; enable gzip/brotli compression"
+        },
+        {
+          "priority": "4",
+          "action": "Monitor with PageSpeed Insights and Google Analytics Core Web Vitals tracking"
+        }
+      ]
+    },
+    {
+      "id": "core_web_vitals_inp",
+      "title": "Interaction to Next Paint (INP) Unknown",
+      "severity": "medium",
+      "category": "Core Web Vitals",
+      "status": "INFO",
+      "description": "INP (Interaction to Next Paint) is the current interactivity metric (replaced FID on March 12, 2024). Actual INP performance cannot be assessed from source code alone.",
+      "impact": "Need field data from PageSpeed Insights and CrUX API",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Check PageSpeed Insights for real-world INP data from CrUX"
+        },
+        {
+          "priority": "2",
+          "action": "Install Google Analytics 4 with Web Vitals tracking to monitor user interactions"
+        },
+        {
+          "priority": "3",
+          "action": "Optimize JavaScript execution for large datasets (blocks, transactions)"
+        }
+      ]
+    },
+    {
+      "id": "rendering_engine_detection",
+      "title": "Angular SPA Detection (is_spa reporting incorrect)",
+      "severity": "low",
+      "category": "JavaScript Rendering",
+      "status": "INFO",
+      "description": "Automated tools report is_spa=false on raw fetch, but actual HTML clearly shows Angular SPA structure with <app-root>, runtime.js, polyfills.js, main.js.",
+      "evidence": {
+        "dom_element": "<app-root></app-root>",
+        "framework": "Angular 17.3.11",
+        "build_output": "dist/btc-insights"
+      },
+      "impact": "Confirms need for server-side rendering or proper CSR optimization for SEO",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Verify SPA detection with Playwright-based rendering"
+        }
+      ]
+    },
+    {
+      "id": "pwa_missing_manifest",
+      "title": "No PWA Manifest or Service Worker",
+      "severity": "medium",
+      "category": "PWA & Features",
+      "status": "FAIL",
+      "description": "No manifest.webmanifest file detected. No PWA support for offline functionality or installable web app.",
+      "impact": "Missing installable app experience; no offline support; reduced engagement metrics",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Create manifest.webmanifest file",
+          "code": "{\n  \"name\": \"BTC Insights\",\n  \"short_name\": \"BTC Insights\",\n  \"start_url\": \"/\",\n  \"display\": \"standalone\",\n  \"theme_color\": \"#f7931a\",\n  \"background_color\": \"#171b25\"\n}"
+        },
+        {
+          "priority": "2",
+          "action": "Link manifest in index.html and add to Angular assets"
+        },
+        {
+          "priority": "3",
+          "action": "Implement service worker for offline support"
+        }
+      ]
+    },
+    {
+      "id": "caching_strategy",
+      "title": "No Explicit Cache-Control Headers",
+      "severity": "medium",
+      "category": "Caching & Performance",
+      "status": "FAIL",
+      "description": "Nginx not setting explicit Cache-Control headers. Cloudflare showing cf-cache-status: DYNAMIC, indicating bypassed cache.",
+      "evidence": {
+        "cf_cache_status": "DYNAMIC",
+        "nginx_cache_control": "not set"
+      },
+      "impact": "Suboptimal caching behavior; slower performance; higher bandwidth costs",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Set Cache-Control for HTML (short cache)",
+          "code": "location ~ \\.html$ {\n    add_header Cache-Control \"public, max-age=300\" always;\n}"
+        },
+        {
+          "priority": "2",
+          "action": "Set Cache-Control for static assets (long cache with versioning)",
+          "code": "location ~ \\.(js|css|woff2|png|svg)$ {\n    add_header Cache-Control \"public, max-age=31536000, immutable\" always;\n}"
+        },
+        {
+          "priority": "3",
+          "action": "Configure Cloudflare page rule to cache HTML for 5-10 minutes"
+        }
+      ]
+    },
+    {
+      "id": "indexnow_missing",
+      "title": "No IndexNow Protocol Support",
+      "severity": "low",
+      "category": "Crawling & Indexing",
+      "status": "MISSING",
+      "description": "IndexNow protocol (by Microsoft) not implemented. Allows real-time index updates to Bing, Yandex, Naver.",
+      "impact": "Slower index updates for new content; Bing cannot be notified of changes in real-time",
+      "recommendations": [
+        {
+          "priority": "1",
+          "action": "Register at https://www.indexnow.org/ and get API key"
+        },
+        {
+          "priority": "2",
+          "action": "Implement backend endpoint to ping IndexNow when new blocks/transactions added"
+        },
+        {
+          "priority": "3",
+          "action": "Example: POST to https://api.indexnow.org/indexnow with site URL and API key"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_issues": 15,
+    "critical": 5,
+    "high": 4,
+    "medium": 5,
+    "low": 1,
+    "info": 2,
+    "estimated_effort_hours": {
+      "phase_1_critical": "2-4",
+      "phase_2_high": "20-40",
+      "phase_3_medium": "15-25",
+      "total": "37-69"
+    },
+    "expected_impact": {
+      "current_score": 35,
+      "target_score": 95,
+      "improvement_potential": "+60 points"
+    }
+  }
+}
