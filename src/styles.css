@@ -142,6 +142,11 @@ body {
   z-index: 100;
 }
 
+:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;

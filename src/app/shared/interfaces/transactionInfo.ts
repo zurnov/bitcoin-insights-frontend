@@ -29,8 +29,8 @@ export interface ITransactionInfo {
   hex: string;
   blockHash: string;
   confirmations: number;
-  blockTime: Date;
-  time: Date;
+  blockTime: number;
+  time: number;
   vbytes: number;
   direction?: {
     receivedAmount: number;

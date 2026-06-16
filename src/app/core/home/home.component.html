@@ -33,6 +33,7 @@
 
       <button
         type="submit"
+        aria-label="Search"
         class="absolute right-0 -top-1.5 lg:top-0 h-full w-10 flex items-center justify-center"
       >
         <svg
@@ -388,13 +389,13 @@
                   class="text-orange-400 hover:text-orange-300 transition-colors duration-300"
                   >{{ tx.txId | truncate }}</a
                 >
-                <!-- ! to be reviewed and refactored -->
                 <button
                   ngxClipboard
                   [cbContent]="tx.txId"
                   (cbOnSuccess)="showTooltip(tx.txId)"
                   (mouseenter)="showCopy(tx.txId)"
                   (mouseleave)="hideTooltip()"
+                  aria-label="Copy transaction ID"
                   class="relative"
                 >
                   <img

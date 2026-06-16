@@ -129,7 +129,7 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     });
 
     forkJoin(requests).subscribe({
-      next: (results: any[]) => {
+      next: (results: ITransactionInfo[]) => {
         this.transactionDetails = results.map((txDetails, index) => {
           let totalSent = 0;
           txDetails.vout.forEach((output: any) => {
@@ -153,8 +153,8 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
             hex: txDetails.hex,
             blockHash: txDetails.blockHash,
             confirmations: txDetails.confirmations,
-            blockTime: new Date(txDetails.blockTime * 1000),
-            time: new Date(txDetails.time * 1000),
+            blockTime: txDetails.blockTime,
+            time: txDetails.time,
             vbytes: txDetails.vbytes,
             direction: {
               receivedAmount: 0,
@@ -207,9 +207,6 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
       next: (data: IBlockInfo) => {
         this.blockInfo = data;
         this.totalPages = Math.ceil(data.ntx / 5);
-
-        // console.log('Block info by hash fetched:', this.blockInfo);
-
         this.router.navigate(['/insights/block', hash]);
       },
       error: (err: Error) => {

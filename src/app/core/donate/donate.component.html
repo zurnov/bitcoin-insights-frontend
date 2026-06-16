@@ -14,7 +14,7 @@
     </div>
 
     <div class="text-center">
-      <img src="/assets/mascot.png" alt="Mascot" class="w-32 h-auto md:ml-4" />
+      <img src="/assets/mascot.png" alt="Mascot" class="w-32 h-auto md:ml-4" loading="lazy" />
     </div>
   </div>
 
@@ -61,47 +61,11 @@
           src="/assets/btc-qr.svg"
           alt="BTC QR Code"
           class="w-full h-auto rounded-lg"
+          loading="lazy"
         />
       </div>
     </div>
 
-    <!-- <div
-      class="space-y-6 md:space-y-0 md:flex md:items-center md:justify-between border border-gray-700 rounded-3xl p-6 mt-4"
-    >
-      <div class="flex-1 md:mr-6 flex flex-col">
-        <div class="flex-1">
-          <h4 class="text-gray-300 uppercase text-sm mb-4">
-            Bitcoin Lightning ⚡
-          </h4>
-          <div class="border border-gray-700 rounded-lg p-4 bg-gray-800">
-            <p class="text-white mb-2">Address</p>
-            <p class="text-gray-400 mb-2 break-all">{{ lightningAddress }}</p>
-            <button
-              (click)="copyAddress(lightningAddress, 'lightning')"
-              class="flex items-center text-gray-400 hover:text-white"
-            >
-              <img src="/assets/copy.svg" class="w-5 h-5" alt="Copy" />
-              <span
-                class="ml-2 transition-all duration-300"
-                [ngClass]="{
-                  'text-green-400': copiedAddress === 'lightning',
-                  'text-gray-300': copiedAddress !== 'lightning'
-                }"
-              >
-                {{ copiedAddress === "lightning" ? "Copied!" : "Copy" }}
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="flex-shrink-0 md:w-1/3 lg:w-1/4">
-        <img
-          src="/assets/btc-l-qr.svg"
-          alt="BTC-L QR Code"
-          class="w-full h-auto rounded-lg"
-        />
-      </div>
-    </div> -->
 
     <h3
       class="font-bold text-2xl mb-4 ml-0 text-center md:text-start md:ml-2 mt-6"
@@ -132,6 +96,7 @@
           src="/assets/ko-fi-logo.png"
           alt="Ko-fi"
           class="w-full h-auto md:mb-4"
+          loading="lazy"
         />
       </div>
     </div>
