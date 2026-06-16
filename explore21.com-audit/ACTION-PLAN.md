@@ -257,32 +257,15 @@ location ~* \.(js|css)$ {
 
 ## Phase 3: Content & Authority — Month 2
 *Estimated score improvement: +10 points → 80/100*
-
-### 🟡 P3.1 — Implement Angular Universal SSR (15-20 hours)
-The single highest-impact technical change. SSR means:
-- Content visible to all crawlers without JS
-- Faster LCP (no JS-gating)
-- Per-page meta tags server-rendered
-- Better Core Web Vitals → better rankings
-
-Resources:
-- `ng add @nguniversal/express-engine`
-- Angular 17+: `ng new --ssr` (built-in SSR support)
+<!-- Revised order 2026-06-16: P3.3 (ongoing) → P3.4 /learn → P3.1 SSR.
+     Rationale: SSR's biggest payoff is for content pages; build /learn first so SSR has rich articles to render.
+     SSR audit is also easier once codebase is stable — one pass fixes all window/document hazards. -->
 
 ### ✅ P3.2 — Implement Angular Route-Level Lazy Loading (4-6 hours) — DONE 2026-06-16
 <!-- Converted About/Privacy/Terms/FAQ/Donate to standalone components; switched AppRoutingModule to loadComponent for all 5 secondary routes; main.js reduced from ~536KB to ~449KB; 5 lazy chunks (4-6KB each) now load on demand -->
 Reduce main.js from 460KB to ~100-150KB for initial page load.
 
-```typescript
-// app-routing.module.ts
-const routes: Routes = [
-  { path: 'blocks', loadComponent: () => import('./blocks/blocks.component') },
-  { path: 'address/:hash', loadComponent: () => import('./address/address.component') },
-  // etc.
-];
-```
-
-### 🟡 P3.3 — Start Link Building Campaign
+### 🟡 P3.3 — Start Link Building Campaign (ongoing)
 **Week 1:**
 - [ ] Google Search Console setup and sitemap submission
 - [ ] Bitcoin.org resources listing application
@@ -298,8 +281,9 @@ const routes: Routes = [
 - [ ] Target 3-5 crypto newsletter features
 - [ ] Reddit r/Bitcoin tool mention
 
-### 🟡 P3.4 — Content Hub Development
-Create a `/learn` or `/blog` section targeting long-tail keywords:
+### 🟡 P3.4 — Build /learn Content Hub (scope TBD)
+<!-- TODO: user has plans for /learn — discuss scope, article format, and CMS approach before implementing -->
+Create a `/learn` section targeting long-tail keywords. Design and content scope to be defined before implementation.
 
 | Article Title | Target Keyword | Search Volume |
 |---------------|----------------|---------------|
@@ -308,6 +292,144 @@ Create a `/learn` or `/blog` section targeting long-tail keywords:
 | Understanding Bitcoin mining difficulty | bitcoin mining difficulty | Medium |
 | What is a Bitcoin mempool? | bitcoin mempool | Medium |
 | How to read a Bitcoin block | bitcoin block explorer | Medium |
+
+### 🟡 P3.5 — Bulgarian Localisation / i18n (10-15 hours)
+<!-- Placed after /learn so all content exists before tagging; placed before SSR because SSR + i18n together is painful — do them in sequence -->
+<!-- Strategy: Angular built-in i18n (Option A). Two separate compiled builds served at / (EN) and /bg/ (BG). Separate URLs = Google can rank each locale independently. -->
+
+#### Why Angular built-in i18n (not ngx-translate)
+Runtime translation on a single URL does not help SEO — Google needs separate indexable URLs per language.
+Built-in i18n produces `/dist/en/` and `/dist/bg/` bundles served at different paths.
+
+---
+
+#### One-time setup (~2 hours)
+
+1. **Install localise package:**
+   ```bash
+   ng add @angular/localize
+   ```
+
+2. **Configure `angular.json`** — add `bg` locale:
+   ```json
+   "i18n": {
+     "sourceLocale": "en-US",
+     "locales": {
+       "bg": { "translation": "src/locale/messages.bg.xlf" }
+     }
+   },
+   "build": {
+     "options": { "localize": true }
+   }
+   ```
+
+3. **Extract source strings** (run after tagging all templates):
+   ```bash
+   ng extract-i18n --output-path src/locale
+   ```
+   Generates `src/locale/messages.xlf` — the English source of truth.
+
+4. **Create Bulgarian translation file:**
+   Copy `messages.xlf` → `messages.bg.xlf`, translate each `<target>` tag.
+
+5. **Build both locales:**
+   ```bash
+   ng build --configuration=production --localize
+   ```
+   Output: `dist/bitcoin-insights-frontend/en/` and `dist/bitcoin-insights-frontend/bg/`
+
+6. **Update Nginx** to serve each locale from its output dir:
+   ```nginx
+   server {
+     # English — root
+     location / {
+       root /usr/share/nginx/html/en;
+       try_files $uri $uri/ /index.html;
+     }
+     # Bulgarian — /bg/ prefix
+     location /bg/ {
+       alias /usr/share/nginx/html/bg/;
+       try_files $uri $uri/ /bg/index.html;
+     }
+   }
+   ```
+
+7. **Add `hreflang` tags** to `SeoService.update()`:
+   ```html
+   <link rel="alternate" hreflang="en" href="https://explore21.com/">
+   <link rel="alternate" hreflang="bg" href="https://explore21.com/bg/">
+   <link rel="alternate" hreflang="x-default" href="https://explore21.com/">
+   ```
+
+8. **Update sitemap.xml** — add `/bg/` variants for all pages.
+
+---
+
+#### Tagging existing content (~6-8 hours)
+
+Mark every user-visible string in templates with the `i18n` attribute:
+```html
+<!-- Before -->
+<h1>Bitcoin Blockchain Explorer</h1>
+<!-- After -->
+<h1 i18n="home|page heading">Bitcoin Blockchain Explorer</h1>
+```
+
+For TypeScript strings (FAQ answers, SEO titles/descriptions in component `.ts` files), use `$localize`:
+```typescript
+// Before
+title: 'FAQ – Bitcoin Explorer Questions Answered | BTC Insights'
+// After
+title: $localize`:faq|page title:FAQ – Bitcoin Explorer Questions Answered | BTC Insights`
+```
+
+Components to tag (in priority order):
+- [ ] `HomeComponent` — hero text, stats labels, section headings
+- [ ] `FaqComponent` — all 10 question/answer strings
+- [ ] `AboutComponent` — all body text
+- [ ] `PrivacyComponent` — all body text
+- [ ] `TermsComponent` — all body text
+- [ ] `DonateComponent` — labels, button text
+- [ ] `HeaderComponent` / `FooterComponent` — nav labels, footer copy
+- [ ] `InsightsModule` components — address/transaction/block labels
+- [ ] All `SeoService.update()` calls — titles and descriptions
+
+---
+
+#### Ongoing workflow — adding new content
+
+Follow this checklist every time a new component or string is added:
+
+1. **Write the English template first** — tag every string with `i18n` as you go, not after.
+2. **Run `ng extract-i18n`** — this updates `messages.xlf` without overwriting existing translations.
+3. **Open `messages.bg.xlf`** — new strings appear with `state="new"`. Translate only those.
+4. **Build with `--localize`** — verify both locales compile cleanly.
+5. **Update sitemap.xml** if a new page was added — add the `/bg/` variant.
+
+Rule: never ship a string without an `i18n` attribute. Review the Bulgarian build output before merging.
+
+---
+
+#### SEO outcome
+- Google indexes `explore21.com` (English) and `explore21.com/bg/` (Bulgarian) as separate pages
+- `hreflang` tells Google which locale to serve to which user
+- Bulgarian Bitcoin searches ("биткойн адрес", "биткойн транзакция блок") have almost zero quality competition — early ranking is realistic
+
+### 🟡 P3.1 — Implement Angular Universal SSR (15-20 hours)
+<!-- Deliberately placed after P3.4 and P3.5: SSR payoff is greatest on content pages; i18n must be stable before adding SSR complexity -->
+The single highest-impact technical change. SSR means:
+- Content visible to all crawlers without JS
+- Faster LCP (no JS-gating)
+- Per-page meta tags server-rendered
+- Better Core Web Vitals → better rankings
+
+Key complexity areas:
+- Guard all `window`/`document`/`localStorage` calls (crashes in Node context)
+- Wire `TransferState` in `InsightsService` to prevent double API fetches
+- Switch deployment from static Nginx to Node.js server (or Docker with Express)
+
+Resources:
+- Angular 17+: `ng add @angular/ssr` (built-in SSR support)
 
 ---
 
