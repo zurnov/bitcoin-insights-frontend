@@ -1,0 +1,195 @@
+.feedback-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.feedback-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f97316;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+  transition: background-color 0.2s;
+  /* Ensure comfortable tap target */
+  min-height: 44px;
+}
+
+.feedback-toggle:hover {
+  background-color: #ea6b10;
+}
+
+.feedback-panel {
+  background-color: #1e2433;
+  border: 1px solid #2e3548;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #2e3548;
+  font-weight: 600;
+  color: #f5f5f5;
+  font-size: 14px;
+}
+
+.feedback-close {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  /* Comfortable tap target */
+  padding: 4px 8px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feedback-close:hover {
+  color: #f5f5f5;
+}
+
+.feedback-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+label {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.optional {
+  color: #6b7280;
+}
+
+.required {
+  color: #f97316;
+}
+
+input,
+textarea {
+  background-color: #111827;
+  border: 1px solid #2e3548;
+  border-radius: 8px;
+  color: #f5f5f5;
+  font-size: 13px;
+  padding: 8px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+  outline: none;
+  font-family: inherit;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #f97316;
+}
+
+input:disabled,
+textarea:disabled {
+  opacity: 0.5;
+}
+
+.feedback-submit {
+  background-color: #f97316;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 4px;
+  min-height: 44px;
+}
+
+.feedback-submit:hover:not(:disabled) {
+  background-color: #ea6b10;
+}
+
+.feedback-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feedback-thanks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  color: #f5f5f5;
+  font-size: 14px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .feedback-wrapper {
+    bottom: 16px;
+    right: 16px;
+    /* Panel stretches left, so anchor the whole wrapper to the right edge */
+  }
+
+  /* Icon-only pill on mobile — saves horizontal space */
+  .feedback-toggle {
+    border-radius: 50%;
+    padding: 12px;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+  }
+
+  .feedback-toggle span {
+    display: none;
+  }
+
+  /* Panel fills the viewport width minus margins on both sides */
+  .feedback-panel {
+    width: calc(100vw - 32px);
+    /* Shift panel so its right edge aligns with the button's right edge */
+    position: relative;
+    right: 0;
+    border-radius: 16px;
+  }
+
+  /* Prevent iOS from zooming in when tapping inputs (needs ≥16px) */
+  input,
+  textarea {
+    font-size: 16px;
+  }
+
+  label {
+    font-size: 13px;
+  }
+
+  .feedback-submit {
+    font-size: 15px;
+    padding: 12px;
+  }
+}

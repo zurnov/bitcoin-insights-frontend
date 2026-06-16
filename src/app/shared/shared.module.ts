@@ -7,6 +7,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { FormsModule } from '@angular/forms';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { FixedLengthNumberPipe } from './pipes/fixed-length-number.pipe';
+import { FeedbackComponent } from './components/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FixedLengthNumberPipe } from './pipes/fixed-length-number.pipe';
     TruncatePipe,
     SpinnerComponent,
     PaginationComponent,
+    FeedbackComponent,
   ],
   imports: [CommonModule, FormsModule],
   exports: [
@@ -25,6 +27,7 @@ import { FixedLengthNumberPipe } from './pipes/fixed-length-number.pipe';
     TruncatePipe,
     SpinnerComponent,
     PaginationComponent,
+    FeedbackComponent,
   ],
 })
 export class SharedModule {}

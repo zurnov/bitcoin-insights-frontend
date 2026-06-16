@@ -1,0 +1,51 @@
+<div class="feedback-wrapper">
+  <!-- Floating button -->
+  <button
+    class="feedback-toggle"
+    (click)="toggle()"
+    [attr.aria-expanded]="isOpen"
+    aria-label="Open feedback form">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span>Feedback</span>
+  </button>
+
+  <!-- Modal panel -->
+  <div class="feedback-panel" *ngIf="isOpen" role="dialog" aria-label="Feedback form">
+    <div class="feedback-header">
+      <span>Send Feedback</span>
+      <button class="feedback-close" (click)="close()" aria-label="Close feedback">&#x2715;</button>
+    </div>
+
+    <div *ngIf="!submitted" class="feedback-body">
+      <label for="fb-email">Email <span class="optional">(optional)</span></label>
+      <input
+        id="fb-email"
+        type="email"
+        placeholder="your@email.com"
+        [(ngModel)]="email"
+        [disabled]="submitting" />
+
+      <label for="fb-message">Message <span class="required">*</span></label>
+      <textarea
+        id="fb-message"
+        rows="4"
+        placeholder="Tell us what you think..."
+        [(ngModel)]="message"
+        [disabled]="submitting"></textarea>
+
+      <button
+        class="feedback-submit"
+        (click)="submit()"
+        [disabled]="!message.trim() || submitting">
+        {{ submitting ? 'Sending...' : 'Send' }}
+      </button>
+    </div>
+
+    <div *ngIf="submitted" class="feedback-thanks">
+      <p>Thank you for your feedback!</p>
+      <button class="feedback-submit" (click)="close()">Close</button>
+    </div>
+  </div>
+</div>
