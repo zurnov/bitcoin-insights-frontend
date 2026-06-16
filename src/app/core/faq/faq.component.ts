@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-faq',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './faq.component.html',
 })
 export class FaqComponent implements OnInit {

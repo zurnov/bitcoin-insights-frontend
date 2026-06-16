@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './core/home/home.component';
-import { DonateComponent } from './core/donate/donate.component';
-import { AboutComponent } from './core/about/about.component';
-import { PrivacyComponent } from './core/privacy/privacy.component';
-import { TermsComponent } from './core/terms/terms.component';
-import { FaqComponent } from './core/faq/faq.component';
 
 const routes: Routes = [
   {
@@ -25,27 +20,32 @@ const routes: Routes = [
   },
   {
     path: 'donate',
-    component: DonateComponent,
+    loadComponent: () =>
+      import('./core/donate/donate.component').then((m) => m.DonateComponent),
     data: { title: 'Donate' },
   },
   {
     path: 'about',
-    component: AboutComponent,
+    loadComponent: () =>
+      import('./core/about/about.component').then((m) => m.AboutComponent),
     data: { title: 'About' },
   },
   {
     path: 'privacy',
-    component: PrivacyComponent,
+    loadComponent: () =>
+      import('./core/privacy/privacy.component').then((m) => m.PrivacyComponent),
     data: { title: 'Privacy Policy' },
   },
   {
     path: 'terms',
-    component: TermsComponent,
+    loadComponent: () =>
+      import('./core/terms/terms.component').then((m) => m.TermsComponent),
     data: { title: 'Terms of Service' },
   },
   {
     path: 'faq',
-    component: FaqComponent,
+    loadComponent: () =>
+      import('./core/faq/faq.component').then((m) => m.FaqComponent),
     data: { title: 'FAQ' },
   },
   {

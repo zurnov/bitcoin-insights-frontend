@@ -247,7 +247,7 @@ location ~* \.(js|css)$ {
 }
 ```
 
-### 🟠 P2.6 — Submit to Google Search Console (1 hour)
+### ✅ P2.6 — Submit to Google Search Console (1 hour) — DONE 2026-06-16
 1. Verify ownership at search.google.com/search-console
 2. Submit sitemap.xml
 3. Request indexing for homepage and key pages
@@ -269,7 +269,8 @@ Resources:
 - `ng add @nguniversal/express-engine`
 - Angular 17+: `ng new --ssr` (built-in SSR support)
 
-### 🟡 P3.2 — Implement Angular Route-Level Lazy Loading (4-6 hours)
+### ✅ P3.2 — Implement Angular Route-Level Lazy Loading (4-6 hours) — DONE 2026-06-16
+<!-- Converted About/Privacy/Terms/FAQ/Donate to standalone components; switched AppRoutingModule to loadComponent for all 5 secondary routes; main.js reduced from ~536KB to ~449KB; 5 lazy chunks (4-6KB each) now load on demand -->
 Reduce main.js from 460KB to ~100-150KB for initial page load.
 
 ```typescript

@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { ClipboardService } from 'ngx-clipboard';
+import { CommonModule } from '@angular/common';
+import { ClipboardModule, ClipboardService } from 'ngx-clipboard';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-donate',
+  standalone: true,
+  imports: [CommonModule, ClipboardModule],
   templateUrl: './donate.component.html',
   styleUrl: './donate.component.css',
 })

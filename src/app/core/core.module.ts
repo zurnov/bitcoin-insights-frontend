@@ -10,11 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { ClipboardModule } from 'ngx-clipboard';
-import { DonateComponent } from './donate/donate.component';
-import { AboutComponent } from './about/about.component';
-import { PrivacyComponent } from './privacy/privacy.component';
-import { TermsComponent } from './terms/terms.component';
-import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +17,6 @@ import { FaqComponent } from './faq/faq.component';
     HeaderComponent,
     MobileMenuComponent,
     FooterComponent,
-    DonateComponent,
-    AboutComponent,
-    PrivacyComponent,
-    TermsComponent,
-    FaqComponent,
   ],
   imports: [
     CommonModule,
