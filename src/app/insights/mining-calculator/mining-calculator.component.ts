@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InsightsService } from '../insights.service';
 import { finalize } from 'rxjs';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-mining-calculator',
@@ -55,10 +56,18 @@ export class MiningCalculatorComponent implements OnInit {
   errorMessage: string | null = null;
   networkHashRateEH: number | null = null;
 
-  constructor(private insightsService: InsightsService, private loadingService: LoadingService) {}
+  constructor(
+    private insightsService: InsightsService,
+    private loadingService: LoadingService,
+    private seoService: SeoService
+  ) {}
 
   ngOnInit(): void {
-    // Ensure global loader is turned off on initial load so footer appears after refresh
+    this.seoService.update({
+      title: 'Bitcoin Solo Mining Calculator – Probability & Rewards | BTC Insights',
+      description: 'Calculate your Bitcoin solo mining probability. Enter your hashrate to see daily, weekly, and monthly block-finding odds compared to real Bitcoin network difficulty.',
+      url: 'https://explore21.com/insights/mining-calculator',
+    });
     this.loadingService.hide();
   }
 

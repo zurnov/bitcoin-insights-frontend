@@ -12,6 +12,7 @@ import { Subject, filter, forkJoin, takeUntil } from 'rxjs';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 
 @Component({
@@ -36,7 +37,8 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private notifService: NotificationService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private seoService: SeoService
   ) {}
 
   ngOnInit() {
@@ -44,6 +46,13 @@ export class BlockInfoComponent implements OnInit, OnDestroy {
     if (!this.blockParam) {
       return;
     }
+
+    const isHeight = !isNaN(+this.blockParam);
+    this.seoService.update({
+      title: `Bitcoin Block ${isHeight ? '#' + this.blockParam : this.blockParam.slice(0, 12) + '…'} | BTC Insights`,
+      description: `Explore Bitcoin block ${this.blockParam} — transactions, mining reward, timestamp, and confirmations on BTC Insights.`,
+      url: `https://explore21.com/insights/block/${this.blockParam}`,
+    });
 
     this.loadingService.show();
 

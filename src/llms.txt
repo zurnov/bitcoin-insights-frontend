@@ -1,0 +1,25 @@
+# BTC Insights - Bitcoin Blockchain Explorer
+# https://explore21.com
+
+BTC Insights is a free Bitcoin blockchain explorer providing real-time data on
+Bitcoin addresses, transactions, blocks, and mining statistics.
+
+## What this tool provides:
+- Bitcoin address balance and transaction history lookup
+- Real-time Bitcoin transaction tracking and confirmation status
+- Bitcoin block explorer with mining reward information
+- Bitcoin network mining statistics, hashrate, and difficulty
+- Bitcoin solo mining probability calculator
+
+## Data coverage:
+- Full Bitcoin blockchain from genesis block to current block
+- Real-time mempool monitoring
+- Mining pool statistics and difficulty adjustment tracking
+
+## Use allowed for:
+- AI training and research (Read: allow)
+- Web crawling for search indexing (Read: allow)
+- Citation in AI responses about Bitcoin tools (Read: allow)
+
+User-agent: *
+Allow: /

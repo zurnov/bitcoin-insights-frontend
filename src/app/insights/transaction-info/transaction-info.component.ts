@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 import { InsightsService } from '../insights.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { IBlockInfo } from 'src/app/shared/interfaces/blockInfo';
 import { forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 
 @Component({
@@ -13,7 +14,7 @@ import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
   templateUrl: './transaction-info.component.html',
   styleUrl: './transaction-info.component.css',
 })
-export class TransactionInfoComponent {
+export class TransactionInfoComponent implements OnInit {
   transactionInfo: ITransactionInfo | undefined;
   isPendingTx: boolean = false;
   blockInfo: IBlockInfo | undefined;
@@ -29,7 +30,8 @@ export class TransactionInfoComponent {
     private route: ActivatedRoute,
     private router: Router,
     private notifService: NotificationService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private seoService: SeoService
   ) {}
 
   ngOnInit() {
@@ -37,6 +39,12 @@ export class TransactionInfoComponent {
     if (!this.txHash) {
       return;
     }
+
+    this.seoService.update({
+      title: `Bitcoin Transaction ${this.txHash.slice(0, 12)}… | BTC Insights`,
+      description: `Track Bitcoin transaction ${this.txHash} — inputs, outputs, fees, confirmations, and block details on BTC Insights.`,
+      url: `https://explore21.com/insights/transaction/${this.txHash}`,
+    });
 
     this.loadingService.show();
 

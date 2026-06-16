@@ -29,7 +29,8 @@
 
 ---
 
-### 🔴 P1.2 — Fix HTTPS Redirects (15 min) — PENDING CLOUDFLARE
+### ✅ P1.2 — Fix HTTPS Redirects (15 min) — DONE 2026-06-16
+<!-- Cloudflare: Always Use HTTPS enabled + www→apex 301 redirect rule configured -->
 **Blocker:** HTTP served without redirect; www downgrades to HTTP
 
 **In Cloudflare Dashboard:**
@@ -154,7 +155,8 @@ Change in `index.html`:
 ## Phase 2: High-Impact Improvements — Weeks 2-3 (20-30 hours)
 *Estimated score improvement: +15 points → 70/100*
 
-### 🟠 P2.1 — Implement Angular Dynamic Meta Tags (3-4 hours)
+### ✅ P2.1 — Implement Angular Dynamic Meta Tags (3-4 hours) — DONE 2026-06-16
+<!-- Created SeoService (src/app/shared/services/seo.service.ts); wired into HomeComponent, AddressInfoComponent, BlockInfoComponent, TransactionInfoComponent, MiningCalculatorComponent, DonateComponent -->
 Each route must update its own title, description, and canonical.
 
 ```typescript
@@ -170,7 +172,7 @@ ngOnInit() {
 }
 ```
 
-### 🟠 P2.2 — Fix FontAwesome & Google Fonts Loading (2 hours) — FontAwesome DONE 2026-06-16
+### ✅ P2.2 — Fix FontAwesome & Google Fonts Loading (2 hours) — DONE 2026-06-16
 <!-- FontAwesome script now has defer attribute in index.html; Google Fonts preconnect still pending -->
 
 **FontAwesome:**
@@ -201,7 +203,8 @@ Each page needs real content — not just the Angular router shell.
 
 These pages should have at minimum 300 words of unique, helpful content.
 
-### 🟠 P2.4 — Create llms.txt for AI Crawler Access (30 min)
+### ✅ P2.4 — Create llms.txt for AI Crawler Access (30 min) — DONE 2026-06-16
+<!-- Created src/llms.txt; added to angular.json assets; nginx location block added -->
 
 Create `/src/assets/llms.txt`:
 ```
@@ -231,7 +234,8 @@ User-agent: *
 Allow: /
 ```
 
-### 🟠 P2.5 — Fix Static Asset Cache TTL (30 min)
+### ✅ P2.5 — Fix Static Asset Cache TTL (30 min) — DONE 2026-06-16
+<!-- nginx.conf: immutable cache for hashed JS/CSS bundles; 7-day cache for images/fonts -->
 
 In Nginx or Cloudflare cache rules, set for hash-named assets:
 ```nginx

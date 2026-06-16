@@ -13,6 +13,7 @@ import { Subject, filter, forkJoin, takeUntil } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 
 @Component({
@@ -42,7 +43,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     private router: Router,
     private cbService: ClipboardService,
     private notifService: NotificationService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private seoService: SeoService
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +52,12 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     if (!this.walletAddress) {
       return;
     }
+
+    this.seoService.update({
+      title: `Bitcoin Address ${this.walletAddress.slice(0, 12)}… | BTC Insights`,
+      description: `View balance, transaction history, and details for Bitcoin address ${this.walletAddress} on BTC Insights explorer.`,
+      url: `https://explore21.com/insights/address/${this.walletAddress}`,
+    });
 
     this.loadingService.show();
 

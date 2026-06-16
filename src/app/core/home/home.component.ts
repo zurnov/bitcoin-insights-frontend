@@ -18,6 +18,7 @@ import { IBlockchainInfo } from 'src/app/shared/interfaces/blockchainInfo';
 import { ITransactionInfo } from 'src/app/shared/interfaces/transactionInfo';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -52,7 +53,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private cbService: ClipboardService,
     private el: ElementRef,
     private notifService: NotificationService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private seoService: SeoService
   ) {}
 
   @HostListener('document:click', ['$event.target'])
@@ -64,6 +66,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.seoService.update({
+      title: 'Bitcoin Blockchain Explorer – Address & Transaction Lookup | BTC Insights',
+      description: 'Free Bitcoin blockchain explorer. Look up Bitcoin addresses, track transactions, browse blocks, and monitor mining stats in real time.',
+      url: 'https://explore21.com/',
+    });
+
     this.loadingService.show();
 
     let fetchCounter = 1;

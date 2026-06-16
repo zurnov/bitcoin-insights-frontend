@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ClipboardService } from 'ngx-clipboard';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { SeoService } from 'src/app/shared/services/seo.service';
 
 @Component({
   selector: 'app-donate',
@@ -15,8 +16,14 @@ export class DonateComponent {
 
   constructor(
     private loadingService: LoadingService,
-    private cbService: ClipboardService
+    private cbService: ClipboardService,
+    private seoService: SeoService
   ) {
+    this.seoService.update({
+      title: 'Support BTC Insights – Donate Bitcoin | BTC Insights',
+      description: 'Support BTC Insights, a free Bitcoin blockchain explorer. Donate via Bitcoin on-chain or Lightning Network to help keep the service running.',
+      url: 'https://explore21.com/donate',
+    });
     this.loadingService.hide();
 
     setTimeout(() => {
