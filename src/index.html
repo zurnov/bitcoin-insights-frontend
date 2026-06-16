@@ -2,22 +2,62 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>BTC Insights</title>
+    <title>Bitcoin Blockchain Explorer – Address &amp; Transaction Lookup | BTC Insights</title>
     <base href="/" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-    />
-    <meta name="description" content="Bitcoin Insights - Explore Bitcoin addresses, transactions, blocks, and mining statistics on the BTC blockchain." />
-    <meta name="keywords" content="Bitcoin, blockchain, explorer, transactions, blocks, addresses, mining calculator" />
-    <meta property="og:title" content="BTC Insights" />
-    <meta property="og:description" content="Explore Bitcoin addresses, transactions, blocks, and mining statistics." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free Bitcoin blockchain explorer. Look up Bitcoin addresses, track transactions, browse blocks, and monitor mining stats in real time." />
+    <meta name="keywords" content="Bitcoin, blockchain, explorer, transactions, blocks, addresses, mining calculator, BTC lookup" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bitcoin Blockchain Explorer | BTC Insights" />
+    <meta property="og:description" content="Free Bitcoin address lookup, transaction tracking, block explorer, and mining stats." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://explore21.com/" />
+    <meta property="og:site_name" content="BTC Insights" />
+    <meta property="og:image" content="https://explore21.com/assets/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bitcoin Blockchain Explorer | BTC Insights" />
+    <meta name="twitter:description" content="Free Bitcoin address lookup, transaction tracking, block explorer, and mining stats." />
+    <meta name="twitter:image" content="https://explore21.com/assets/og-image.jpg" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://explore21.com/" />
+
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <script
-      src="https://kit.fontawesome.com/8a3442c427.js"
-      crossorigin="anonymous"
-    ></script>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "BTC Insights",
+          "url": "https://explore21.com/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://explore21.com/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "BTC Insights",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "description": "Free Bitcoin blockchain explorer for address lookup, transaction tracking, blocks, and mining statistics.",
+          "url": "https://explore21.com",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }
+      ]
+    }
+    </script>
+
+    <script defer src="https://kit.fontawesome.com/8a3442c427.js" crossorigin="anonymous"></script>
     <style>
       body {
         touch-action: manipulation;
